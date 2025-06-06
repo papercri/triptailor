@@ -14,7 +14,7 @@ type Props = {
 export default function Map({ lat, lng, place }: Props) {
   const position: [number, number] = [lat, lng];
 
-  // Soluciona el problema de los iconos por defecto
+  
   L.Icon.Default.mergeOptions({
     iconUrl: 'https://unpkg.com/leaflet@1.9.3/dist/images/marker-icon.png',
     iconRetinaUrl: 'https://unpkg.com/leaflet@1.9.3/dist/images/marker-icon-2x.png',

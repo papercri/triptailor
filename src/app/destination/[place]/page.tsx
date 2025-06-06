@@ -1,8 +1,7 @@
 
 import Map from '@/components/map/Map';
 import { getCoordinates } from '@/utils/geocode';
-
-
+import { getCountryData } from '@/utils/getCountryData';
 import Curiosity from '@/components/curiosity/Curiosity';
 import Nav from '@/components/layout/nav/Nav';
 import Footer from '@/components/layout/footer/Footer';
@@ -13,14 +12,18 @@ type Props = {
 
 export default async function DestinationPage({ params }: Props) {
   const place = decodeURIComponent(params.place);
+ 
   const coords = await getCoordinates(place);
+  if (!coords || !coords.displayName) return <p>Location not found</p>;
+  const countryFull = coords.displayName;
+  const countryName = countryFull.includes(", ") ? countryFull.split(", ")[1] : place;
+  const countryData = await getCountryData(countryName);
 
-
-  if (!coords) return <p>Location not found</p>;
 
   return (
     <>
   <header className='header'>
+
     <div className="container">
       <Nav />
     </div>
@@ -38,10 +41,14 @@ export default async function DestinationPage({ params }: Props) {
                                 <span>›</span>
                                 <span>{coords.displayName}</span>
                             </div>
-                            <h1 className="capitalize">{coords.displayName}</h1>
+                            <h1 className="capitalize">{coords.displayName} </h1>
                             <p>
                                 <Curiosity place={coords.displayName} />
-                               
+                               {/* <img
+              src={countryData.flags.svg}
+              alt={`Flag of ${countryData.name.common}`}
+              className="w-32 h-auto mb-4"
+            /> */}
                             </p>
                             <div className="destination-hero__actions">
                                 <button className="btn btn--primary">💾 Guardar destino</button>
@@ -75,21 +82,21 @@ export default async function DestinationPage({ params }: Props) {
                         <div className="icon">🗣️</div>
                         <div className="content">
                             <span className="label">Idioma</span>
-                            <span className="value">Japonés</span>
+                            <span className="value"></span>
                         </div>
                     </div>
                     <div className="quick-info__item">
                         <div className="icon">💴</div>
                         <div className="content">
                             <span className="label">Moneda</span>
-                            <span className="value">Yen (¥)</span>
+                            <span className="value"></span>
                         </div>
                     </div>
                     <div className="quick-info__item">
                         <div className="icon">⏰</div>
                         <div className="content">
                             <span className="label">Zona horaria</span>
-                            <span className="value">UTC+9</span>
+                            <span className="value">{countryData.timezones} </span>
                         </div>
                     </div>
                 </div>
@@ -109,11 +116,11 @@ export default async function DestinationPage({ params }: Props) {
                                 <div className="info-card">
                                     <h3>🏛️ Datos básicos</h3>
                                     <ul className="info-list">
-                                        <li><strong>País:</strong> Japón</li>
-                                        <li><strong>Capital:</strong> Tokio</li>
-                                        <li><strong>Población:</strong> 37.4 millones</li>
-                                        <li><strong>Superficie:</strong> 2,194 km²</li>
-                                        <li><strong>Fundación:</strong> 1457</li>
+                                        <li><strong>País:</strong> {countryData.name.common}</li>
+                                        <li><strong>Capital:</strong> {countryData.capital}</li>
+                                        <li><strong>Población:</strong>  {countryData.population} millones</li>
+                                        <li><strong>Superficie:</strong> {countryData.area} km²</li>
+                                        
                                     </ul>
                                 </div>
                                 <div className="info-card">

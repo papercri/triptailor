@@ -7,7 +7,7 @@ export async function getAIPrompt(prompt: string): Promise<string | null> {
 
   if (!res.ok) {
     const errorText = await res.text();
-    console.error(`❌ API error ${res.status}:`, errorText); // Aquí verás más claro
+    console.error(`API error ${res.status}:`, errorText); 
     return null;
   }
 

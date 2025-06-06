@@ -19,11 +19,14 @@ export async function POST(req: Request) {
 
     const message = completion.choices[0]?.message?.content;
     return NextResponse.json({ message });
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('🔥 FULL API ERROR:', error);
 
-    // Intenta extraer detalles si es un error de OpenAI
-    const errorMessage = error?.message || JSON.stringify(error);
+
+    const errorMessage =
+      error instanceof Error
+        ? error.message
+        : JSON.stringify(error);
     return NextResponse.json({ error: errorMessage }, { status: 500 });
   }
 }
