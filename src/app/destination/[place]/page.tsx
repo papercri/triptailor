@@ -2,6 +2,11 @@
 import Map from '@/components/map/Map';
 import { getCoordinates } from '@/utils/geocode';
 
+
+import Curiosity from '@/components/curiosity/Curiosity';
+import Nav from '@/components/layout/nav/Nav';
+import Footer from '@/components/layout/footer/Footer';
+
 type Props = {
   params: { place: string };
 };
@@ -10,11 +15,16 @@ export default async function DestinationPage({ params }: Props) {
   const place = decodeURIComponent(params.place);
   const coords = await getCoordinates(place);
 
+
   if (!coords) return <p>Location not found</p>;
 
   return (
     <>
-
+  <header className='header'>
+    <div className="container">
+      <Nav />
+    </div>
+  </header>
      <main className="destination-detail">
         <section className="destination-hero">
             <div className="destination-hero__image">
@@ -29,7 +39,10 @@ export default async function DestinationPage({ params }: Props) {
                                 <span>{coords.displayName}</span>
                             </div>
                             <h1 className="capitalize">{coords.displayName}</h1>
-                            <p>La fascinante capital donde la tradición milenaria se encuentra con la innovación futurista</p>
+                            <p>
+                                <Curiosity place={coords.displayName} />
+                               
+                            </p>
                             <div className="destination-hero__actions">
                                 <button className="btn btn--primary">💾 Guardar destino</button>
                                 <button className="btn btn--secondary">📤 Compartir</button>
@@ -497,6 +510,7 @@ export default async function DestinationPage({ params }: Props) {
             </div>
         </section>
     </main>
+    <Footer />
   </>
 
   );
