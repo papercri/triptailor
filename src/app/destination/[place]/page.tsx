@@ -23,7 +23,6 @@ export default async function DestinationPage({ params }: Props) {
   return (
     <>
   <header className='header'>
-
     <div className="container">
       <Nav />
     </div>
@@ -41,15 +40,23 @@ export default async function DestinationPage({ params }: Props) {
                                 <span>›</span>
                                 <span>{coords.displayName}</span>
                             </div>
-                            <h1 className="capitalize">{coords.displayName} </h1>
+                            <div className='flex gap-5 items-center '>
+                                 <div className='flag-container w-[50px] h-[50px] rounded-full overflow-hidden shadow-lg mb-5'>
+                              
+                                <img
+                                    src={countryData.flags.svg}
+                                    alt={`Flag of ${countryData.name.common}`}
+                                    className="flag-image h-full object-cover relatve"
+                                />
+                                
+                            </div>
+                         
+                            <h1 className="capitalize !mb-0 ">{coords.displayName} </h1>
+                            </div>
+                           
                             <p>
                                 <Curiosity place={coords.displayName} />
-                               {/* <img
-              src={countryData.flags.svg}
-              alt={`Flag of ${countryData.name.common}`}
-              className="w-32 h-auto mb-4"
-            /> */}
-                            </p>
+                       </p>
                             <div className="destination-hero__actions">
                                 <button className="btn btn--primary">💾 Guardar destino</button>
                                 <button className="btn btn--secondary">📤 Compartir</button>
@@ -71,34 +78,44 @@ export default async function DestinationPage({ params }: Props) {
                             <span className="value">22°C</span>
                         </div>
                     </div>
-                    <div className="quick-info__item">
+                    {/* <div className="quick-info__item">
                         <div className="icon">💰</div>
                         <div className="content">
                             <span className="label">Presupuesto/día</span>
                             <span className="value">€80-120</span>
                         </div>
-                    </div>
+                    </div> */}
                     <div className="quick-info__item">
                         <div className="icon">🗣️</div>
                         <div className="content">
                             <span className="label">Idioma</span>
-                            <span className="value"></span>
+                            <span className="value">
+                                 {countryData.languages
+                                ? Object.values(countryData.languages).join(', ')
+                                : 'No data'}
+                            </span>
                         </div>
                     </div>
                     <div className="quick-info__item">
                         <div className="icon">💴</div>
                         <div className="content">
                             <span className="label">Moneda</span>
-                            <span className="value"></span>
+                            <span className="value">
+                                {countryData.currencies
+                                ? Object.values(countryData.currencies)
+                                    .map((c: string) => `${c.name} (${c.symbol})`)
+                                    .join(', ')
+                                : 'No data'}
+                            </span>
                         </div>
                     </div>
-                    <div className="quick-info__item">
+                    {/* <div className="quick-info__item">
                         <div className="icon">⏰</div>
                         <div className="content">
                             <span className="label">Zona horaria</span>
-                            <span className="value">{countryData.timezones} </span>
+                            <span className="value">{countryData.timezones?.join(', ') || 'No data'} </span>
                         </div>
-                    </div>
+                    </div> */}
                 </div>
             </div>
         </section>
@@ -116,9 +133,10 @@ export default async function DestinationPage({ params }: Props) {
                                 <div className="info-card">
                                     <h3>🏛️ Datos básicos</h3>
                                     <ul className="info-list">
+                                        <li><strong>Continente:</strong> {countryData.region}</li>
                                         <li><strong>País:</strong> {countryData.name.common}</li>
                                         <li><strong>Capital:</strong> {countryData.capital}</li>
-                                        <li><strong>Población:</strong>  {countryData.population} millones</li>
+                                        <li><strong>Población:</strong>  {countryData.population} </li>
                                         <li><strong>Superficie:</strong> {countryData.area} km²</li>
                                         
                                     </ul>
@@ -126,11 +144,13 @@ export default async function DestinationPage({ params }: Props) {
                                 <div className="info-card">
                                     <h3>🔌 Información práctica</h3>
                                     <ul className="info-list">
-                                        <li><strong>Enchufes:</strong> Tipo A y B</li>
-                                        <li><strong>Voltaje:</strong> 100V</li>
-                                        <li><strong>Código país:</strong> +81</li>
-                                        <li><strong>Dominio:</strong> .jp</li>
-                                        <li><strong>Conducción:</strong> Izquierda</li>
+                                        
+                                
+                                        <li><strong>Código país:</strong> {countryData.idd.root}{countryData.idd.suffixes}</li>
+                                        <li><strong>Dominio:</strong> 
+                                        {countryData.tld}
+                                        </li>
+                                        <li><strong>Conducción:</strong> {countryData.car.side}</li>
                                     </ul>
                                 </div>
                             </div>
