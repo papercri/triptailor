@@ -5,6 +5,7 @@ import { getCountryData } from '@/utils/getCountryData';
 import Curiosity from '@/components/curiosity/Curiosity';
 import Nav from '@/components/layout/nav/Nav';
 import Footer from '@/components/layout/footer/Footer';
+ import CountryBackgroundImage from '@/components/countryBackgroundImage/CountryBackgroundImage';   
 
 type Props = {
   params: { place: string };
@@ -29,7 +30,8 @@ export default async function DestinationPage({ params }: Props) {
   </header>
      <main className="destination-detail">
         <section className="destination-hero">
-            <div className="destination-hero__image">
+            <div className="destination-hero__image !bg-transparent z-10 absolute">
+                 <CountryBackgroundImage countryName={countryName} />
                 <div className="destination-hero__overlay">
                     <div className="container">
                         <div className="destination-hero__content">
