@@ -3,7 +3,7 @@ import Map from '@/components/map/Map';
 import { getCoordinates } from '@/utils/geocode';
 import { getCountryData } from '@/utils/getCountryData';
 import Curiosity from '@/components/curiosity/Curiosity';
-import Nav from '@/components/layout/nav/Nav';
+import Header from '@/components/layout/header/Header';
 import Footer from '@/components/layout/footer/Footer';
  import CountryBackgroundImage from '@/components/countryBackgroundImage/CountryBackgroundImage';   
 
@@ -23,11 +23,7 @@ export default async function DestinationPage({ params }: Props) {
 
   return (
     <>
-  <header className='header'>
-    <div className="container">
-      <Nav />
-    </div>
-  </header>
+    <Header />
      <main className="destination-detail">
         <section className="destination-hero">
             <div className="destination-hero__image !bg-transparent z-10 absolute">
