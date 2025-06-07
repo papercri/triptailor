@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.scss";
+// import { CountryProvider } from '@/context/countryContext';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -22,7 +23,9 @@ export default function RootLayout({
   return (
     <html lang="en" className={inter.variable}>
       <body  className="font-sans">
-        {children}
+     
+          {children}
+      
       </body>
     </html>
   );

@@ -14,7 +14,8 @@ export default function Home() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!place) return;
+    const isValidPlace = /^[a-zA-Z0-9\s,-]+$/.test(place);
+    if (!place || !isValidPlace) return;
     router.push(`/destination/${encodeURIComponent(place)}`);
   };
  

@@ -1,12 +1,18 @@
 
 import Map from '@/components/map/Map';
+import { notFound } from 'next/navigation';
 import { getCoordinates } from '@/utils/geocode';
 import { getCountryData } from '@/utils/getCountryData';
-import Curiosity from '@/components/curiosity/Curiosity';
+// import Curiosity from '@/components/curiosity/Curiosity';
 import Header from '@/components/layout/header/Header';
 import Footer from '@/components/layout/footer/Footer';
- import CountryBackgroundImage from '@/components/countryBackgroundImage/CountryBackgroundImage';   
+import CountryBackgroundImage from '@/components/countryBackgroundImage/CountryBackgroundImage'; 
 
+
+interface Currency {
+  name: string;
+  symbol: string;
+}
 type Props = {
   params: { place: string };
 };
@@ -15,7 +21,7 @@ export default async function DestinationPage({ params }: Props) {
   const place = decodeURIComponent(params.place);
  
   const coords = await getCoordinates(place);
-  if (!coords || !coords.displayName) return <p>Location not found</p>;
+  if (!coords || !coords.displayName) notFound();
   const countryFull = coords.displayName;
   const countryName = countryFull.includes(", ") ? countryFull.split(", ")[1] : place;
   const countryData = await getCountryData(countryName);
@@ -53,7 +59,7 @@ export default async function DestinationPage({ params }: Props) {
                             </div>
                            
                             <p>
-                                <Curiosity place={coords.displayName} />
+                                {/* <Curiosity place={coords.displayName} /> */}
                        </p>
                             <div className="destination-hero__actions">
                                 <button className="btn btn--primary">💾 Guardar destino</button>
@@ -99,12 +105,13 @@ export default async function DestinationPage({ params }: Props) {
                         <div className="content">
                             <span className="label">Moneda</span>
                             <span className="value">
-                                {countryData.currencies
-                                ? Object.values(countryData.currencies)
-                                    .map((c: string) => `${c.name} (${c.symbol})`)
+                            {countryData.currencies
+                                ? (Object.values(countryData.currencies) as Currency[])
+                                    .map((c) => `${c.name} (${c.symbol})`)
                                     .join(', ')
                                 : 'No data'}
                             </span>
+
                         </div>
                     </div>
                     {/* <div className="quick-info__item">
