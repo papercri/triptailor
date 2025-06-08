@@ -1,57 +1,57 @@
 'use client';
-import Link from "next/link"
-import  { useEffect } from 'react'
+import Link from "next/link";
+import { useState } from 'react';
+
 function Nav() {
-     useEffect(() => {
-        const hamburger = document.getElementById('hamburger');
-        const mobileMenu = document.getElementById('mobileMenu');
-        if (hamburger && mobileMenu) {
-          hamburger.addEventListener('click', () => {
-            hamburger.classList.toggle('active');
-            mobileMenu.classList.toggle('active');
-          });
-            }
-        }, []);
+  const [isMobileMenuActive, setMobileMenuActive] = useState(false);
+
+  const toggleMobileMenu = () => {
+    setMobileMenuActive(prev => !prev);
+  };
+
   return (
     <>
-        <nav className="nav">
-            <Link href="/" className="nav__logo">
-                ✈️ TripTailor
-            </Link>
+      <nav className="nav">
+        <Link href="/" className="nav__logo">
+          ✈️ TripTailor
+        </Link>
 
-            <ul className="nav__menu">
-                <li><Link href="/">Inicio</Link></li>
-                <li><Link href="/#destinos">Destinos</Link></li>
-                <li><Link href="/#planificador">Planificador</Link></li>
-                <li><Link href="/#sobre-nosotros">Sobre nosotros</Link></li>
-            </ul>
-            
-            <div className="nav__auth">
-                <Link href="/auth/signin" className="btn btn--outline">Iniciar sesión</Link>
-                <Link href="/auth/signup" className="btn btn--primary">Registrarse</Link>
-            </div>
-            
-            <div className="nav__hamburger" id="hamburger">
-                 <span></span>
-                <span></span>
-                <span></span>
+        <ul className="nav__menu">
+          <li><Link href="/">Inicio</Link></li>
+          <li><Link href="/#destinos">Destinos</Link></li>
+          <li><Link href="/#planificador">Planificador</Link></li>
+          <li><Link href="/#sobre-nosotros">Sobre nosotros</Link></li>
+        </ul>
 
-            </div>
-        </nav>
-        <div className="sticky-header__mobile-menu" id="mobileMenu">
-            <ul className="nav__menu">
-                <li><a href="#home">Inicio</a></li>
-                <li><a href="#destinos">Destinos</a></li>
-                <li><a href="#planificador">Planificador</a></li>
-                <li><a href="#sobre-nosotros">Sobre nosotros</a></li>
-            </ul>
-            <div className="nav__auth">
-                <a href="#" className="btn btn--outline">Iniciar sesión</a>
-                <a href="#" className="btn btn--primary">Registrarse</a>
-            </div>
+        <div className="nav__auth">
+          <Link href="/auth/signin" className="btn btn--outline">Iniciar sesión</Link>
+          <Link href="/auth/signup" className="btn btn--primary">Registrarse</Link>
         </div>
+
+        <div
+          className={`nav__hamburger ${isMobileMenuActive ? 'active' : ''}`}
+          onClick={toggleMobileMenu}
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </nav>
+
+      <div className={`sticky-header__mobile-menu ${isMobileMenuActive ? 'active' : ''}`}>
+        <ul className="nav__menu">
+          <li><a href="#home">Inicio</a></li>
+          <li><a href="#destinos">Destinos</a></li>
+          <li><a href="#planificador">Planificador</a></li>
+          <li><a href="#sobre-nosotros">Sobre nosotros</a></li>
+        </ul>
+        <div className="nav__auth">
+          <a href="#" className="btn btn--outline">Iniciar sesión</a>
+          <a href="#" className="btn btn--primary">Registrarse</a>
+        </div>
+      </div>
     </>
-  )
+  );
 }
 
-export default Nav
+export default Nav;
