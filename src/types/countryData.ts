@@ -8,9 +8,5 @@ export interface CountryData {
   currencies?: Record<string, Currency>;
 }
 
-export interface WeatherData {
-  main: {
-    temp: number;
-  };
-}
+
 

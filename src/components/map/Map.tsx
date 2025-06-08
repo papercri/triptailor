@@ -22,7 +22,7 @@ export default function Map({ lat, lng, place }: Props) {
   });
 
   return (
-    <MapContainer center={position} zoom={12} style={{ height: '400px', width: '100%' }}>
+    <MapContainer center={position} zoom={12} scrollWheelZoom={false}  style={{ height: '400px', width: '100%' }}>
       <TileLayer
         attribution='© <a href="https://osm.org/copyright">OpenStreetMap</a>'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

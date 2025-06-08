@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { getCountryBackgroundPhoto } from '@/utils/getCountryBackgroundPhoto';
 
 type CultureData = {
   title: string;
@@ -7,11 +8,27 @@ type CultureData = {
 
 type CultureProps = {
   cultureData?: CultureData | null;
+  countryCommonName: string;
 };
 
-function Culture({ cultureData }: CultureProps) {
+function Culture({ cultureData, countryCommonName }: CultureProps) {
+  const [imageUrl, setImageUrl] = useState<string | null>(null);
+  const [hasMounted, setHasMounted] = useState(false);
+
+  useEffect(() => {
+    setHasMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (!hasMounted) return;
+
+    getCountryBackgroundPhoto(countryCommonName).then((url) => {
+      if (url) setImageUrl(url);
+    });
+  }, [countryCommonName, hasMounted]);
+
   if (!cultureData) {
-    return null; // o algún mensaje/loading si quieres
+    return null;
   }
 
   return (
@@ -19,7 +36,21 @@ function Culture({ cultureData }: CultureProps) {
       <h2>{cultureData.title}</h2>
       <div className="culture-cards">
         <div className="culture-card">
-          <p>{cultureData.extract}</p>
+          <div className="culture-image">
+            {hasMounted && imageUrl ? (
+              <img
+                src={imageUrl}
+                alt={cultureData.title}
+                className="rounded mb-4 w-full h-auto object-cover"
+              />
+            ) : (
+              // placeholder mientras carga o en SSR
+              <div className="w-full h-48 bg-gray-200 rounded mb-4" aria-hidden="true" />
+            )}
+          </div>
+          <div className="culture-content">
+            <p>{cultureData.extract}</p>
+          </div>
         </div>
       </div>
     </div>
