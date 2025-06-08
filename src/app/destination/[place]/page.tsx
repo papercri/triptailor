@@ -7,26 +7,47 @@ import { getCountryData } from '@/utils/getCountryData';
 import Header from '@/components/layout/header/Header';
 import Footer from '@/components/layout/footer/Footer';
 import CountryBackgroundImage from '@/components/countryBackgroundImage/CountryBackgroundImage'; 
-
-
+import { getTimeZone } from '@/utils/getTimeZone';
+import { translatePlaceName } from '@/utils/translatePlaces';
 interface Currency {
   name: string;
   symbol: string;
 }
+
 type Props = {
   params: { place: string };
 };
 
+type CoordinatesWithAddress = {
+  lat: number;
+  lng: number;
+  displayName: string;
+  address?: {
+    country?: string;
+    [key: string]: unknown;
+  };
+};
+
+function extractCountryFromDisplayName(displayName: string, fallback: string): string {
+  const parts = displayName.split(', ');
+  return parts[parts.length - 1] || fallback;
+}
+
 export default async function DestinationPage({ params }: Props) {
   const place = decodeURIComponent(params.place);
- 
+
   const coords = await getCoordinates(place);
   if (!coords || !coords.displayName) notFound();
-  const countryFull = coords.displayName;
-  const countryName = countryFull.includes(", ") ? countryFull.split(", ")[1] : place;
+
+  const coordsWithAddress = coords as CoordinatesWithAddress;
+
+
+  const countryName = coordsWithAddress.address?.country || extractCountryFromDisplayName(coords.displayName, place);
+
   const countryData = await getCountryData(countryName);
-
-
+  const timeZone = await getTimeZone(coords.lat, coords.lng);
+const breadcrumbParts = coords.displayName.split(", ").map(translatePlaceName);
+const breadcrumbDisplay = breadcrumbParts.join(", ");
   return (
     <>
     <Header />
@@ -42,7 +63,7 @@ export default async function DestinationPage({ params }: Props) {
                                 <span>›</span>
                                 <a href="#destinos">Destinos</a>
                                 <span>›</span>
-                                <span>{coords.displayName}</span>
+                                <span>{breadcrumbDisplay}</span>
                             </div>
                             <div className='flex gap-5 items-center '>
                                  <div className='flag-container w-[50px] h-[50px] rounded-full overflow-hidden shadow-lg mb-5'>
@@ -55,7 +76,7 @@ export default async function DestinationPage({ params }: Props) {
                                 
                             </div>
                          
-                            <h1 className="capitalize !mb-0 ">{coords.displayName} </h1>
+                            <h1 className="capitalize !mb-0 ">{breadcrumbDisplay} </h1>
                             </div>
                            
                             <p>
@@ -114,13 +135,13 @@ export default async function DestinationPage({ params }: Props) {
 
                         </div>
                     </div>
-                    {/* <div className="quick-info__item">
+                    <div className="quick-info__item">
                         <div className="icon">⏰</div>
                         <div className="content">
                             <span className="label">Zona horaria</span>
-                            <span className="value">{countryData.timezones?.join(', ') || 'No data'} </span>
+                            <span className="value">{timeZone} </span>
                         </div>
-                    </div> */}
+                    </div>
                 </div>
             </div>
         </section>
@@ -369,7 +390,7 @@ export default async function DestinationPage({ params }: Props) {
                         </div>
                     </div>
 
-                   
+{/*                    
                     <div className="content-sidebar">
                 
                         <div className="sidebar-section">
@@ -537,7 +558,7 @@ export default async function DestinationPage({ params }: Props) {
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> */}
                 </div>
             </div>
         </section>
