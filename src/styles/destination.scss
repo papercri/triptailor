@@ -148,7 +148,7 @@
   gap: 3rem;
   
   @media (min-width: $tablet) {
-    grid-template-columns: 2fr 1fr;
+    grid-template-columns: 1fr;
   }
 }
 
@@ -170,8 +170,13 @@
   gap: 1.5rem;
   
   @media (min-width: $mobile) {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
   }
+  &.info-grid__2col{
+    @media (min-width: $mobile) {
+      grid-template-columns: 1fr 1fr;
+    }
+}
 }
 
 .info-card {
@@ -225,30 +230,12 @@
 }
 
 .map-placeholder {
-  height: 400px;
-  background: linear-gradient(135deg, rgba($primary-color, 0.1), rgba($accent-color, 0.1));
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  border-radius: 10px;
   
-  .map-content {
-    text-align: center;
-    color: $text-light;
+  .leaflet-container {
+    border-radius: 10px;
     
-    .map-icon {
-      font-size: 3rem;
-      margin-bottom: 1rem;
-    }
-    
-    p {
-      font-size: 1.125rem;
-      font-weight: 600;
-      margin-bottom: 0.5rem;
-    }
-    
-    small {
-      font-size: 0.875rem;
-    }
+ 
   }
 }
 
@@ -450,13 +437,12 @@
   grid-template-columns: 1fr;
   gap: 1.5rem;
   
-  @media (min-width: $mobile) {
-    grid-template-columns: 1fr 1fr;
-  }
+
 }
 
 .food-card {
   display: flex;
+  flex-direction: column;
   gap: 1rem;
   background: $white;
   border-radius: 0.75rem;
@@ -512,10 +498,7 @@
   display: grid;
   grid-template-columns: 1fr;
   gap: 1.5rem;
-  
-  @media (min-width: $mobile) {
-    grid-template-columns: 1fr 1fr;
-  }
+
 }
 
 .culture-card {
@@ -523,9 +506,7 @@
   border-radius: 0.75rem;
   padding: 1.5rem;
   box-shadow: $shadow;
-  text-align: center;
   transition: transform 0.2s ease;
-  
   &:hover {
     transform: translateY(-2px);
   }
