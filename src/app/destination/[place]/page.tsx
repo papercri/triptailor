@@ -11,6 +11,7 @@ import { getTimeZone } from '@/utils/getTimeZone';
 import { translatePlaceName } from '@/utils/translatePlaces';
 import { getWeather } from '@/utils/getWeather';
 import { getCuisineInfo } from '@/utils/getCuisineInfo';
+import { getCultureInfo } from '@/utils/getCultureInfo';
 
 interface Currency {
   name: string;
@@ -53,6 +54,7 @@ const breadcrumbParts = coords.displayName.split(", ").map(translatePlaceName);
 const breadcrumbDisplay = breadcrumbParts.join(", ");
 const weatherData = await getWeather(coords.lat, coords.lng);
 const cuisineData = await getCuisineInfo(countryName);
+const cultureData = await getCultureInfo(countryName);
   return (
     <>
     <Header />
@@ -263,32 +265,21 @@ const cuisineData = await getCuisineInfo(countryName);
                     ) : (
                         <div></div>
                         )}
-                                
+                    {cultureData ? (    
                         <div className="culture-section">
-                            <h2>Curiosidades culturales</h2>
+                            <h2>{cultureData.title}</h2>
                             <div className="culture-cards">
                                 <div className="culture-card">
-                                    <div className="culture-icon">🙇</div>
-                                    <h3>Etiqueta del saludo</h3>
-                                    <p>El saludo tradicional japonés es una reverencia. Cuanto más profunda, mayor respeto muestra.</p>
+       
+                    
+                                    <p>{cultureData.extract}</p>
                                 </div>
-                                <div className="culture-card">
-                                    <div className="culture-icon">👞</div>
-                                    <h3>Quítate los zapatos</h3>
-                                    <p>En casas, templos y algunos restaurantes tradicionales, siempre debes quitarte los zapatos.</p>
-                                </div>
-                                <div className="culture-card">
-                                    <div className="culture-icon">🚇</div>
-                                    <h3>Silencio en el transporte</h3>
-                                    <p>En trenes y metros, hablar por teléfono o hacer ruido se considera de mala educación.</p>
-                                </div>
-                                <div className="culture-card">
-                                    <div className="culture-icon">🎁</div>
-                                    <h3>Arte del regalo</h3>
-                                    <p>Los regalos se envuelven cuidadosamente y se entregan con ambas manos como muestra de respeto.</p>
-                                </div>
+                   
                             </div>
                         </div>
+                    ) : (
+                    <div></div>
+                    )}
                     </div>
 
 {/*                    
