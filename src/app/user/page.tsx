@@ -1,4 +1,4 @@
-
+import './user.scss'
 
 function page() {
     const tabs = document.querySelectorAll('.tab');

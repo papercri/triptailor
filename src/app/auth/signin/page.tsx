@@ -1,6 +1,6 @@
 import Header from "@/components/layout/header/Header"
 import Footer from "@/components/layout/footer/Footer"
-
+import '../auth.scss'
 export default function page() {
   return (
     <>

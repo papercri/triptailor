@@ -1,4 +1,4 @@
-
+import '../destination.scss'
 import Map from '@/components/map/Map';
 import { notFound } from 'next/navigation';
 import { getCoordinates } from '@/utils/geocode';
@@ -9,6 +9,9 @@ import Footer from '@/components/layout/footer/Footer';
 import CountryBackgroundImage from '@/components/countryBackgroundImage/CountryBackgroundImage'; 
 import { getTimeZone } from '@/utils/getTimeZone';
 import { translatePlaceName } from '@/utils/translatePlaces';
+import { getWeather } from '@/utils/getWeather';
+import { getCuisineInfo } from '@/utils/getCuisineInfo';
+
 interface Currency {
   name: string;
   symbol: string;
@@ -48,6 +51,8 @@ export default async function DestinationPage({ params }: Props) {
   const timeZone = await getTimeZone(coords.lat, coords.lng);
 const breadcrumbParts = coords.displayName.split(", ").map(translatePlaceName);
 const breadcrumbDisplay = breadcrumbParts.join(", ");
+const weatherData = await getWeather(coords.lat, coords.lng);
+const cuisineData = await getCuisineInfo(countryName);
   return (
     <>
     <Header />
@@ -92,7 +97,7 @@ const breadcrumbDisplay = breadcrumbParts.join(", ");
             </div>
         </section>
 
-
+  
         <section className="quick-info">
             <div className="container">
                 <div className="quick-info__grid">
@@ -100,16 +105,12 @@ const breadcrumbDisplay = breadcrumbParts.join(", ");
                         <div className="icon">🌡️</div>
                         <div className="content">
                             <span className="label">Temperatura</span>
-                            <span className="value">22°C</span>
+                            <span className="value">{Math.round(weatherData.main.temp)}°C
+                                
+                            </span>
                         </div>
                     </div>
-                    {/* <div className="quick-info__item">
-                        <div className="icon">💰</div>
-                        <div className="content">
-                            <span className="label">Presupuesto/día</span>
-                            <span className="value">€80-120</span>
-                        </div>
-                    </div> */}
+             
                     <div className="quick-info__item">
                         <div className="icon">🗣️</div>
                         <div className="content">
@@ -200,169 +201,69 @@ const breadcrumbDisplay = breadcrumbParts.join(", ");
 
                         <div className="weather-section">
                             <h2>Clima y meteorología</h2>
-                            <div className="weather-tabs">
-                                <button className="weather-tab active" data-tab="current">Actual</button>
-                                <button className="weather-tab" data-tab="forecast">7 días</button>
-                                <button className="weather-tab" data-tab="seasonal">Por temporada</button>
-                            </div>
+              
                             
                             <div className="weather-content">
-                                <div className="weather-panel active" id="current">
-                                    <div className="current-weather">
-                                        <div className="weather-main">
-                                            <div className="weather-icon">☀️</div>
-                                            <div className="weather-temp">22°C</div>
-                                            <div className="weather-desc">Soleado</div>
+                           
+                                <div className="current-weather">
+                                    <div className="weather-main">
+                                        <div className="weather-icon">
+                                            <img
+                                            src={`https://openweathermap.org/img/wn/${weatherData.weather[0].icon}@2x.png`}
+                                            alt={weatherData.weather[0].description}
+                                            className="w-16 h-16"
+                                            />
                                         </div>
-                                        <div className="weather-details">
-                                            <div className="weather-detail">
-                                                <span className="label">Sensación térmica</span>
-                                                <span className="value">25°C</span>
-                                            </div>
-                                            <div className="weather-detail">
-                                                <span className="label">Humedad</span>
-                                                <span className="value">65%</span>
-                                            </div>
-                                            <div className="weather-detail">
-                                                <span className="label">Viento</span>
-                                                <span className="value">12 km/h</span>
-                                            </div>
-                                            <div className="weather-detail">
-                                                <span className="label">UV</span>
-                                                <span className="value">Moderado</span>
-                                            </div>
+                                        <div className="weather-temp">{Math.round(weatherData.main.temp)}°C
+
                                         </div>
+                                        <div className="weather-desc">{weatherData.weather[0].description}</div>
+                                    </div>
+                                    <div className="weather-details">
+                                        <div className="weather-detail">
+                                            <span className="label">Sensación térmica</span>
+                                            <span className="value">{Math.round(weatherData.main.feels_like)}°C</span>
+                                        </div>
+                                        <div className="weather-detail">
+                                            <span className="label">Humedad</span>
+                                            <span className="value">{weatherData.main.humidity}%</span>
+                                        </div>
+                                        <div className="weather-detail">
+                                            <span className="label">Viento</span>
+                                            <span className="value">{weatherData.wind.speed}km/h</span>
+                                        </div>
+                                        
                                     </div>
                                 </div>
+                             
                                 
-                                <div className="weather-panel" id="forecast">
-                                    <div className="forecast-grid">
-                                        <div className="forecast-day">
-                                            <div className="day">Hoy</div>
-                                            <div className="icon">☀️</div>
-                                            <div className="temps">
-                                                <span className="high">25°</span>
-                                                <span className="low">18°</span>
-                                            </div>
-                                        </div>
-                                        <div className="forecast-day">
-                                            <div className="day">Mañana</div>
-                                            <div className="icon">⛅</div>
-                                            <div className="temps">
-                                                <span className="high">23°</span>
-                                                <span className="low">16°</span>
-                                            </div>
-                                        </div>
-                                        <div className="forecast-day">
-                                            <div className="day">Miércoles</div>
-                                            <div className="icon">🌧️</div>
-                                            <div className="temps">
-                                                <span className="high">20°</span>
-                                                <span className="low">15°</span>
-                                            </div>
-                                        </div>
-                                        <div className="forecast-day">
-                                            <div className="day">Jueves</div>
-                                            <div className="icon">☀️</div>
-                                            <div className="temps">
-                                                <span className="high">26°</span>
-                                                <span className="low">19°</span>
-                                            </div>
-                                        </div>
-                                        <div className="forecast-day">
-                                            <div className="day">Viernes</div>
-                                            <div className="icon">⛅</div>
-                                            <div className="temps">
-                                                <span className="high">24°</span>
-                                                <span className="low">17°</span>
-                                            </div>
-                                        </div>
-                                        <div className="forecast-day">
-                                            <div className="day">Sábado</div>
-                                            <div className="icon">☀️</div>
-                                            <div className="temps">
-                                                <span className="high">27°</span>
-                                                <span className="low">20°</span>
-                                            </div>
-                                        </div>
-                                        <div className="forecast-day">
-                                            <div className="day">Domingo</div>
-                                            <div className="icon">🌤️</div>
-                                            <div className="temps">
-                                                <span className="high">25°</span>
-                                                <span className="low">18°</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <div className="weather-panel" id="seasonal">
-                                    <div className="seasonal-grid">
-                                        <div className="season-card">
-                                            <h4>🌸 Primavera (Mar-May)</h4>
-                                            <div className="season-temp">15-25°C</div>
-                                            <p>Ideal para ver los cerezos en flor. Clima templado y agradable.</p>
-                                        </div>
-                                        <div className="season-card">
-                                            <h4>☀️ Verano (Jun-Ago)</h4>
-                                            <div className="season-temp">25-35°C</div>
-                                            <p>Caluroso y húmedo. Temporada de festivales y fuegos artificiales.</p>
-                                        </div>
-                                        <div className="season-card">
-                                            <h4>🍂 Otoño (Sep-Nov)</h4>
-                                            <div className="season-temp">10-20°C</div>
-                                            <p>Colores otoñales espectaculares. Clima fresco y seco.</p>
-                                        </div>
-                                        <div className="season-card">
-                                            <h4>❄️ Invierno (Dec-Feb)</h4>
-                                            <div className="season-temp">0-10°C</div>
-                                            <p>Frío y seco. Pocas precipitaciones, cielos despejados.</p>
-                                        </div>
-                                    </div>
-                                </div>
+                   
                             </div>
                         </div>
 
-      
+                    {cuisineData ? (
                         <div className="gastronomy-section">
-                            <h2>Gastronomía local</h2>
+                            <h2>{cuisineData.title}</h2>
                             <div className="food-grid">
                                 <div className="food-card">
-                                    <div className="food-image">🍣</div>
+                                    <div className="food-image">
+                                        {cuisineData.image && (
+                                            <img src={cuisineData.image} alt={cuisineData.title} className="rounded mb-4 w-full h-auto object-cover" />
+                                        )}
+                                    </div>
                                     <div className="food-content">
-                                        <h3>Sushi</h3>
-                                        <p>El arte culinario más refinado de Japón. Pescado fresco sobre arroz perfectamente sazonado.</p>
-                                        <div className="food-price">€15-50</div>
+                                       
+                                        <p>{cuisineData.extract}</p>
+                                        
                                     </div>
                                 </div>
-                                <div className="food-card">
-                                    <div className="food-image">🍜</div>
-                                    <div className="food-content">
-                                        <h3>Ramen</h3>
-                                        <p>Sopa de fideos con caldo rico y sabroso. Cada región tiene su estilo único.</p>
-                                        <div className="food-price">€8-15</div>
-                                    </div>
-                                </div>
-                                <div className="food-card">
-                                    <div className="food-image">🥟</div>
-                                    <div className="food-content">
-                                        <h3>Gyoza</h3>
-                                        <p>Empanadillas japonesas rellenas de carne y verduras, perfectamente doradas.</p>
-                                        <div className="food-price">€5-10</div>
-                                    </div>
-                                </div>
-                                <div className="food-card">
-                                    <div className="food-image">🍱</div>
-                                    <div className="food-content">
-                                        <h3>Bento</h3>
-                                        <p>Caja de comida tradicional con arroz, proteína y acompañamientos variados.</p>
-                                        <div className="food-price">€6-12</div>
-                                    </div>
-                                </div>
+           
                             </div>
                         </div>
-
-             
+                    ) : (
+                        <div></div>
+                        )}
+                                
                         <div className="culture-section">
                             <h2>Curiosidades culturales</h2>
                             <div className="culture-cards">
