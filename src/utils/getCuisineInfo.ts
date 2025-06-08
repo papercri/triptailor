@@ -1,8 +1,7 @@
-
-
+import {toTitleCase} from './scripts';
 export async function getCuisineInfo(country: string) {
   try {
-    const cuisineTitle = `Cuisine_of_${country}`;
+    const cuisineTitle = `Cuisine_of_${toTitleCase(country)}`;
     const response = await fetch(`https://en.wikipedia.org/api/rest_v1/page/summary/${cuisineTitle}`);
     
     if (!response.ok) throw new Error('No data found');

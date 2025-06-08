@@ -1,4 +1,4 @@
-import '../destination.scss'
+import '@/styles/destination.scss'
 import Map from '@/components/map/Map';
 import { notFound } from 'next/navigation';
 import { getCoordinatesWithTranslation } from '@/utils/geoCordTranslatorHelper';
@@ -7,16 +7,13 @@ import { getCountryData } from '@/utils/getCountryData';
 import Header from '@/components/layout/header/Header';
 import Footer from '@/components/layout/footer/Footer';
 import DestinationHero from '@/components/destination/hero/DestinationHero';
+import QuickInfo from '@/components/destination/quickInfo/QuickInfo';
 import { getTimeZone } from '@/utils/getTimeZone';
 import { translatePlaceName } from '@/utils/translatePlaces';
 import { getWeather } from '@/utils/getWeather';
 import { getCuisineInfo } from '@/utils/getCuisineInfo';
 import { getCultureInfo } from '@/utils/getCultureInfo';
 
-interface Currency {
-  name: string;
-  symbol: string;
-}
 
 type Props = {
   params: { place: string };
@@ -39,17 +36,13 @@ function extractCountryFromDisplayName(displayName: string, fallback: string): s
 
 export default async function DestinationPage({ params }: Props) {
     const place = decodeURIComponent(params.place);
-
     const coords = await getCoordinatesWithTranslation(place);
     if (!coords || !coords.displayName) notFound();
 
     const coordsWithAddress = coords as CoordinatesWithAddress;
-
     const countryName = coordsWithAddress.address?.country || extractCountryFromDisplayName(coords.displayName, place);
-
     const countryData = await getCountryData(countryName);
     const timeZone = await getTimeZone(coords.lat, coords.lng);
-   
     const weatherData = await getWeather(coords.lat, coords.lng);
     if (!countryData || !countryData.name?.common) {
     notFound();
@@ -57,129 +50,54 @@ export default async function DestinationPage({ params }: Props) {
     const parts = coords.displayName.split(', ');
     const cityName = translatePlaceName(parts[0]);
     const countryNameFromDisplay = translatePlaceName(parts[parts.length - 1]);
-
     const breadcrumbDisplay = `${cityName}, ${countryNameFromDisplay}`;
     const countryCommonName = countryData.name.common;
-    const cuisineData = await getCuisineInfo(countryCommonName);
-    const cultureData = await getCultureInfo(countryCommonName);
+    const cuisineData = await getCuisineInfo(countryNameFromDisplay);
+    const cultureData = await getCultureInfo(countryNameFromDisplay);
+    
   return (
     <>
     <Header />
      <main className="destination-detail">
-        
         <DestinationHero 
             countryData={countryData} 
             breadcrumbDisplay={breadcrumbDisplay} 
             countryCommonName={countryCommonName}
             cityName={cityName}
         />
-  
-        <section className="quick-info">
-            <div className="container">
-                <div className="quick-info__grid">
-                    <div className="quick-info__item">
-                        <div className="icon">🌡️</div>
-                        <div className="content">
-                            <span className="label">Temperatura</span>
-                            <span className="value">{Math.round(weatherData.main.temp)}°C
-                                
-                            </span>
-                        </div>
-                    </div>
-             
-                    <div className="quick-info__item">
-                        <div className="icon">🗣️</div>
-                        <div className="content">
-                            <span className="label">Idioma</span>
-                            <span className="value">
-                                 {countryData.languages
-                                ? Object.values(countryData.languages).join(', ')
-                                : 'No data'}
-                            </span>
-                        </div>
-                    </div>
-                    <div className="quick-info__item">
-                        <div className="icon">💴</div>
-                        <div className="content">
-                            <span className="label">Moneda</span>
-                            <span className="value">
-                            {countryData.currencies
-                                ? (Object.values(countryData.currencies) as Currency[])
-                                    .map((c) => `${c.name} (${c.symbol})`)
-                                    .join(', ')
-                                : 'No data'}
-                            </span>
-
-                        </div>
-                    </div>
-                    <div className="quick-info__item">
-                        <div className="icon">⏰</div>
-                        <div className="content">
-                            <span className="label">Zona horaria</span>
-                            <span className="value">{timeZone} </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-  
+        <QuickInfo
+            weatherData={weatherData}
+            countryData={countryData}
+            timeZone={timeZone}
+        />
+        
         <section className="destination-content">
             <div className="container">
                 <div className="content-grid">
-            
                     <div className="content-main">
-               
                         <div className="info-section">
                             <h2>Información general</h2>
                             <div className="info-grid">
                                 <div className="info-card">
-                                    <h3>🏛️ Datos básicos</h3>
+                                    <h3>Datos básicos</h3>
                                     <ul className="info-list">
                                         <li><strong>Continente:</strong> {countryData.region}</li>
                                         <li><strong>País:</strong> {countryCommonName}</li>
                                         <li><strong>Capital:</strong> {countryData.capital}</li>
                                         <li><strong>Población:</strong>  {countryData.population} </li>
                                         <li><strong>Superficie:</strong> {countryData.area} km²</li>
-                                        
-                                    </ul>
-                                </div>
-                                <div className="info-card">
-                                    <h3>🔌 Información práctica</h3>
-                                    <ul className="info-list">
-                                        
-                                
                                         <li><strong>Código país:</strong> {countryData.idd.root}{countryData.idd.suffixes}</li>
                                         <li><strong>Dominio:</strong> 
                                         {countryData.tld}
                                         </li>
                                         <li><strong>Conducción:</strong> {countryData.car.side}</li>
+                                        
                                     </ul>
                                 </div>
-                            </div>
-                        </div>
-
-                  
-                        <div className="map-section">
-                            <h2>Ubicación</h2>
-                            <div className="map-container">
-                                <div className="map-placeholder">
-                                    <div className="map-content">
-                                        <div className="map-icon">🗺️</div>
-                                        <p>Mapa interactivo de {coords.displayName}</p>
-                                        <small>   
-                                          <Map lat={coords.lat} lng={coords.lng} place={coords.displayName} />
-                                        </small>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="weather-section">
-                            <h2>Clima y meteorología</h2>
-              
-                            
-                            <div className="weather-content">
+                                <div className="info-card">
+                                    <h3>Clima y meteorología</h3>
+                                    <ul className="info-list">
+    
                            
                                 <div className="current-weather">
                                     <div className="weather-main">
@@ -214,8 +132,30 @@ export default async function DestinationPage({ params }: Props) {
                              
                                 
                    
+                     
+                                      
+                                    </ul>
+                                </div>
                             </div>
                         </div>
+
+                  
+                        <div className="map-section">
+                            <h2>Ubicación</h2>
+                            <div className="map-container">
+                                <div className="map-placeholder">
+                                    <div className="map-content">
+                                        <div className="map-icon">🗺️</div>
+                                        <p>Mapa interactivo de {coords.displayName}</p>
+                                        <small>   
+                                          <Map lat={coords.lat} lng={coords.lng} place={coords.displayName} />
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
 
                     {cuisineData ? (
                         <div className="gastronomy-section">
