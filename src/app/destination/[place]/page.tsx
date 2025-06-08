@@ -1,20 +1,17 @@
 import '../destination.scss'
 import Map from '@/components/map/Map';
 import { notFound } from 'next/navigation';
-import { getCoordinates } from '@/utils/geocode';
+import { getCoordinatesWithTranslation } from '@/utils/geoCordTranslatorHelper';
 import { getCountryData } from '@/utils/getCountryData';
 // import Curiosity from '@/components/curiosity/Curiosity';
 import Header from '@/components/layout/header/Header';
 import Footer from '@/components/layout/footer/Footer';
-import CountryBackgroundImage from '@/components/countryBackgroundImage/CountryBackgroundImage'; 
+import DestinationHero from '@/components/destination/hero/DestinationHero';
 import { getTimeZone } from '@/utils/getTimeZone';
 import { translatePlaceName } from '@/utils/translatePlaces';
 import { getWeather } from '@/utils/getWeather';
 import { getCuisineInfo } from '@/utils/getCuisineInfo';
 import { getCultureInfo } from '@/utils/getCultureInfo';
-
-
-
 
 interface Currency {
   name: string;
@@ -41,73 +38,41 @@ function extractCountryFromDisplayName(displayName: string, fallback: string): s
 }
 
 export default async function DestinationPage({ params }: Props) {
-  const place = decodeURIComponent(params.place);
+    const place = decodeURIComponent(params.place);
 
-  const coords = await getCoordinates(place);
-  if (!coords || !coords.displayName) notFound();
+    const coords = await getCoordinatesWithTranslation(place);
+    if (!coords || !coords.displayName) notFound();
 
-  const coordsWithAddress = coords as CoordinatesWithAddress;
+    const coordsWithAddress = coords as CoordinatesWithAddress;
 
+    const countryName = coordsWithAddress.address?.country || extractCountryFromDisplayName(coords.displayName, place);
 
-  const countryName = coordsWithAddress.address?.country || extractCountryFromDisplayName(coords.displayName, place);
+    const countryData = await getCountryData(countryName);
+    const timeZone = await getTimeZone(coords.lat, coords.lng);
+   
+    const weatherData = await getWeather(coords.lat, coords.lng);
+    if (!countryData || !countryData.name?.common) {
+    notFound();
+    }
+    const parts = coords.displayName.split(', ');
+    const cityName = translatePlaceName(parts[0]);
+    const countryNameFromDisplay = translatePlaceName(parts[parts.length - 1]);
 
-
-  const countryData = await getCountryData(countryName);
-  const timeZone = await getTimeZone(coords.lat, coords.lng);
-const breadcrumbParts = coords.displayName.split(", ").map(translatePlaceName);
-const breadcrumbDisplay = breadcrumbParts.join(", ");
-const weatherData = await getWeather(coords.lat, coords.lng);
-if (!countryData || !countryData.name?.common) {
-  notFound();
-}
-
-const countryCommonName = countryData.name.common;
-const cuisineData = await getCuisineInfo(countryCommonName);
-const cultureData = await getCultureInfo(countryCommonName);
+    const breadcrumbDisplay = `${cityName}, ${countryNameFromDisplay}`;
+    const countryCommonName = countryData.name.common;
+    const cuisineData = await getCuisineInfo(countryCommonName);
+    const cultureData = await getCultureInfo(countryCommonName);
   return (
     <>
     <Header />
      <main className="destination-detail">
-        <section className="destination-hero">
-            <div className="destination-hero__image !bg-transparent z-10 absolute">
-                 <CountryBackgroundImage countryName={countryName} />
-                <div className="destination-hero__overlay">
-                    <div className="container">
-                        <div className="destination-hero__content">
-                            <div className="breadcrumb">
-                                <a href="index.html">Inicio</a>
-                                <span>›</span>
-                                <a href="#destinos">Destinos</a>
-                                <span>›</span>
-                                <span>{breadcrumbDisplay}</span>
-                            </div>
-                            <div className='flex gap-5 items-center '>
-                                 <div className='flag-container w-[50px] h-[50px] rounded-full overflow-hidden shadow-lg mb-5'>
-                              
-                                <img
-                                    src={countryData.flags.svg}
-                                    alt={`Flag of ${countryCommonName}`}
-                                    className="flag-image h-full object-cover relatve"
-                                />
-                                
-                            </div>
-                         
-                            <h1 className="capitalize !mb-0 ">{breadcrumbDisplay} </h1>
-                            </div>
-                           
-                            <p>
-                                {/* <Curiosity place={coords.displayName} /> */}
-                       </p>
-                            <div className="destination-hero__actions">
-                                <button className="btn btn--primary">💾 Guardar destino</button>
-                                <button className="btn btn--secondary">📤 Compartir</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
+        
+        <DestinationHero 
+            countryData={countryData} 
+            breadcrumbDisplay={breadcrumbDisplay} 
+            countryCommonName={countryCommonName}
+            cityName={cityName}
+        />
   
         <section className="quick-info">
             <div className="container">

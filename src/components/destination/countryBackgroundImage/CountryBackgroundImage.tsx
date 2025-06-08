@@ -4,10 +4,10 @@ import { useEffect, useState } from 'react';
 import { getCountryBackgroundPhoto } from '@/utils/getCountryBackgroundPhoto';
 
 type Props = {
-  countryName: string;
+  cityName: string;
 };
 
-export default function CountryBackgroundImage({ countryName }: Props) {
+export default function CountryBackgroundImage({ cityName }: Props) {
   const [bgImage, setBgImage] = useState<string | null>(null);
   const [hasMounted, setHasMounted] = useState(false);
 
@@ -18,10 +18,10 @@ export default function CountryBackgroundImage({ countryName }: Props) {
   useEffect(() => {
     if (!hasMounted) return;
 
-    getCountryBackgroundPhoto(countryName).then((url) => {
+    getCountryBackgroundPhoto(cityName).then((url) => {
       if (url) setBgImage(url);
     });
-  }, [countryName, hasMounted]);
+  }, [cityName, hasMounted]);
 
   // Mientras estamos en SSR o antes del mount, no renderizamos la imagen para evitar mismatch
   if (!hasMounted) {
@@ -38,7 +38,7 @@ export default function CountryBackgroundImage({ countryName }: Props) {
         zIndex: -1,
         transition: 'background-image 0.5s ease-in-out',
       }}
-      aria-label={`Background image representing ${countryName}`}
+      aria-label={`Background image representing ${cityName}`}
       role="img"
     />
   );
