@@ -67,8 +67,7 @@ export const countryNameMap: Record<string, string> = {
   // Hindi / Devanagari
   'भारत': 'India',
 
-  // Griego
-  'Ελλάδα': 'Greece',
+
 
   // Tailandés
   'ประเทศไทย': 'Thailand',
@@ -107,10 +106,45 @@ export const placeTranslations: Record<string, string> = {
   'عمان': 'Oman',
   'اليمن': 'Yemen',
   'भारत': 'India',
-  'Ελλάδα': 'Greece',
   'Հայաստան': 'Armenia',
   'საქართველო': 'Georgia',
+// Europa
 
+  'Österreich': 'Austria',
+  'Magyarország': 'Hungary',
+  'Slovensko': 'Slovakia',
+  'Česká republika': 'Czech Republic',
+  'Deutschland': 'Germany',
+  'España': 'Spain',
+  'Italia': 'Italy',
+  'Polska': 'Poland',
+  'Schweiz': 'Switzerland',
+  'Nederland': 'Netherlands',
+  'Portugal': 'Portugal',
+  'Ελλάδα': 'Greece',
+  'România': 'Romania',
+  'България': 'Bulgaria',
+  'Hrvatska': 'Croatia',
+  'Србија': 'Serbia',
+  'Danmark': 'Denmark',
+  'Norge': 'Norway',
+  'Sverige': 'Sweden',
+  'Suomi': 'Finland',
+  'Éire': 'Ireland',
+  'United Kingdom': 'United Kingdom',
+  'Lietuva': 'Lithuania',
+  'Latvija': 'Latvia',
+  'Eesti': 'Estonia',
+  'Ísland': 'Iceland',
+  'Luxembourg': 'Luxembourg',
+  'Malta': 'Malta',
+  'Monaco': 'Monaco',
+  'Liechtenstein': 'Liechtenstein',
+  'San Marino': 'San Marino',
+  'Andorra': 'Andorra',
+  'Città del Vaticano': 'Vatican City',
+  'Vatican': 'Vatican City',
+  
   // Ciudades
   '京都市': 'Kyoto',
   'กรุงเทพมหานคร': 'Bangkok',
@@ -153,8 +187,30 @@ export const placeTranslations: Record<string, string> = {
   '名古屋市': 'Nagoya',
   '福岡市': 'Fukuoka',
   '神戸市': 'Kobe',
-  '京都': 'Kyoto'
-
+  '京都': 'Kyoto',
+  'Wien': 'Vienna',
+  'Budapest': 'Budapest',
+  'Praha': 'Prague',
+  'München': 'Munich',
+  'Zürich': 'Zurich',
+  'Köln': 'Cologne',
+  'Warszawa': 'Warsaw',
+  'Bruxelles': 'Brussels',
+  'Amsterdam': 'Amsterdam',
+  'Roma': 'Rome',
+  'Barcelona': 'Barcelona',
+  'Madrid': 'Madrid',
+  'Lisboa': 'Lisbon',
+  'Αθήνα': 'Athens',
+  'Sofia': 'Sofia',
+  'Beograd': 'Belgrade',
+  'Zagreb': 'Zagreb',
+  'Oslo': 'Oslo',
+  'Stockholm': 'Stockholm',
+  'Helsinki': 'Helsinki',
+  'Baile Átha Cliath': 'Dublin',
+  'Edinburgh': 'Edinburgh',
+  'Glasgow': 'Glasgow',
 };
 
 /**

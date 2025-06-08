@@ -13,6 +13,9 @@ import { getWeather } from '@/utils/getWeather';
 import { getCuisineInfo } from '@/utils/getCuisineInfo';
 import { getCultureInfo } from '@/utils/getCultureInfo';
 
+
+
+
 interface Currency {
   name: string;
   symbol: string;
@@ -48,13 +51,19 @@ export default async function DestinationPage({ params }: Props) {
 
   const countryName = coordsWithAddress.address?.country || extractCountryFromDisplayName(coords.displayName, place);
 
+
   const countryData = await getCountryData(countryName);
   const timeZone = await getTimeZone(coords.lat, coords.lng);
 const breadcrumbParts = coords.displayName.split(", ").map(translatePlaceName);
 const breadcrumbDisplay = breadcrumbParts.join(", ");
 const weatherData = await getWeather(coords.lat, coords.lng);
-const cuisineData = await getCuisineInfo(countryName);
-const cultureData = await getCultureInfo(countryName);
+if (!countryData || !countryData.name?.common) {
+  notFound();
+}
+
+const countryCommonName = countryData.name.common;
+const cuisineData = await getCuisineInfo(countryCommonName);
+const cultureData = await getCultureInfo(countryCommonName);
   return (
     <>
     <Header />
@@ -77,7 +86,7 @@ const cultureData = await getCultureInfo(countryName);
                               
                                 <img
                                     src={countryData.flags.svg}
-                                    alt={`Flag of ${countryData.name.common}`}
+                                    alt={`Flag of ${countryCommonName}`}
                                     className="flag-image h-full object-cover relatve"
                                 />
                                 
@@ -163,7 +172,7 @@ const cultureData = await getCultureInfo(countryName);
                                     <h3>🏛️ Datos básicos</h3>
                                     <ul className="info-list">
                                         <li><strong>Continente:</strong> {countryData.region}</li>
-                                        <li><strong>País:</strong> {countryData.name.common}</li>
+                                        <li><strong>País:</strong> {countryCommonName}</li>
                                         <li><strong>Capital:</strong> {countryData.capital}</li>
                                         <li><strong>Población:</strong>  {countryData.population} </li>
                                         <li><strong>Superficie:</strong> {countryData.area} km²</li>
