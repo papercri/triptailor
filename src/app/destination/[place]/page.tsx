@@ -28,15 +28,19 @@ function extractCountryFromDisplayName(displayName: string, fallback: string): s
 }
 
 export default async function DestinationPage({ params }: Props) {
+ // console.log('PLACE:', params.place);
   const place = decodeURIComponent(params.place);
   const coords = await getCoordinatesWithTranslation(place);
+  //console.log('COORDS:', coords);
   if (!coords || !coords.displayName) notFound();
 
   const coordsWithAddress = coords as CoordinatesWithAddress;
   const countryName = coordsWithAddress.address?.country || extractCountryFromDisplayName(coords.displayName, place);
   const countryData = await getCountryData(countryName);
   const timeZone = await getTimeZone(coords.lat, coords.lng);
+  
   const weatherData = await getWeather(coords.lat, coords.lng);
+ 
 
   if (!countryData || !countryData.name?.common) {
     notFound();

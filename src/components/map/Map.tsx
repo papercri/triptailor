@@ -1,20 +1,15 @@
-
 'use client';
 import 'leaflet/dist/leaflet.css';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import L from 'leaflet';
-
 
 type Props = {
   lat: number;
   lng: number;
   place: string;
 };
-
 export default function Map({ lat, lng, place }: Props) {
   const position: [number, number] = [lat, lng];
-
-  
   L.Icon.Default.mergeOptions({
     iconUrl: 'https://unpkg.com/leaflet@1.9.3/dist/images/marker-icon.png',
     iconRetinaUrl: 'https://unpkg.com/leaflet@1.9.3/dist/images/marker-icon-2x.png',
