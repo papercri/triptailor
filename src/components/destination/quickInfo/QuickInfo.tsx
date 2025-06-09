@@ -1,11 +1,14 @@
 import React from 'react'
-import { WeatherData, Currency, CountryData } from '@/types/countryData'
+import {  Currency, WeatherData, CountryData} from '@/types/destinationProps';
 
-interface QuickInfoProps {
-  weatherData: WeatherData;
+
+type QuickInfoProps = {
   countryData: CountryData;
+  weatherData: WeatherData;
   timeZone: string;
-}
+};
+
+
 function QuickInfo({ weatherData, countryData, timeZone }: QuickInfoProps) {
   return (
     <section className="quick-info">

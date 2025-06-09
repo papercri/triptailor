@@ -10,7 +10,8 @@ import Clima from '@/components/destination/clima/Clima';
 import CompoMap from '@/components/destination/map/CompoMap';
 import Cuisine from '@/components/destination/cuisine/Cuisine';
 import Culture from '@/components/destination/culture/Culture';
-import { Props } from '@/types/destinationProps';
+import {  Props } from '@/types/destinationProps';
+
 
 function Spinner() {
   return (
