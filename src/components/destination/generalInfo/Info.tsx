@@ -21,18 +21,18 @@ type InfoProps = {
 function Info({ countryData, countryCommonName }: InfoProps) {
   return (
     <div className="info-card">
-      <h3>Datos básicos</h3>
+      <h3>Basic Information</h3>
       <ul className="info-list">
-        <li><strong>Continente:</strong> {countryData.region}</li>
-        <li><strong>País:</strong> {countryCommonName}</li>
+        <li><strong>Continent:</strong> {countryData.region}</li>
+        <li><strong>Country:</strong> {countryCommonName}</li>
         <li><strong>Capital:</strong> {countryData.capital?.join(', ')}</li>
-        <li><strong>Población:</strong> {countryData.population.toLocaleString()}</li>
-        <li><strong>Superficie:</strong> {countryData.area.toLocaleString()} km²</li>
+        <li><strong>Population:</strong> {countryData.population.toLocaleString()}</li>
+        <li><strong>Area:</strong> {countryData.area.toLocaleString()} km²</li>
         <li>
-          <strong>Código país:</strong> {countryData.idd.root}{countryData.idd.suffixes?.join(', ')}
+          <strong>Country Code:</strong> {countryData.idd.root}{countryData.idd.suffixes?.join(', ')}
         </li>
-        <li><strong>Dominio:</strong> {countryData.tld?.join(', ')}</li>
-        <li><strong>Conducción:</strong> {countryData.car.side}</li>
+        <li><strong>Domain:</strong> {countryData.tld?.join(', ')}</li>
+        <li><strong>Driving Side:</strong> {countryData.car.side}</li>
       </ul>
     </div>
   );

@@ -15,10 +15,7 @@
   gap: 2rem;
   max-width: 1000px;
   margin: 0 auto;
-  
-  @media (min-width: $tablet) {
-    grid-template-columns: 1fr 1fr;
-  }
+  justify-items: center;
 }
 
 .auth-card {
@@ -26,7 +23,8 @@
   border-radius: 1rem;
   padding: 2rem;
   box-shadow: $shadow;
-  
+  max-width: 500px;
+  width:100%;
   @media (min-width: $tablet) {
     padding: 3rem;
   }

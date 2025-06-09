@@ -3,52 +3,53 @@ import styles from './About.module.scss'
 function About() {
   return (
     <>
-    <section className={styles.features} >
+    <section className={styles.features}>
         <div className="container">
             <div className="header">
-                <h2>¿Por qué elegir TripTailor?</h2>
-                <p>Descubre todas las funcionalidades que hacen de TripTailor tu mejor compañero de viajes</p>
+            <h2>Why choose TripTailor?</h2>
+            <p>Discover all the features that make TripTailor your best travel companion</p>
             </div>
-            
-            <div className={styles.features__grid} >
-                <div className={styles.features__item}>
-                    <div className={styles.icon}>🗺️</div>
-                    <h3>Información completa</h3>
-                    <p>Datos generales, clima, gastronomía y curiosidades culturales de cada destino</p>
-                </div>
-                
-                <div className={styles.features__item}>
-                    <div className={styles.icon}>🤖</div>
-                    <h3>Planificación con IA</h3>
-                    <p>Consejos personalizados sobre qué llevar, presupuesto y recomendaciones por temporada</p>
-                </div>
-                
-                <div className={styles.features__item}>
-                    <div className={styles.icon}>💰</div>
-                    <h3>Presupuesto inteligente</h3>
-                    <p>Estimaciones precisas según tu estilo de viaje, duración y temporada</p>
-                </div>
-                
-                <div className={styles.features__item}>
-                    <div className={styles.icon}>📱</div>
-                    <h3>Área personal</h3>
-                    <p>Guarda, edita y organiza todos tus viajes en un solo lugar</p>
-                </div>
-                
-                <div className={styles.features__item}>
-                    <div className={styles.icon}>🍽️</div>
-                    <h3>Gastronomía local</h3>
-                    <p>Descubre los platos típicos y la cultura culinaria de cada destino</p>
-                </div>
-                
-                <div className={styles.features__item}>
-                    <div className={styles.icon}>🌡️</div>
-                    <h3>Clima y temporadas</h3>
-                    <p>Información meteorológica actual y estacional para planificar mejor</p>
-                </div>
+
+            <div className={styles.features__grid}>
+            <div className={styles.features__item}>
+                <div className={styles.icon}>🗺️</div>
+                <h3>Comprehensive Information</h3>
+                <p>General data, weather, gastronomy, and cultural curiosities of each destination</p>
+            </div>
+
+            <div className={styles.features__item}>
+                <div className={styles.icon}>🤖</div>
+                <h3>AI Planning</h3>
+                <p>Personalized advice on what to bring, budgeting, and seasonal recommendations</p>
+            </div>
+
+            <div className={styles.features__item}>
+                <div className={styles.icon}>💰</div>
+                <h3>Smart Budgeting</h3>
+                <p>Accurate estimates based on your travel style, duration, and season</p>
+            </div>
+
+            <div className={styles.features__item}>
+                <div className={styles.icon}>📱</div>
+                <h3>Personal Area</h3>
+                <p>Save, edit, and organize all your trips in one place</p>
+            </div>
+
+            <div className={styles.features__item}>
+                <div className={styles.icon}>🍽️</div>
+                <h3>Local Gastronomy</h3>
+                <p>Discover typical dishes and culinary culture of each destination</p>
+            </div>
+
+            <div className={styles.features__item}>
+                <div className={styles.icon}>🌡️</div>
+                <h3>Weather & Seasons</h3>
+                <p>Current and seasonal weather information to help you plan better</p>
+            </div>
             </div>
         </div>
     </section>
+
     </>
   )
 }

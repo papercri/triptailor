@@ -22,43 +22,40 @@ export default function DestinationHero({
 }: DestinationHeroProps) {
   return (
     <section className="destination-hero">
-            <div className="destination-hero__image !bg-transparent z-10 absolute">
-                <CountryBackgroundImage cityName={cityName} />
-                <div className="destination-hero__overlay">
-                    <div className="container">
-                        <div className="destination-hero__content">
-                            <div className="breadcrumb">
-                                <a href="index.html">Inicio</a>
-                                <span>›</span>
-                                <a href="#destinos">Destinos</a>
-                                <span>›</span>
-                                <span>{breadcrumbDisplay}</span>
-                            </div>
-                            <div className='flex gap-5 items-center '>
-                                 <div className='flag-container w-[50px] h-[50px] rounded-full overflow-hidden shadow-lg mb-5'>
-                              
-                                <img
-                                    src={countryData.flags.svg}
-                                    alt={`Flag of ${countryCommonName}`}
-                                    className="flag-image h-full object-cover relatve"
-                                />
-                                
-                            </div>
-                         
-                            <h1 className="capitalize !mb-0 ">{breadcrumbDisplay} </h1>
-                            </div>
-                           
-                            <p>
-                                {/* <Curiosity place={coords.displayName} /> */}
-                       </p>
-                            <div className="destination-hero__actions">
-                                <button className="btn btn--primary">💾 Guardar destino</button>
-                                <button className="btn btn--secondary">📤 Compartir</button>
-                            </div>
-                        </div>
-                    </div>
+      <div className="destination-hero__image !bg-transparent z-10 absolute">
+        <CountryBackgroundImage cityName={cityName} />
+        <div className="destination-hero__overlay">
+          <div className="container">
+            <div className="destination-hero__content">
+              <div className="breadcrumb">
+                <a href="index.html">Home</a>
+                <span>›</span>
+                <a href="#destinations">Destinations</a>
+                <span>›</span>
+                <span>{breadcrumbDisplay}</span>
+              </div>
+              <div className='flex gap-5 items-center '>
+                <div className='flag-container w-[50px] h-[50px] rounded-full overflow-hidden shadow-lg mb-5'>
+                  <img
+                    src={countryData.flags.svg}
+                    alt={`Flag of ${countryCommonName}`}
+                    className="flag-image h-full object-cover relatve"
+                  />
                 </div>
+                <h1 className="capitalize !mb-0 ">{breadcrumbDisplay} </h1>
+              </div>
+              <p>
+                {/* <Curiosity place={coords.displayName} /> */}
+              </p>
+              <div className="destination-hero__actions">
+                <button className="btn btn--primary">💾 Save destination</button>
+                <button className="btn btn--secondary">📤 Share</button>
+              </div>
             </div>
-        </section>
+          </div>
+        </div>
+      </div>
+    </section>
+
   )
 }

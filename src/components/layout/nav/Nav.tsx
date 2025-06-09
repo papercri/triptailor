@@ -17,15 +17,15 @@ function Nav() {
         </Link>
 
         <ul className="nav__menu">
-          <li><Link href="/">Inicio</Link></li>
-          <li><Link href="/#destinos">Destinos</Link></li>
-          <li><Link href="/#planificador">Planificador</Link></li>
-          <li><Link href="/#sobre-nosotros">Sobre nosotros</Link></li>
+          <li><Link href="/">Home</Link></li>
+          <li><Link href="/#destinos">Destinations</Link></li>
+          <li><Link href="/#planificador">Planner</Link></li>
+          <li><Link href="/#sobre-nosotros">About Us</Link></li>
         </ul>
 
         <div className="nav__auth">
-          <Link href="/auth/signin" className="btn btn--outline">Iniciar sesión</Link>
-          <Link href="/auth/signup" className="btn btn--primary">Registrarse</Link>
+          <Link href="/auth/signin" className="btn btn--outline">Sign In</Link>
+          <Link href="/auth/signup" className="btn btn--primary">Sign Up</Link>
         </div>
 
         <div
@@ -40,14 +40,14 @@ function Nav() {
 
       <div className={`sticky-header__mobile-menu ${isMobileMenuActive ? 'active' : ''}`}>
         <ul className="nav__menu">
-          <li><a href="#home">Inicio</a></li>
-          <li><a href="#destinos">Destinos</a></li>
-          <li><a href="#planificador">Planificador</a></li>
-          <li><a href="#sobre-nosotros">Sobre nosotros</a></li>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#destinos">Destinations</a></li>
+          <li><a href="#planificador">Planner</a></li>
+          <li><a href="#sobre-nosotros">About Us</a></li>
         </ul>
         <div className="nav__auth">
-          <a href="#" className="btn btn--outline">Iniciar sesión</a>
-          <a href="#" className="btn btn--primary">Registrarse</a>
+          <a href="/auth/signin" className="btn btn--outline">Sign In</a>
+          <a href="/auth/signup" className="btn btn--primary">Sign Up</a>
         </div>
       </div>
     </>

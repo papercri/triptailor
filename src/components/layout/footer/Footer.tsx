@@ -8,46 +8,46 @@ export default function Footer() {
                 <div className="footer__section">
                     <h4>TripTailor</h4>
                     <ul>
-                        <li><a href="#">Sobre nosotros</a></li>
-                        <li><a href="#">Cómo funciona</a></li>
-                        <li><a href="#">Blog de viajes</a></li>
-                        <li><a href="#">Contacto</a></li>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">How It Works</a></li>
+                        <li><a href="#">Travel Blog</a></li>
+                        <li><a href="#">Contact</a></li>
                     </ul>
                 </div>
                 
                 <div className="footer__section">
-                    <h4>Destinos</h4>
+                    <h4>Destinations</h4>
                     <ul>
-                        <li><a href="#">Europa</a></li>
+                        <li><a href="#">Europe</a></li>
                         <li><a href="#">Asia</a></li>
-                        <li><a href="#">América</a></li>
-                        <li><a href="#">África</a></li>
+                        <li><a href="#">America</a></li>
+                        <li><a href="#">Africa</a></li>
                     </ul>
                 </div>
                 
                 <div className="footer__section">
-                    <h4>Herramientas</h4>
+                    <h4>Tools</h4>
                     <ul>
-                        <li><a href="#">Planificador IA</a></li>
-                        <li><a href="#">Calculadora de presupuesto</a></li>
-                        <li><a href="#">Guías de viaje</a></li>
-                        <li><a href="#">App móvil</a></li>
+                        <li><a href="#">AI Planner</a></li>
+                        <li><a href="#">Budget Calculator</a></li>
+                        <li><a href="#">Travel Guides</a></li>
+                        <li><a href="#">Mobile App</a></li>
                     </ul>
                 </div>
                 
                 <div className="footer__section">
-                    <h4>Soporte</h4>
+                    <h4>Support</h4>
                     <ul>
-                        <li><a href="#">Centro de ayuda</a></li>
-                        <li><a href="#">Términos de uso</a></li>
-                        <li><a href="#">Privacidad</a></li>
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Terms of Use</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
                         <li><a href="#">FAQ</a></li>
                     </ul>
                 </div>
             </div>
             
             <div className="footer__bottom">
-                <p>&copy; 2025 TripTailor. Todos los derechos reservados.</p>
+                <p>&copy; 2025 TripTailor. All rights reserved.</p>
             </div>
         </div>
     </footer>

@@ -10,7 +10,7 @@ function CompoMap({ lat, lng, place }: MapProps) {
   return (
 
     <div className='info-card'>
-        <h3>Ubicación</h3>
+        <h3>Location</h3>
         <div className="map-placeholder">
             <div className="map-content">
                 <p className='w-[300px] '></p>
