@@ -87,18 +87,14 @@ export interface Currency {
 
 export type CuisineData = {
   title: string;
-  extract: string;
-  items: {
-    name: string;
-    description?: string;
-  }[];
+  extract?: string;
+  image?: string;
+  
 };
 
 export type CultureData = {
   title: string;
-  extract: string;
-  items: {
-    name: string;
-    description?: string;
-  }[];
+  extract?: string;
+  image?: string;
+  
 };

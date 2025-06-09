@@ -8,7 +8,6 @@ export default function Hero() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    //const isValidPlace = /^[a-zA-Z0-9\s,-]+$/.test(place);
     if (!place.trim()) return;
     router.push(`/destination/${encodeURIComponent(place)}`);
   };

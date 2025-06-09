@@ -1,13 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { getCountryBackgroundPhoto } from '@/utils/getCountryBackgroundPhoto';
-
-type CultureData = {
-  title: string;
-  extract: string;
-};
+import {  CultureData } from '@/types/destinationProps';
 
 type CultureProps = {
-  cultureData?: CultureData | null;
+  cultureData?: CultureData;
   countryCommonName: string;
 };
 

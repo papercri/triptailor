@@ -1,13 +1,8 @@
 import React from 'react';
-
-type CuisineData = {
-  title: string;
-  image?: string;
-  extract: string;
-};
+import {  CuisineData } from '@/types/destinationProps';
 
 type CuisineProps = {
-  cuisineData?: CuisineData | null;
+  cuisineData?: CuisineData;
 };
 
 function Cuisine({ cuisineData }: CuisineProps) {
