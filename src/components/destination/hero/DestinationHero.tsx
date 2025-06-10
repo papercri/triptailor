@@ -1,5 +1,6 @@
 import CountryBackgroundImage from '@/components/destination/countryBackgroundImage/CountryBackgroundImage'; 
 import React from 'react';
+// import Curiosity from '@/components/curiosity/Curiosity';
 
 type DestinationHeroProps = {
 
@@ -45,7 +46,8 @@ export default function DestinationHero({
                 <h1 className="capitalize !mb-0 ">{breadcrumbDisplay} </h1>
               </div>
               <p>
-                {/* <Curiosity place={coords.displayName} /> */}
+              Descubre la magia de {cityName}
+                 {/* <Curiosity place={cityName} />  */}
               </p>
               <div className="destination-hero__actions">
                 <button className="btn btn--primary">💾 Save destination</button>

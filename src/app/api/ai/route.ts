@@ -13,14 +13,14 @@ export async function POST(req: Request) {
     }
 
     const completion = await openai.chat.completions.create({
-      model: 'gpt-4o',
+      model: 'gpt-4.1-nano',
       messages: [{ role: 'user', content: prompt }],
     });
 
     const message = completion.choices[0]?.message?.content;
     return NextResponse.json({ message });
   } catch (error: unknown) {
-    console.error('🔥 FULL API ERROR:', error);
+    console.error('FULL API ERROR:', error);
 
 
     const errorMessage =

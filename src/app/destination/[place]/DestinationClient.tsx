@@ -10,6 +10,7 @@ import Clima from '@/components/destination/clima/Clima';
 import CompoMap from '@/components/destination/map/CompoMap';
 import Cuisine from '@/components/destination/cuisine/Cuisine';
 import Culture from '@/components/destination/culture/Culture';
+import TravelAssistant from '@/components/openAi/travelAssistent/TravelAssistent';
 import {  Props } from '@/types/destinationProps';
 
 
@@ -69,13 +70,15 @@ export default function DestinationClient({
           countryData={countryData}
           timeZone={timeZone}
         />
+         <div>
+<TravelAssistant destination={cityName} />
+      </div>
 
         <section className="destination-content">
           <div className="container">
             <div className="content-grid">
               <div className="content-main">
                 <div className="info-section">
-                  <h2>Información general</h2>
                   <div className="info-grid">
                     <Suspense fallback={<Spinner />}>
                       <Info
@@ -95,7 +98,7 @@ export default function DestinationClient({
                     </Suspense>
                   </div>
                 </div>
-
+     
                 <div className="info-section">
                   <div className="info-grid info-grid__2col">
                     <Suspense fallback={<Spinner />}>
