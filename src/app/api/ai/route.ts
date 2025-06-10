@@ -14,7 +14,7 @@ export async function POST(req: Request) {
 
     const completion = await openai.chat.completions.create({
       model: 'gpt-4.1-nano',
-      messages: [{ role: 'user', content: prompt }],
+      messages: [{ role: 'system', content: prompt }],
     });
 
     const message = completion.choices[0]?.message?.content;

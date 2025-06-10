@@ -40,14 +40,13 @@ export default function TravelAssistantSteps({ destination }: { destination: str
     setLoading(true);
     const { travelerType, budget, days, season, interests } = form;
     const interestsString = interests.join(', ');
-    const prompt = `Act as a professional travel assistant. Generate a ${days}-days with ${budget} budget travel itinerary in ${destination} for a ${travelerType} traveler who enjoys ${interestsString}, during the ${season}. The output must:
+    const prompt = `You are TripTailor, a helpful travel assistant. Generate a ${days}-days with ${budget} budget travel itinerary in ${destination} for a ${travelerType} traveler who enjoys ${interestsString}, during the ${season}. The output must:
 - Be in English.
 - Skip any introduction or farewell.
 - Use HTML-friendly formatting (e.g., <strong> instead of **).
 - Keep each day's plan short and clear.
-- Include 3 sections per day: Morning, Afternoon, Evening.
-- Optionally include real places and links if relevant.
-- Avoid overly descriptive text, focus on concise info.
+- Include real places and links if relevant.
+- Avoid overly descriptive text, be friendly, concise and practical.
 Output only the itinerary.`;
     const result = await getAIPrompt(prompt);
     setItinerary(result);
@@ -180,7 +179,7 @@ function StepButton({ icon, label, onClick }: { icon: React.ReactNode; label: st
   return (
     <button onClick={onClick} className="p-3 bg-gray-100 hover:bg-blue-100 rounded flex flex-col items-center">
       <div className="text-2xl">{icon}</div>
-      <span className="text-sm mt-1">{label}</span>
+      <span className="text-sm mt-1">{label} </span>
     </button>
   );
 }
