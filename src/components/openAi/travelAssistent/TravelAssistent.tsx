@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { getAIPrompt } from '@/utils/getAiPrompt';
 import { FaHiking, FaSpa, FaLandmark, FaUtensils, FaChild, FaUser } from 'react-icons/fa';
-
+import MapaConItinerario from '@/components/openAi/travelAssistent/MapaConItinerario';
 const steps = ['Traveler Type', 'Budget', 'Days', 'Season', 'Interests'];
 
 export default function TravelAssistantSteps({ destination }: { destination: string }) {
@@ -15,10 +15,15 @@ export default function TravelAssistantSteps({ destination }: { destination: str
     season: '',
     interests: [] as string[],
   });
-
+  interface Place {
+    day: number;
+    title: string;
+    place: string;
+    description: string;
+  }
   const [stepIndex, setStepIndex] = useState(0);
   const [loading, setLoading] = useState(false);
-  const [itinerary, setItinerary] = useState<string | null>(null);
+  const [itinerary, setItinerary] = useState<Place[] | null>(null);
 
   const nextStep = () => setStepIndex((prev) => prev + 1);
 
@@ -40,18 +45,48 @@ export default function TravelAssistantSteps({ destination }: { destination: str
     setLoading(true);
     const { travelerType, budget, days, season, interests } = form;
     const interestsString = interests.join(', ');
-    const prompt = `You are TripTailor, a helpful travel assistant. Generate a ${days}-days with ${budget} budget travel itinerary in ${destination} for a ${travelerType} traveler who enjoys ${interestsString}, during the ${season}. The output must:
-- Be in English.
-- Skip any introduction or farewell.
-- Use HTML-friendly formatting (e.g., <strong> instead of **).
-- Keep each day's plan short and clear.
-- Include real places and links if relevant.
-- Avoid overly descriptive text, be friendly, concise and practical.
-Output only the itinerary.`;
+//     const prompt = `You are TripTailor, a helpful travel assistant. Generate a ${days}-days with ${budget} budget travel itinerary in ${destination} for a ${travelerType} traveler who enjoys ${interestsString}, during the ${season}. The output must:
+// - Be in English.
+// - Skip any introduction or farewell.
+// - Use HTML-friendly formatting (e.g., <strong> instead of **).
+// - Keep each day's plan short and clear.
+// - Include real places and links if relevant.
+// - Avoid overly descriptive text, be friendly, concise and practical.
+// Output only the itinerary.`;
+
+  const prompt = `You are TripTailor, a helpful travel assistant. Generate a ${days}-day travel itinerary in ${destination} for a ${travelerType} traveler with a ${budget} budget who enjoys ${interestsString}, during the ${season}. The output must:
+  - Be in English.
+  - Skip any introduction or farewell.
+  - Use HTML-friendly formatting (e.g., <strong> instead of **).
+  - Keep each day's plan short and clear.
+  - Include real place names (museums, landmarks, restaurants, parks, etc.).
+  - Format the output as a JSON array, like:
+    [
+      {
+        "day": 1,
+        "title": "Visit the Eiffel Tower",
+        "place": "Eiffel Tower, Paris",
+        "description": "Start your day at the Eiffel Tower. Buy tickets online to skip the queue."
+      },
+      ...
+    ]
+  - Output only the JSON array.`;
+
+
     const result = await getAIPrompt(prompt);
-    setItinerary(result);
-    setLoading(false);
-  };
+
+    try {
+      if (result !== null) {
+        const parsed = JSON.parse(result);
+        setItinerary(parsed);
+      } else {
+        throw new Error("AI response is null");
+      }
+    } catch (e) {
+      console.error("Invalid AI response", e);
+      setItinerary(null);
+    }
+    };
 
   // Motion animation variants
   const stepAnimation = {
@@ -166,12 +201,13 @@ Output only the itinerary.`;
       </AnimatePresence>
 
       {itinerary && (
-        <div className="mt-6 bg-white p-4 rounded shadow">
-          <h3 className="font-bold mb-2">Your Itinerary</h3>
-          <div className="prose max-w-none" dangerouslySetInnerHTML={{ __html: itinerary }} />
-        </div>
-      )}
+      <div className="mt-6 bg-white p-4 rounded shadow">
+        <h3 className="font-bold mb-2">Your Itinerary</h3>
+        <MapaConItinerario itinerary={itinerary} />
+      </div>
+    )}
     </div>
+    
   );
 }
 
