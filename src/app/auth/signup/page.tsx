@@ -1,8 +1,26 @@
+'use client';
 import Header from "@/components/layout/header/Header"
 import Footer from "@/components/layout/footer/Footer"
+import Link from "next/link";
 import '../auth.scss'
+import { useState } from 'react';
+import { registerUser } from '@/services/authService';
 
-export default function page() {
+export default function RegisterPage() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [username, setUsername] = useState('');
+  const [isRegister, setIsRegister] = useState(false);
+
+  const handleRegister = async () => {
+    try {
+      const user = await registerUser(username, email, password );
+      console.log('User registered:', user.uid, user.displayName);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+ 
   return (
     <>
       <Header />
@@ -15,78 +33,59 @@ export default function page() {
                 <p>Join TripTailor and start planning your adventures</p>
               </div>
 
-              <form className="auth-form">
+              <form onSubmit={handleRegister} className="auth-form">
                 <div className="form-row">
+          
                   <div className="form-group">
-                    <label htmlFor="firstName">First Name</label>
-                    <input type="text" id="firstName" placeholder="Your first name" required />
-                  </div>
-
-                  <div className="form-group">
-                    <label htmlFor="lastName">Last Name</label>
-                    <input type="text" id="lastName" placeholder="Your last name" required />
+                    <label htmlFor="lastName">User Name</label>
+                    <input
+                      type="text"
+                      placeholder="User Name"
+                      value={username}
+                      onChange={(e) => setUsername(e.target.value)}
+                      className=""
+                      required
+                    />
                   </div>
                 </div>
 
                 <div className="form-group">
                   <label htmlFor="email">Email</label>
-                  <input type="email" id="email" placeholder="your@email.com" required />
+                  <input
+                  type="email"
+                  placeholder="Email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className=""
+                  required
+                />
                 </div>
 
                 <div className="form-group">
                   <label htmlFor="password">Password</label>
                   <div className="password-input">
-                    <input type="password" id="password" placeholder="Minimum 8 characters" required />
-                    <button type="button" className="toggle-password" id="togglePassword">👁️</button>
+                    <input
+                      type="password"
+                      placeholder="Password"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      className=""
+                      required
+                    />
+                 
                   </div>
-                  <div className="password-strength">
-                    <div className="strength-meter">
-                      <span className="meter-segment"></span>
-                      <span className="meter-segment"></span>
-                      <span className="meter-segment"></span>
-                      <span className="meter-segment"></span>
-                    </div>
-                    <span className="strength-text">Password strength</span>
-                  </div>
+          
                 </div>
 
-                <div className="form-group">
-                  <label htmlFor="confirmPassword">Confirm Password</label>
-                  <div className="password-input">
-                    <input type="password" id="confirmPassword" placeholder="Confirm your password" required />
-                    <button type="button" className="toggle-password" id="toggleConfirmPassword">👁️</button>
-                  </div>
-                </div>
+         
 
-                <div className="form-options">
-                  <div className="terms-check">
-                    <input type="checkbox" id="terms" required />
-                    <label htmlFor="terms">
-                      I accept the <a href="#">Terms and Conditions</a> and the <a href="#">Privacy Policy</a>
-                    </label>
-                  </div>
-                </div>
-
-                <button type="submit" className="btn btn--primary btn--full">Create Account</button>
+                   <button type="submit" onClick={() => setIsRegister(!isRegister)} className="btn btn--primary btn--full">Register </button>
               </form>
 
-              <div className="auth-divider">
-                <span>Or sign up with</span>
-              </div>
-
-              <div className="social-login">
-                <button className="btn btn--social btn--google">
-                  <span className="icon">G</span>
-                  <span>Google</span>
-                </button>
-                <button className="btn btn--social btn--facebook">
-                  <span className="icon">f</span>
-                  <span>Facebook</span>
-                </button>
-              </div>
+    
 
               <div className="auth-footer">
-                <p>Already have an account? <a href="login.html">Sign in</a></p>
+                <p>Already have an account? <Link href="../signin" >Sign in</Link></p>
               </div>
             </div>
           </div>
