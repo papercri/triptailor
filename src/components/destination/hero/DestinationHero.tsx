@@ -46,7 +46,7 @@ export default function DestinationHero({
                 <h1 className="capitalize !mb-0 ">{breadcrumbDisplay} </h1>
               </div>
               <p>
-              Descubre la magia de {cityName}
+         
                  {/* <Curiosity place={cityName} />  */}
               </p>
               <div className="destination-hero__actions">

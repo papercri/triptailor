@@ -4,21 +4,14 @@ import { useEffect, useState } from 'react';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import { getCoordinates } from '@/utils/geocode'; 
 import { MapBounds }  from '@/components/map/MapBounds';
-
+import { ItineraryItem } from '@/types/itineraryItem';
 import L from 'leaflet';
 
 import type { LatLngTuple } from 'leaflet';
 
 const defaultPosition: LatLngTuple = [48.8566, 2.3522]; // París por defecto
 
-interface Place {
-  day: number;
-  title: string;
-  place: string;
-  description: string;
-  lat?: number;
-  lng?: number;
-}
+type Place = ItineraryItem;
 
 export default function MapaConItinerario({ itinerary }: { itinerary: Place[] }) {
   const [itineraryWithCoords, setItineraryWithCoords] = useState<Place[]>([]);

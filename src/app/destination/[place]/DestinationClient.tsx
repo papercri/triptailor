@@ -54,6 +54,7 @@ export default function DestinationClient({
   cuisineData,
   cultureData,
 }: Props) {
+
   return (
     <>
       <Header />
@@ -70,11 +71,9 @@ export default function DestinationClient({
           countryData={countryData}
           timeZone={timeZone}
         />
-         <div>
-<TravelAssistant destination={cityName} />
-      </div>
+  
 
-        <section className="destination-content">
+   <section className="destination-content">
           <div className="container">
             <div className="content-grid">
               <div className="content-main">
@@ -113,6 +112,7 @@ export default function DestinationClient({
                 </div>
               </div>
             </div>
+            <TravelAssistant destination={cityName}/>
           </div>
         </section>
       </main>

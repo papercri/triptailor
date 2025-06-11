@@ -3,9 +3,23 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { getAIPrompt } from '@/utils/getAiPrompt';
-import { FaHiking, FaSpa, FaLandmark, FaUtensils, FaChild, FaUser } from 'react-icons/fa';
-import MapaConItinerario from '@/components/openAi/travelAssistent/MapaConItinerario';
-const steps = ['Traveler Type', 'Budget', 'Days', 'Season', 'Interests'];
+import { enrichItineraryWithCoords } from '@/utils/enrichItinerary';
+import { ItineraryItem } from '@/types/itineraryItem';
+import {
+  FaHiking,
+  FaSpa,
+  FaLandmark,
+  FaUtensils,
+  FaChild,
+  FaUser,
+} from 'react-icons/fa';
+import dynamic from 'next/dynamic';
+
+const MapaConItinerarioNoSSR = dynamic(() => import('./MapaConItinerario'), {
+  ssr: false,
+});
+
+const steps = ['Traveler Type', 'Budget', 'Days', 'Season', 'Interests', 'Your Itinerary'];
 
 export default function TravelAssistantSteps({ destination }: { destination: string }) {
   const [form, setForm] = useState({
@@ -15,27 +29,23 @@ export default function TravelAssistantSteps({ destination }: { destination: str
     season: '',
     interests: [] as string[],
   });
-  interface Place {
-    day: number;
-    title: string;
-    place: string;
-    description: string;
-  }
+  const userId = 'user'; 
+
   const [stepIndex, setStepIndex] = useState(0);
   const [loading, setLoading] = useState(false);
-  const [itinerary, setItinerary] = useState<Place[] | null>(null);
+  const [itinerary, setItinerary] = useState<ItineraryItem[] | null>(null);
 
-  const nextStep = () => setStepIndex((prev) => prev + 1);
+  const goNext = () => setStepIndex((prev) => Math.min(prev + 1, steps.length - 1));
+  const goBack = () => setStepIndex((prev) => Math.max(prev - 1, 0));
 
   const handleSelect = (key: string, value: string) => {
     setForm((prev) => ({ ...prev, [key]: value }));
-    nextStep();
   };
 
   const toggleInterest = (interest: string) => {
     setForm((prev) => {
       const updated = prev.interests.includes(interest)
-        ? prev.interests.filter(i => i !== interest)
+        ? prev.interests.filter((i) => i !== interest)
         : [...prev.interests, interest];
       return { ...prev, interests: updated };
     });
@@ -45,55 +55,56 @@ export default function TravelAssistantSteps({ destination }: { destination: str
     setLoading(true);
     const { travelerType, budget, days, season, interests } = form;
     const interestsString = interests.join(', ');
-//     const prompt = `You are TripTailor, a helpful travel assistant. Generate a ${days}-days with ${budget} budget travel itinerary in ${destination} for a ${travelerType} traveler who enjoys ${interestsString}, during the ${season}. The output must:
-// - Be in English.
-// - Skip any introduction or farewell.
-// - Use HTML-friendly formatting (e.g., <strong> instead of **).
-// - Keep each day's plan short and clear.
-// - Include real places and links if relevant.
-// - Avoid overly descriptive text, be friendly, concise and practical.
-// Output only the itinerary.`;
 
-  const prompt = `You are TripTailor, a helpful travel assistant. Generate a ${days}-day travel itinerary in ${destination} for a ${travelerType} traveler with a ${budget} budget who enjoys ${interestsString}, during the ${season}. The output must:
-  - Be in English.
-  - Skip any introduction or farewell.
-  - Use HTML-friendly formatting (e.g., <strong> instead of **).
-  - Keep each day's plan short and clear.
-  - Include real place names (museums, landmarks, restaurants, parks, etc.).
-  - Format the output as a JSON array, like:
-    [
-      {
-        "day": 1,
-        "title": "Visit the Eiffel Tower",
-        "place": "Eiffel Tower, Paris",
-        "description": "Start your day at the Eiffel Tower. Buy tickets online to skip the queue."
-      },
-      ...
-    ]
-  - Output only the JSON array.`;
-
+    const prompt = `You are TripTailor, a helpful travel assistant. Generate a ${days}-day travel itinerary in ${destination} for a ${travelerType} traveler with a ${budget} budget who enjoys ${interestsString}, during the ${season}. The output must:
+- Be in English.
+- Skip any introduction or farewell.
+- Use HTML-friendly formatting (e.g., <strong> instead of **).
+- Keep each day's plan short and clear.
+- Include real place names (museums, landmarks, restaurants, parks, etc.).
+- Format the output as a JSON array, like:
+[
+  {
+    "day": 1,
+    "title": "Visit the Eiffel Tower",
+    "place": " "Eiffel Tower, Paris, France",
+    "description": "Start your day at the Eiffel Tower. Buy tickets online to skip the queue."
+  },
+  ...
+]
+- Always include the city and country in the "place" field.
+- Output only the JSON array.`; 
 
     const result = await getAIPrompt(prompt);
-
     try {
       if (result !== null) {
         const parsed = JSON.parse(result);
         setItinerary(parsed);
       } else {
-        throw new Error("AI response is null");
+        throw new Error('AI response is null');
       }
     } catch (e) {
-      console.error("Invalid AI response", e);
+      console.error('Invalid AI response', e);
       setItinerary(null);
+    } finally {
+      setLoading(false);
     }
-    };
+  };
 
-  // Motion animation variants
   const stepAnimation = {
     initial: { opacity: 0, x: 40 },
     animate: { opacity: 1, x: 0 },
     exit: { opacity: 0, x: -40 },
     transition: { duration: 0.3 },
+  };
+
+  const isStepValid = () => {
+    if (stepIndex === 0) return !!form.travelerType;
+    if (stepIndex === 1) return !!form.budget;
+    if (stepIndex === 2) return !!form.days;
+    if (stepIndex === 3) return !!form.season;
+    if (stepIndex === 4) return form.interests.length > 0;
+    return true;
   };
 
   return (
@@ -115,19 +126,29 @@ export default function TravelAssistantSteps({ destination }: { destination: str
         ))}
       </div>
 
-      {/* Animated step content */}
+      {/* Step content */}
       <AnimatePresence mode="wait">
         <motion.div key={stepIndex} {...stepAnimation} className="space-y-4">
           {stepIndex === 0 && (
             <div>
               <p className="mb-2 font-medium">What kind of traveler are you?</p>
               <div className="grid grid-cols-3 gap-2">
-                <StepButton icon={<FaHiking />} label="Adventure" onClick={() => handleSelect('travelerType', 'Adventure')} />
-                <StepButton icon={<FaSpa />} label="Relax" onClick={() => handleSelect('travelerType', 'Relax')} />
-                <StepButton icon={<FaLandmark />} label="Culture" onClick={() => handleSelect('travelerType', 'Culture')} />
-                <StepButton icon={<FaUtensils />} label="Food" onClick={() => handleSelect('travelerType', 'Food')} />
-                <StepButton icon={<FaChild />} label="Kids" onClick={() => handleSelect('travelerType', 'With children')} />
-                <StepButton icon={<FaUser />} label="Solo" onClick={() => handleSelect('travelerType', 'Solo')} />
+                {[
+                  { label: 'Adventure', icon: <FaHiking /> },
+                  { label: 'Relax', icon: <FaSpa /> },
+                  { label: 'Culture', icon: <FaLandmark /> },
+                  { label: 'Food', icon: <FaUtensils /> },
+                  { label: 'With children', icon: <FaChild /> },
+                  { label: 'Solo', icon: <FaUser /> },
+                ].map(({ label, icon }) => (
+                  <StepButton
+                    key={label}
+                    icon={icon}
+                    label={label}
+                    selected={form.travelerType === label}
+                    onClick={() => handleSelect('travelerType', label)}
+                  />
+                ))}
               </div>
             </div>
           )}
@@ -137,7 +158,15 @@ export default function TravelAssistantSteps({ destination }: { destination: str
               <p className="mb-2 font-medium">Select your budget per day:</p>
               <div className="flex gap-2">
                 {['Low', 'Medium', 'High'].map((level) => (
-                  <button key={level} onClick={() => handleSelect('budget', level)} className="p-2 px-4 bg-gray-100 hover:bg-blue-100 rounded">
+                  <button
+                    key={level}
+                    onClick={() => handleSelect('budget', level)}
+                    className={`p-2 px-4 rounded ${
+                      form.budget === level
+                        ? 'bg-blue-500 text-white'
+                        : 'bg-gray-100 hover:bg-blue-100'
+                    }`}
+                  >
                     {level}
                   </button>
                 ))}
@@ -150,7 +179,15 @@ export default function TravelAssistantSteps({ destination }: { destination: str
               <p className="mb-2 font-medium">How many days will you stay?</p>
               <div className="flex gap-2 flex-wrap">
                 {['1', '3', '5', '7', 'More than 7'].map((day) => (
-                  <button key={day} onClick={() => handleSelect('days', day)} className="p-2 px-4 bg-gray-100 hover:bg-blue-100 rounded">
+                  <button
+                    key={day}
+                    onClick={() => handleSelect('days', day)}
+                    className={`p-2 px-4 rounded ${
+                      form.days === day
+                        ? 'bg-blue-500 text-white'
+                        : 'bg-gray-100 hover:bg-blue-100'
+                    }`}
+                  >
                     {day}
                   </button>
                 ))}
@@ -161,9 +198,17 @@ export default function TravelAssistantSteps({ destination }: { destination: str
           {stepIndex === 3 && (
             <div>
               <p className="mb-2 font-medium">Choose the season of your trip:</p>
-              <div className="flex gap-2">
+              <div className="flex gap-2 flex-wrap">
                 {['Spring', 'Summer', 'Autumn', 'Winter'].map((season) => (
-                  <button key={season} onClick={() => handleSelect('season', season)} className="p-2 px-4 bg-gray-100 hover:bg-blue-100 rounded">
+                  <button
+                    key={season}
+                    onClick={() => handleSelect('season', season)}
+                    className={`p-2 px-4 rounded ${
+                      form.season === season
+                        ? 'bg-blue-500 text-white'
+                        : 'bg-gray-100 hover:bg-blue-100'
+                    }`}
+                  >
                     {season}
                   </button>
                 ))}
@@ -175,47 +220,119 @@ export default function TravelAssistantSteps({ destination }: { destination: str
             <div>
               <p className="mb-2 font-medium">Select your interests:</p>
               <div className="flex flex-wrap gap-3">
-                {['Museums', 'Nature', 'Beaches', 'Gastronomy', 'Shopping', 'History'].map((interest) => (
-                  <button
-                    key={interest}
-                    onClick={() => toggleInterest(interest)}
-                    className={`p-2 px-3 rounded border ${
-                      form.interests.includes(interest)
-                        ? 'bg-blue-500 text-white border-blue-500'
-                        : 'bg-white text-gray-800 border-gray-300'
-                    }`}
-                  >
-                    {interest}
-                  </button>
-                ))}
+                {['Museums', 'Nature', 'Beaches', 'Gastronomy', 'Shopping', 'History'].map(
+                  (interest) => (
+                    <button
+                      key={interest}
+                      onClick={() => toggleInterest(interest)}
+                      className={`p-2 px-3 rounded border ${
+                        form.interests.includes(interest)
+                          ? 'bg-blue-500 text-white border-blue-500'
+                          : 'bg-white text-gray-800 border-gray-300'
+                      }`}
+                    >
+                      {interest}
+                    </button>
+                  )
+                )}
               </div>
-              <button
-                onClick={generateItinerary}
-                className="mt-4 bg-blue-600 text-white px-4 py-2 rounded"
-              >
-                {loading ? 'Generating...' : 'Generate Itinerary'}
-              </button>
             </div>
           )}
         </motion.div>
       </AnimatePresence>
 
-      {itinerary && (
-      <div className="mt-6 bg-white p-4 rounded shadow">
-        <h3 className="font-bold mb-2">Your Itinerary</h3>
-        <MapaConItinerario itinerary={itinerary} />
+      {/* Navigation buttons */}
+      <div className="flex justify-between mt-4">
+        {stepIndex > 0 ? (
+          <button
+            onClick={goBack}
+            className="px-4 py-2 bg-gray-300 text-gray-800 rounded hover:bg-gray-400"
+          >
+            ← Back
+          </button>
+        ) : <div />}
+
+        {stepIndex < steps.length - 1 ? (
+          <button
+            onClick={goNext}
+            disabled={!isStepValid()}
+            className="px-4 py-2 bg-blue-600 text-white rounded disabled:opacity-50"
+          >
+            Next →
+          </button>
+        ) : (
+          <button
+            onClick={() => {
+              generateItinerary().then(() => setStepIndex(5));
+            }}
+            disabled={!isStepValid() || loading}
+            className="px-4 py-2 bg-blue-600 text-white rounded disabled:opacity-50"
+          >
+            {loading ? 'Generating...' : 'Generate Itinerary'}
+          </button>
+        )}
       </div>
-    )}
+
+      {/* Final result */}
+      {stepIndex === 5 && itinerary && (
+        <div className="mt-6 bg-white p-4 rounded shadow">
+          <h3 className="font-bold mb-2">Your Itinerary</h3>
+          <MapaConItinerarioNoSSR itinerary={itinerary} />
+          <button onClick={async () => {
+            const enriched = await enrichItineraryWithCoords(itinerary);
+        try {
+          const response = await fetch('http://localhost:3001/itineraries', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              userId: userId,
+              destination,
+              itinerary: enriched,
+              createdAt: new Date().toISOString()
+            })
+          });
+          if (response.ok) {
+            alert('Itinerary saved successfully!');
+          } else {
+            alert('Failed to save itinerary');
+          }
+        } catch (error) {
+          console.error(error);
+          alert('Error saving itinerary');
+        }
+      }}
+            className="mt-4 bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
+          >
+            Save Itinerary
+          </button>
+        </div>
+      )}
     </div>
-    
   );
 }
 
-function StepButton({ icon, label, onClick }: { icon: React.ReactNode; label: string; onClick: () => void }) {
+function StepButton({
+  icon,
+  label,
+  onClick,
+  selected = false,
+}: {
+  icon: React.ReactNode;
+  label: string;
+  onClick: () => void;
+  selected?: boolean;
+}) {
   return (
-    <button onClick={onClick} className="p-3 bg-gray-100 hover:bg-blue-100 rounded flex flex-col items-center">
+    <button
+      onClick={onClick}
+      className={`p-3 rounded flex flex-col items-center border transition ${
+        selected
+          ? 'bg-blue-500 text-white border-blue-500'
+          : 'bg-gray-100 hover:bg-blue-100 text-gray-800 border-gray-300'
+      }`}
+    >
       <div className="text-2xl">{icon}</div>
-      <span className="text-sm mt-1">{label} </span>
+      <span className="text-sm mt-1">{label}</span>
     </button>
   );
 }
