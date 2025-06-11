@@ -10,16 +10,23 @@ export default function RegisterPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [username, setUsername] = useState('');
-  const [isRegister, setIsRegister] = useState(false);
 
-  const handleRegister = async () => {
+
+  const handleRegister = async (e: React.FormEvent) => {
+    e.preventDefault();
     try {
-      const user = await registerUser(username, email, password );
+      const user = await registerUser(email, password, username);
       console.log('User registered:', user.uid, user.displayName);
-    } catch (err) {
-      console.error(err);
+      alert('Registration successful!');
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        alert(err.message);
+      } else {
+        alert('An unknown error occurred.');
+      }
     }
   };
+
  
   return (
     <>
@@ -79,7 +86,7 @@ export default function RegisterPage() {
 
          
 
-                   <button type="submit" onClick={() => setIsRegister(!isRegister)} className="btn btn--primary btn--full">Register </button>
+                   <button type="submit" className="btn btn--primary btn--full">Register </button>
               </form>
 
     
