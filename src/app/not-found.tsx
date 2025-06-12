@@ -16,7 +16,7 @@ export default function NotFound() {
           Please check the spelling or return to the homepage.
         </p>
         <Link href="/" className="btn btn--primary">
-          Back to Home
+          Back to Home Page
         </Link>
       </div>
     </main>

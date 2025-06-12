@@ -1,15 +1,13 @@
 import type { Metadata } from "next";
 import { Inter } from 'next/font/google';
-import "@/styles/globals.scss";
+import "./globals.scss";
 import { UserProvider } from '@/context/UserContext';
-// import { CountryProvider } from '@/context/countryContext';
 
 const inter = Inter({
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-inter',
 })
-
 
 export const metadata: Metadata = {
   title: "TripTailor",
