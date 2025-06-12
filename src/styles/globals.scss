@@ -1,6 +1,4 @@
-
-@import "tailwindcss";
-@import "@/styles/variables.scss";
+@use "@/styles/variables.scss"  as *;
 *,
 *::before,
 *::after  {

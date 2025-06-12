@@ -25,7 +25,7 @@ function Nav() {
   return (
     <>
       <nav className="nav">
-        <Link href="/" className="nav__logo">
+        <Link href="/" className="nav__logo ">
           ✈️ TripTailor
         </Link>
 
