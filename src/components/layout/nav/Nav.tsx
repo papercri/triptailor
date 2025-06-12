@@ -8,9 +8,7 @@ import { useUser } from '@/context/UserContext';
 function Nav() {
   const [isMobileMenuActive, setMobileMenuActive] = useState(false);
   const router = useRouter();
-
-  
-  const { user, loading, logout } = useUser();
+  const { user,  logout } = useUser();
   
 
   console.log(user?.displayName);
@@ -38,13 +36,26 @@ function Nav() {
           <li><Link href="/#destinos">Destinations</Link></li>
           <li><Link href="/#planificador">Planner</Link></li>
           <li><Link href="/#sobre-nosotros">About Us</Link></li>
+    
         </ul>
-
         <div className="nav__auth">
-          <Link href="/auth/signin" className="btn btn--outline">Sign In</Link>
-          <Link href="/auth/signup" className="btn btn--primary">Sign Up</Link>
+         {user ? (
+            <>
+            <p>Welcome {user.displayName}</p>
+            <button
+              onClick={handleLogout}
+              className="bg-red-500 hover:bg-red-600 text-white py-1 px-3 rounded"
+            >
+              Logout
+            </button>
+        </>) :
+          (
+            <>
+            <a href="/auth/signin" className="btn btn--outline">Sign In</a>
+            <a href="/auth/signup" className="btn btn--primary">Sign Up</a>
+            </>
+          )}
         </div>
-
         <div
           className={`nav__hamburger ${isMobileMenuActive ? 'active' : ''}`}
           onClick={toggleMobileMenu}
@@ -57,12 +68,15 @@ function Nav() {
 
       <div className={`sticky-header__mobile-menu ${isMobileMenuActive ? 'active' : ''}`}>
         <ul className="nav__menu">
+       
           <li><a href="#home">Home</a></li>
           <li><a href="#destinos">Destinations</a></li>
           <li><a href="#planificador">Planner</a></li>
           <li><a href="#sobre-nosotros">About Us</a></li>
+   
         </ul>
         <div className="nav__auth">
+          
           {user ? (
             <>
             <p>Welcome {user.displayName}</p>

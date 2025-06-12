@@ -16,18 +16,30 @@ interface UserContextType {
   user: User | null;
   loading: boolean;
   logout: () => Promise<void>;
+  signIn: (email: string, password: string) => Promise<User>;
+  signUp: (email: string, password: string, displayName: string) => Promise<User>;
 }
 
-const UserContext = createContext<UserContextType | undefined>(undefined);
 
-export const useUser = () => {
-  const context = useContext(UserContext);
-  if (!context) throw new Error('useUser must be used within a UserProvider');
-  return context;
-};
+const UserContext = createContext<UserContextType>({} as UserContextType);
+
+export const useUser = () => useContext(UserContext);
+
+export const UserProvider = ({ children }: { children: ReactNode }) => {
+  const [user, setUser] = useState<User | null>(null);
+  const [loading, setLoading] = useState(true);
+
+   useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      setUser(user);
+      setLoading(false);
+    });
+
+    return () => unsubscribe();
+  }, []);
 
 // Registro de usuario con updateProfile para displayName
-export const registerUser = async (email: string, password: string, displayName: string) => {
+const signUp = async (email: string, password: string, displayName: string) => {
   const userCredential = await createUserWithEmailAndPassword(auth, email, password);
   await updateProfile(userCredential.user, { displayName });
   await reload(userCredential.user); // Forzar recarga para actualizar perfil
@@ -35,37 +47,17 @@ export const registerUser = async (email: string, password: string, displayName:
 };
 
 // Login normal
-export const loginUser = async (email: string, password: string) => {
+const signIn = async (email: string, password: string) => {
   const userCredential = await signInWithEmailAndPassword(auth, email, password);
   return userCredential.user;
 };
-
-export const UserProvider = ({ children }: { children: ReactNode }) => {
-  const [user, setUser] = useState<User | null>(null);
-  const [loading, setLoading] = useState(true);
-
-  const logout = async () => {
+ const logout = async () => {
     await signOut(auth);
     setUser(null);
     setLoading(true);
   };
-
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
-      if (firebaseUser) {
-        await reload(firebaseUser); // Forzar recarga para actualizar displayName
-        setUser(auth.currentUser); // auth.currentUser ya tiene displayName actualizado
-      } else {
-        setUser(null);
-      }
-      setLoading(false);
-    });
-
-    return () => unsubscribe();
-  }, []);
-
   return (
-    <UserContext.Provider value={{ user, loading, logout }}>
+    <UserContext.Provider value={{ user, loading, logout, signIn, signUp }}>
       {children}
     </UserContext.Provider>
   );

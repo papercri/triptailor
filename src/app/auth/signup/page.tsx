@@ -1,21 +1,25 @@
 'use client';
 import Header from "@/components/layout/header/Header"
 import Footer from "@/components/layout/footer/Footer"
+import { useRouter } from 'next/navigation';
 import Link from "next/link";
 import '../auth.scss'
 import { useState } from 'react';
-import { registerUser } from '@/context/UserContext';
+import { useUser } from '@/context/UserContext';
 
 export default function RegisterPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [username, setUsername] = useState('');
+  const [error, setError] = useState('');
+  const router = useRouter();
+  const { signUp } = useUser();
 
 
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const user = await registerUser(email, password, username);
+      const user = await signUp(email, password, username);
       console.log('User registered:', user.uid, user.displayName);
       alert('Registration successful!');
     } catch (err: unknown) {

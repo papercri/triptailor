@@ -1,30 +1,27 @@
 'use client';
 import Header from "@/components/layout/header/Header"
 import Footer from "@/components/layout/footer/Footer"
+import { useRouter } from 'next/navigation';
 import '../auth.scss'
 import Link from "next/link";
 import { useState } from 'react';
-import { loginUser } from '@/context/UserContext';
+import { useUser } from '@/context/UserContext';
 
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
+  const [error, setError] = useState('');
+  const router = useRouter();
+  const { signIn } = useUser();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      
-        await loginUser(email, password);
-        alert('Logged in!');
-      
-    } catch (err: unknown) {
-      if (err instanceof Error) {
-        alert(err.message);
-      } else {
-        alert('An unknown error occurred.');
-      }
+      await signIn(email, password);
+      router.push('/');
+    } catch (error) {
+      setError('Failed to sign in' + error);
     }
   };
   return (

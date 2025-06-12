@@ -17,6 +17,7 @@ src/app/_playground
 # next.js
 /.next/
 /out/
+.vscode
 
 # production
 /build
