@@ -4,7 +4,7 @@ import Footer from "@/components/layout/footer/Footer"
 import Link from "next/link";
 import '../auth.scss'
 import { useState } from 'react';
-import { registerUser } from '@/services/authService';
+import { registerUser } from '@/context/UserContext';
 
 export default function RegisterPage() {
   const [email, setEmail] = useState('');
@@ -41,49 +41,52 @@ export default function RegisterPage() {
               </div>
 
               <form onSubmit={handleRegister} className="auth-form">
-                <div className="form-row">
-          
+         
                   <div className="form-group">
-                    <label htmlFor="lastName">User Name</label>
+                    <label htmlFor="userName">User Name</label>
                     <input
                       type="text"
                       placeholder="User Name"
                       value={username}
                       onChange={(e) => setUsername(e.target.value)}
                       className=""
+                      id="userName"
                       required
                     />
                   </div>
-                </div>
-
-                <div className="form-group">
-                  <label htmlFor="email">Email</label>
-                  <input
-                  type="email"
-                  placeholder="Email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className=""
-                  required
-                />
-                </div>
-
-                <div className="form-group">
-                  <label htmlFor="password">Password</label>
-                  <div className="password-input">
+             
+        
+                  <div className="form-group">
+                    <label htmlFor="email">Email</label>
                     <input
-                      type="password"
-                      placeholder="Password"
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                      className=""
-                      required
-                    />
-                 
+                    type="email"
+                    placeholder="Email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className=""
+                    id="email"
+                    required
+                  />
                   </div>
-          
-                </div>
-
+         
+ 
+                  <div className="form-group">
+                    <label htmlFor="password">Password</label>
+                    <div className="password-input">
+                      <input
+                        type="password"
+                        placeholder="Password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        className=""
+                        id="password"
+                        required
+                      />
+                  
+                    </div>
+            
+                  </div>
+    
          
 
                    <button type="submit" className="btn btn--primary btn--full">Register </button>
@@ -92,7 +95,7 @@ export default function RegisterPage() {
     
 
               <div className="auth-footer">
-                <p>Already have an account? <Link href="../signin" >Sign in</Link></p>
+                <p>Already have an account? <Link href="/auth/signin" >Sign in</Link></p>
               </div>
             </div>
           </div>

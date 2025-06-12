@@ -256,6 +256,94 @@
         }
       ],
       "createdAt": "2025-06-11T18:50:11.556Z"
+    },
+    {
+      "id": "b864",
+      "userId": "user",
+      "destination": "Buenos Aires",
+      "itinerary": [
+        {
+          "day": 1,
+          "title": "Morning stroll in Plaza Dorrego and San Telmo",
+          "place": "Plaza Dorrego, San Telmo, Buenos Aires, Argentina",
+          "description": "Begin your day with a relaxed walk around Plaza Dorrego, known for its vibrant street art and historic ambiance. Enjoy the lively atmosphere and watch local tango dancers perform during summer afternoons.",
+          "lat": -34.6204917,
+          "lng": -58.3717807
+        },
+        {
+          "day": 1,
+          "title": "Visit the Museum of Argentine History",
+          "place": "Museo de la Historia Argentina, Buenos Aires, Argentina",
+          "description": "Explore Argentina's rich history with affordable entry fees. The museum is housed in a historic building and offers insightful exhibits on the nation's past.",
+          "lat": -34.597854,
+          "lng": -58.3972746
+        },
+        {
+          "day": 1,
+          "title": "Afternoon walk in Parque Lezama",
+          "place": "Parque Lezama, Buenos Aires, Argentina",
+          "description": "Relax in this historic park filled with lush greenery, sculptures, and shaded paths—perfect for enjoying the summer sun.",
+          "lat": -34.6271277,
+          "lng": -58.3692737
+        },
+        {
+          "day": 1,
+          "title": "Dinner at Mercado San Telmo",
+          "place": "Mercado San Telmo, Defensa 963, Buenos Aires, Argentina",
+          "description": "Sample an array of local and international foods at this bustling market. Great for budget-friendly, delicious meals.",
+          "lat": -34.6190492,
+          "lng": -58.372512
+        },
+        {
+          "day": 1,
+          "title": "Evening stroll in Puerto Madero",
+          "place": "Puerto Madero, Buenos Aires, Argentina",
+          "description": "End your day with a leisurely walk along the waterfront, enjoying views of the sunset over the river and modern cityscape.",
+          "lat": -34.6103764,
+          "lng": -58.3622067
+        }
+      ],
+      "createdAt": "2025-06-12T08:56:55.241Z"
+    },
+    {
+      "id": "eb3d",
+      "userId": "user",
+      "destination": "Bologna",
+      "itinerary": [
+        {
+          "day": 1,
+          "title": "Visit Basilica di San Petronio",
+          "place": "Basilica di San Petronio, Bologna, Italy",
+          "description": "Explore this impressive cathedral in Piazza Maggiore. Entry is free, and it offers stunning Gothic architecture and views from the rooftop.",
+          "lat": 44.4927365,
+          "lng": 11.3430324
+        },
+        {
+          "day": 1,
+          "title": "Lunch at a local trattoria",
+          "place": "Trattoria di Via",
+          "description": "Enjoy an affordable traditional Bolognese meal like Tagliatelle al Ragù. Look for fixed-price menus for budget-friendly options.",
+          "lat": 44.509428,
+          "lng": 11.3455696
+        },
+        {
+          "day": 1,
+          "title": "Walk in Giardini Margherita",
+          "place": "Giardini Margherita, Bologna, Italy",
+          "description": "Relax in Bologna's largest park during spring. Pack a picnic from local markets or enjoy a gelato from nearby vendors.",
+          "lat": 44.4822118,
+          "lng": 11.3526753
+        },
+        {
+          "day": 1,
+          "title": "Visit the Museo della Musica",
+          "place": "Museo della Musica, Bologna, Italy",
+          "description": "Discover Bologna's musical heritage with a low-cost entry. Free audio guides are available to enrich your visit.",
+          "lat": 44.4928659,
+          "lng": 11.3502549
+        }
+      ],
+      "createdAt": "2025-06-12T09:32:01.180Z"
     }
   ]
 }

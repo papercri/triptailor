@@ -4,7 +4,7 @@ import Footer from "@/components/layout/footer/Footer"
 import '../auth.scss'
 import Link from "next/link";
 import { useState } from 'react';
-import { loginUser } from '@/services/authService';
+import { loginUser } from '@/context/UserContext';
 
 
 export default function LoginPage() {
@@ -48,6 +48,7 @@ export default function LoginPage() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     className=""
+                    id="email"
                     required
                   />
                 </div>
@@ -61,6 +62,7 @@ export default function LoginPage() {
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                       className=""
+                      id="password"
                       required
                     />
                    
@@ -70,7 +72,7 @@ export default function LoginPage() {
                 <button type="submit" className="btn btn--primary btn--full">Sign In</button>
               </form>
               <div className="auth-footer">
-                <p>Don&apos;t have an account? <Link href="../signup">Sign up</Link></p>
+                <p>Don&apos;t have an account? <Link href="/auth/signup">Sign up</Link></p>
               </div>
             </div>
           </div>

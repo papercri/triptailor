@@ -1,14 +1,31 @@
 'use client';
 import Link from "next/link";
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { useUser } from '@/context/UserContext';
+
 
 function Nav() {
   const [isMobileMenuActive, setMobileMenuActive] = useState(false);
+  const router = useRouter();
 
+  
+  const { user, loading, logout } = useUser();
+  
+
+  console.log(user?.displayName);
   const toggleMobileMenu = () => {
     setMobileMenuActive(prev => !prev);
   };
-
+ const handleLogout = async () => {
+    try {
+      await logout();
+      router.push('/auth/signin'); // Redirect to signin after logout
+    } catch (error) {
+      console.error('Failed to log out:', error);
+    }
+  };
+ 
   return (
     <>
       <nav className="nav">
@@ -46,9 +63,25 @@ function Nav() {
           <li><a href="#sobre-nosotros">About Us</a></li>
         </ul>
         <div className="nav__auth">
-          <a href="/auth/signin" className="btn btn--outline">Sign In</a>
-          <a href="/auth/signup" className="btn btn--primary">Sign Up</a>
-        </div>
+          {user ? (
+            <>
+            <p>Welcome {user.displayName}</p>
+            <button
+                  onClick={handleLogout}
+                  className="bg-red-500 hover:bg-red-600 text-white py-1 px-3 rounded"
+                >
+                  Logout
+                </button>
+            </>) :
+          (
+            <>
+            
+            <a href="/auth/signin" className="btn btn--outline">Sign In</a>
+            <a href="/auth/signup" className="btn btn--primary">Sign Up</a>
+        
+            </>
+          )}
+         </div>
       </div>
     </>
   );

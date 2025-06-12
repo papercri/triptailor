@@ -5,6 +5,9 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { getAIPrompt } from '@/utils/getAiPrompt';
 import { enrichItineraryWithCoords } from '@/utils/enrichItinerary';
 import { ItineraryItem } from '@/types/itineraryItem';
+import { ref, set } from "firebase/database";
+import { database } from "@/services/firebaseConfig"; 
+import { useUser } from '@/context/UserContext';
 import {
   FaHiking,
   FaSpa,
@@ -29,7 +32,8 @@ export default function TravelAssistantSteps({ destination }: { destination: str
     season: '',
     interests: [] as string[],
   });
-  const userId = 'user'; 
+  const { user } = useUser();
+  const userId = user?.uid ?? 'guest'; // Use 'guest' if not logged in
 
   const [stepIndex, setStepIndex] = useState(0);
   const [loading, setLoading] = useState(false);
@@ -278,29 +282,28 @@ export default function TravelAssistantSteps({ destination }: { destination: str
         <div className="mt-6 bg-white p-4 rounded shadow">
           <h3 className="font-bold mb-2">Your Itinerary</h3>
           <MapaConItinerarioNoSSR itinerary={itinerary} />
-          <button onClick={async () => {
-            const enriched = await enrichItineraryWithCoords(itinerary);
-        try {
-          const response = await fetch('http://localhost:3001/itineraries', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              userId: userId,
-              destination,
-              itinerary: enriched,
-              createdAt: new Date().toISOString()
-            })
-          });
-          if (response.ok) {
-            alert('Itinerary saved successfully!');
-          } else {
-            alert('Failed to save itinerary');
-          }
-        } catch (error) {
-          console.error(error);
-          alert('Error saving itinerary');
-        }
-      }}
+          <button
+            onClick={async () => {
+              try {
+                const enriched = await enrichItineraryWithCoords(itinerary);
+
+                // Creamos una clave única con push
+                const itineraryId = Date.now(); // Puedes usar push() si prefieres que Firebase genere la key
+
+                await set(ref(database, `itineraries/${userId}/${itineraryId}`), {
+                  userId: user?.uid ?? null,
+                  email: user?.email ?? null,
+                  destination,
+                  itinerary: enriched,
+                  createdAt: new Date().toISOString(),
+                });
+
+                alert("Itinerary saved successfully!");
+              } catch (error) {
+                console.error(error);
+                alert("Error saving itinerary");
+              }
+            }}
             className="mt-4 bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
           >
             Save Itinerary

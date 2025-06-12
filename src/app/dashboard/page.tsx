@@ -1,7 +1,15 @@
-
-
-export default function page() {
+import UserItineraries from "@/components/userPage/userItineraries/UserItineraries";
+import Header from "@/components/layout/header/Header"
+import Footer from "@/components/layout/footer/Footer"
+export default function DashboardPage() {
   return (
-    <div>page</div>
-  )
+    <>
+    <Header />
+    <main>
+      <UserItineraries />
+    </main>
+    <Footer />
+    </>
+    
+  );
 }
