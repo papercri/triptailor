@@ -33,6 +33,7 @@ function Nav() {
           <li><Link href="/">Home</Link></li>
           <li><Link href="/#destinos">Destinations</Link></li>
           <li><Link href="/#sobre-nosotros">About Us </Link></li>
+          <li><Link href="/">Contact Us </Link></li>
         </ul>
         <div className="nav__auth">
           <ul className="nav__menu">
@@ -66,10 +67,11 @@ function Nav() {
 
       <div className={`sticky-header__mobile-menu ${isMobileMenuActive ? 'active' : ''}`}>
         <ul className="nav__menu">
-          <li><a href="#home">Home</a></li>
-          <li><a href="#destinos">Destinations</a></li>
-          <li><a href="#planificador">Planner</a></li>
-          <li><a href="#sobre-nosotros">About Us</a></li>
+          <li><Link href="#home">Home</Link></li>
+          <li><Link href="#destinos">Destinations</Link></li>
+          <li><Link href="#planificador">Planner</Link></li>
+          <li><Link href="#sobre-nosotros">About Us</Link></li>
+          <li><Link href="/">Contact Us </Link></li>
         </ul>
         <div className="nav__auth">
           <ul className="nav__menu">
