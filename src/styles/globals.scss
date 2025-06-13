@@ -111,7 +111,7 @@ input[type="number"].no-spinner::-webkit-inner-spin-button {
 
 // Hero section
 .hero {
-  background: linear-gradient(135deg, $primary-color 0%, $accent-color 100%);
+  //background: linear-gradient(135deg, $primary-color 0%, $accent-color 100%);
   color: $white;
   padding: 4rem 0;
   text-align: center;
@@ -128,21 +128,21 @@ input[type="number"].no-spinner::-webkit-inner-spin-button {
       font-size: 2.5rem;
       font-weight: 800;
       margin-bottom: 1rem;
-      
+      line-height:5rem;
       @media (min-width: $tablet) {
         font-size: 3.5rem;
       }
     }
     
     p {
-      font-size: 1.25rem;
+      font-size: 1.40rem;
       margin-bottom: 2rem;
       opacity: 0.9;
     }
   }
   
   &__search {
-    background: $white;
+    background: rgba(255, 255, 255, 0.6);
     border-radius: 1rem;
     padding: 1rem;
     box-shadow: $shadow-lg;
@@ -160,7 +160,8 @@ input[type="number"].no-spinner::-webkit-inner-spin-button {
     input {
       flex: 1;
       padding: 0.75rem;
-      border: 2px solid $border-color;
+      border: 0;
+      background-color: $white;
       border-radius: 0.5rem;
       font-size: 1rem;
       color:$text-dark;

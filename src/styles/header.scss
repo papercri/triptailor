@@ -1,7 +1,7 @@
 @use "@/styles/variables.scss" as *;
 
 .sticky-header {
-  background: $white;
+  background: white;
   box-shadow: $shadow;
   position: sticky;
   top: 0;

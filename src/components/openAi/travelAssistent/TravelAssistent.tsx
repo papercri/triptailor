@@ -1,13 +1,12 @@
 'use client';
-
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { getAIPrompt } from '@/utils/getAiPrompt';
-import { enrichItineraryWithCoords } from '@/utils/enrichItinerary';
+import TravelResult from './TravelResult';
 import { ItineraryItem } from '@/types/itineraryItem';
-import { ref, set } from "firebase/database";
-import { database } from "@/services/firebaseConfig"; 
+
 import { useUser } from '@/context/UserContext';
+import StepButton from "./StepButton" 
 import {
   FaHiking,
   FaSpa,
@@ -21,8 +20,10 @@ import dynamic from 'next/dynamic';
 const MapaConItinerarioNoSSR = dynamic(() => import('./MapaConItinerario'), {
   ssr: false,
 });
+// Importamos el mapa sin SSR para evitar problemas de renderizado en el servidor
 
 const steps = ['Traveler Type', 'Budget', 'Days', 'Season', 'Interests', 'Your Itinerary'];
+// Define los pasos del asistente de viaje
 
 export default function TravelAssistantSteps({ destination }: { destination: string }) {
   const [form, setForm] = useState({
@@ -32,6 +33,8 @@ export default function TravelAssistantSteps({ destination }: { destination: str
     season: '',
     interests: [] as string[],
   });
+  // Estado para almacenar los datos del formulario
+
   const { user } = useUser();
   const userId = user?.uid ?? 'guest'; // Use 'guest' if not logged in
 
@@ -45,6 +48,7 @@ export default function TravelAssistantSteps({ destination }: { destination: str
   const handleSelect = (key: string, value: string) => {
     setForm((prev) => ({ ...prev, [key]: value }));
   };
+// Función para manejar la selección de opciones en el formulario
 
   const toggleInterest = (interest: string) => {
     setForm((prev) => {
@@ -116,12 +120,32 @@ export default function TravelAssistantSteps({ destination }: { destination: str
       <h2 className="text-2xl font-semibold">Plan your Trip to {destination}</h2>
 
       {/* Progress bar */}
-      <div className="relative w-full h-2 bg-gray-200 rounded overflow-hidden">
+      {/* <div className="relative w-full h-2 bg-gray-200 rounded overflow-hidden">
         <div
           className="absolute h-full bg-blue-500 transition-all duration-500"
           style={{ width: `${((stepIndex + 1) / steps.length) * 100}%` }}
         />
+      </div> */}
+
+
+         {/* Step indicators */}
+      <div className="flex justify-between items-center">
+        {steps.map((step, i) => (
+          <div key={i} className="flex-1 text-center">
+            <div
+              className={`mx-auto w-8 h-8 flex items-center justify-center rounded-full font-bold text-sm mb-1
+              ${i === stepIndex ? 'bg-blue-600 text-white' : i < stepIndex ? 'bg-blue-300 text-white' : 'bg-gray-300 text-gray-600'}`}
+            >
+              {i + 1}
+            </div>
+            <p className="text-xs sm:text-sm font-medium truncate">
+              {step}
+            </p>
+          </div>
+        ))}
       </div>
+
+
       <div className="flex justify-between text-sm text-gray-500">
         {steps.map((step, index) => (
           <span key={step} className={index <= stepIndex ? 'text-blue-600 font-medium' : ''}>
@@ -279,63 +303,39 @@ export default function TravelAssistantSteps({ destination }: { destination: str
 
       {/* Final result */}
       {stepIndex === 5 && itinerary && (
-        <div className="mt-6 bg-white p-4 rounded shadow">
-          <h3 className="font-bold mb-2">Your Itinerary</h3>
-          <MapaConItinerarioNoSSR itinerary={itinerary} />
-          <button
-            onClick={async () => {
-              try {
-                const enriched = await enrichItineraryWithCoords(itinerary);
-
-                // Creamos una clave única con push
-                const itineraryId = Date.now(); // Puedes usar push() si prefieres que Firebase genere la key
-
-                await set(ref(database, `itineraries/${userId}/${itineraryId}`), {
-                  userId: user?.uid ?? null,
-                  email: user?.email ?? null,
-                  destination,
-                  itinerary: enriched,
-                  createdAt: new Date().toISOString(),
-                });
-
-                alert("Itinerary saved successfully!");
-              } catch (error) {
-                console.error(error);
-                alert("Error saving itinerary");
-              }
-            }}
-            className="mt-4 bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
-          >
-            Save Itinerary
-          </button>
-        </div>
+        <TravelResult
+          itinerary={itinerary}
+          destination={destination}
+          userId={userId}
+          userEmail={user?.email}
+        />
       )}
     </div>
   );
 }
 
-function StepButton({
-  icon,
-  label,
-  onClick,
-  selected = false,
-}: {
-  icon: React.ReactNode;
-  label: string;
-  onClick: () => void;
-  selected?: boolean;
-}) {
-  return (
-    <button
-      onClick={onClick}
-      className={`p-3 rounded flex flex-col items-center border transition ${
-        selected
-          ? 'bg-blue-500 text-white border-blue-500'
-          : 'bg-gray-100 hover:bg-blue-100 text-gray-800 border-gray-300'
-      }`}
-    >
-      <div className="text-2xl">{icon}</div>
-      <span className="text-sm mt-1">{label}</span>
-    </button>
-  );
-}
+// function StepButton({
+//   icon,
+//   label,
+//   onClick,
+//   selected = false,
+// }: {
+//   icon: React.ReactNode;
+//   label: string;
+//   onClick: () => void;
+//   selected?: boolean;
+// }) {
+//   return (
+//     <button
+//       onClick={onClick}
+//       className={`p-3 rounded flex flex-col items-center border transition ${
+//         selected
+//           ? 'bg-blue-500 text-white border-blue-500'
+//           : 'bg-gray-100 hover:bg-blue-100 text-gray-800 border-gray-300'
+//       }`}
+//     >
+//       <div className="text-2xl">{icon}</div>
+//       <span className="text-sm mt-1">{label}</span>
+//     </button>
+//   );
+// }
