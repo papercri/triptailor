@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { ItineraryItem } from '@/types/itineraryItem';
 import { getAIPrompt } from '@/utils/getAiPrompt';
 
-export function useTravelForm(destination: string) {
+export default function useTravelForm(destination: string) {
   const [form, setForm] = useState({
     travelerType: '',
     budget: '',

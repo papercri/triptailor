@@ -71,7 +71,7 @@ const customIcon = (day: number) =>
             ) : null}
             <p><strong className='text-blue-500 mb-4'>{item.title}</strong></p>
             <p className='text-gray-800 mb-2'>{item.description}</p>
-            <p className="text-sm text-gray-500 whitespace-nowrap"><MapPin /> {item.place}</p>
+            <p className="text-sm text-gray-500 whitespace-nowrap"><MapPin className='inline'/> {item.place}</p>
         </div>
         ))}
       </div>
