@@ -45,7 +45,7 @@ export default function Hero() {
           <div className="container relative z-100">
             <div className="hero__content">
               <h1>Discover the world with TripTailor</h1>
-              <p className='font-semibold'>Your AI-powered travel companion. Plan, discover, and experience unique journeys tailored to your style.</p>
+              <p className='text-xl'>Your AI-powered travel companion. Plan, discover, and experience unique journeys tailored to your style.</p>
 
               <form onSubmit={handleSubmit} className="hero__search">
                 <input
@@ -63,7 +63,7 @@ export default function Hero() {
           </div>
 
 
-          <div className="absolute inset-0 bg-black/30 z-70" />
+          <div className="absolute inset-0 bg-black/30 z-70" ></div>
     </section>
 
   )

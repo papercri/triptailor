@@ -6,6 +6,7 @@ import { getCoordinates } from '@/utils/geocode';
 import { MapBounds }  from '@/components/map/MapBounds';
 import { ItineraryItem } from '@/types/itineraryItem';
 import L from 'leaflet';
+import { MapPin } from 'lucide-react';
 
 import type { LatLngTuple } from 'leaflet';
 
@@ -64,13 +65,13 @@ const customIcon = (day: number) =>
       </div>
       <div className="space-y-4">
         {itineraryWithCoords.map((item, idx) => (
-        <div key={idx} className="p-2 mb-2  rounded-lg shadow">
+        <div key={idx} className=" text-grey-800 border-0">
             {idx === 0 || item.day !== itineraryWithCoords[idx - 1].day ? (
-            <p className="font-bold">Day {item.day}</p>
+            <p className="text-xl font-semibold mb-2">Day {item.day}</p>
             ) : null}
-            <p><strong>{item.title}</strong></p>
-            <p>{item.description}</p>
-            <p className="text-sm text-gray-500">{item.place}</p>
+            <p><strong className='text-blue-500 mb-4'>{item.title}</strong></p>
+            <p className='text-gray-800 mb-2'>{item.description}</p>
+            <p className="text-sm text-gray-500 whitespace-nowrap"><MapPin /> {item.place}</p>
         </div>
         ))}
       </div>

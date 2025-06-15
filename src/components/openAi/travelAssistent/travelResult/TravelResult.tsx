@@ -40,7 +40,11 @@ export default function TravelResult({ itinerary, destination, userId, userEmail
 
   return (
     <div className="mt-6 bg-white p-4 rounded shadow">
-      <h3 className="font-bold mb-2">Your Itinerary</h3>
+      <div className="text-center mb-8">
+        <h3 className="text-4xl font-bold text-gray-800 mb-2">Your Itinerary</h3>
+        <p className="text-gray-600">Discover the beauty of {destination}</p>
+      </div>
+      
       <MapaConItinerarioNoSSR itinerary={itinerary} />
       <button
         onClick={saveItinerary}

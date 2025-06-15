@@ -6,7 +6,9 @@
   box-sizing: border-box;
   box-sizing: border-box;
   text-rendering: optimizeLegibility;
-  @apply antialiased
+   -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
 }
 
 body {
@@ -15,7 +17,9 @@ body {
   color: $text-dark;
   background-color: $background-light;
   text-rendering: optimizeLegibility;
-  @apply antialiased 
+   -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
  
 }
 html{

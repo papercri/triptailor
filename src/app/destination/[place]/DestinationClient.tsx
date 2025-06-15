@@ -10,7 +10,7 @@ import Clima from '@/components/destination/clima/Clima';
 import CompoMap from '@/components/destination/map/CompoMap';
 import Cuisine from '@/components/destination/cuisine/Cuisine';
 import Culture from '@/components/destination/culture/Culture';
-import TravelAssistant from '@/components/openAi/travelAssistent/TravelAssistent';
+import TravelAssistantSteps from '@/components/openAi/travelAssistent/TravelAssistent';
 import {  Props } from '@/types/destinationProps';
 
 
@@ -112,7 +112,7 @@ export default function DestinationClient({
                 </div>
               </div>
             </div>
-            <TravelAssistant destination={cityName}/>
+            <TravelAssistantSteps destination={cityName}/>
           </div>
         </section>
       </main>

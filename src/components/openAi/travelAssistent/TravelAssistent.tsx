@@ -2,11 +2,11 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { getAIPrompt } from '@/utils/getAiPrompt';
-import TravelResult from './TravelResult';
+import TravelResult from './travelResult/TravelResult';
 import { ItineraryItem } from '@/types/itineraryItem';
 
 import { useUser } from '@/context/UserContext';
-import StepButton from "./StepButton" 
+import StepButton from './travelSteps/stepButton/StepButton';
 import {
   FaHiking,
   FaSpa,
@@ -15,11 +15,11 @@ import {
   FaChild,
   FaUser,
 } from 'react-icons/fa';
-import dynamic from 'next/dynamic';
 
-const MapaConItinerarioNoSSR = dynamic(() => import('./MapaConItinerario'), {
-  ssr: false,
-});
+
+// const MapaConItinerarioNoSSR = dynamic(() => import('@/components/travelResult/MapaConItinerario'), {
+//   ssr: false,
+// });
 // Importamos el mapa sin SSR para evitar problemas de renderizado en el servidor
 
 const steps = ['Traveler Type', 'Budget', 'Days', 'Season', 'Interests', 'Your Itinerary'];
@@ -166,7 +166,7 @@ export default function TravelAssistantSteps({ destination }: { destination: str
                   { label: 'Relax', icon: <FaSpa /> },
                   { label: 'Culture', icon: <FaLandmark /> },
                   { label: 'Food', icon: <FaUtensils /> },
-                  { label: 'With children', icon: <FaChild /> },
+                  { label: 'Children', icon: <FaChild /> },
                   { label: 'Solo', icon: <FaUser /> },
                 ].map(({ label, icon }) => (
                   <StepButton

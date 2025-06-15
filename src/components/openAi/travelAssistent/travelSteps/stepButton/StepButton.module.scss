@@ -1,0 +1,33 @@
+@use "@/styles/variables.scss"  as *;
+.step-button {
+   padding: 0.75rem;        
+  border-radius:200px; 
+  width:80px;
+  height:80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 0;
+  transition: background-color 0.3s ease;
+  &.selected {
+    background-color: $primary-color; 
+    color: white;
+  }
+  &.unselected {
+    background-color: $primary-color-light; 
+    color: $text-dark; 
+    color:$white;
+    &:hover {
+      background-color:$secondary-color; 
+    }
+  }
+  .icon {
+    font-size: 1.5rem; 
+    text-align: center;
+  }
+  .label {
+    font-size: 0.775rem; 
+    margin-top: 0.25rem; 
+    text-align: center;
+  }
+}

@@ -1,0 +1,58 @@
+@use "@/styles/variables.scss"  as *;
+
+.travel-assistent{
+    margin-bottom: 2rem;
+    font-size:xx-large;
+    font-weight: 600;
+    .title{
+        margin-bottom:20px
+    }
+    .step-indicators {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        }
+        .step-indicator {
+        flex: 1;
+        text-align: center;
+        .step-circle {
+            margin-left: auto;
+            margin-right: auto;
+            width: 2rem;            
+            height: 2rem;            
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 9999px;    
+            font-weight: bold;        
+            font-size: 0.875rem;     
+            margin-bottom: 0.25rem;    
+        }
+
+        .step-current {
+            background-color: $primary-color; 
+            color: $white;
+        }
+
+        .step-completed {
+            background-color: $primary-color-light; 
+            color: $white;
+        }
+
+        .step-upcoming {
+            background-color: $background-grey; 
+            color: $text-light;             
+        }
+        .step-label {
+            font-size: 0.75rem;      
+            font-weight: 500;     
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            @media (min-width: 640px) {
+            font-size: 0.8
+            }
+        }
+    }
+    
+}
