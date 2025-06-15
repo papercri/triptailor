@@ -8,8 +8,7 @@ import StepIndicator from './travelSteps/StepIndicator';
 import StepNavigation from './travelSteps/StepNavigation';
 import "@/styles/travelAssistent.scss";
 import { useUser } from '@/context/UserContext';
-
-
+import Button from '@/components/ui/Button/Button';
 
 
 const steps = ['Traveler Type', 'Budget', 'Days', 'Season', 'Interests', 'Your Itinerary'];
@@ -24,37 +23,54 @@ export default function TravelAssistantSteps({ destination }: { destination: str
     toggleInterest, isStepValid, generateItinerary, setStepIndex
   } = useTravelForm(destination);
 
+   // Si estamos en el último paso y hay resultado, mostramos solo TravelResult
+  if (stepIndex === 5 && itinerary) {
+    return (
+      <div className="travel-assistent itinerary-view">
+        <h2 className='title'>Your Itinerary for {destination}</h2>
+
+        <TravelResult
+          itinerary={itinerary}
+          destination={destination}
+          userId={userId}
+          userEmail={user?.email}
+        />
+
+        <div className="flex justify-between mt-6 gap-4">
+          <Button variant="secondary" onClick={() => setStepIndex(4)}>
+            ← Back
+          </Button>
+          <Button variant="danger" onClick={() => setStepIndex(0)}>
+            ✕ Close
+          </Button>
+        </div>
+      </div>
+    );
+  }
+
+  // Resto de pasos normales
   return (
     <div className="travel-assistent">
-          <h2 className='title'>Plan your Trip to {destination}</h2>
-    
-          <StepIndicator steps={steps} currentStep={stepIndex} />
-    
-          <StepContent
-            stepIndex={stepIndex}
-            form={form}
-            handleSelect={handleSelect}
-            toggleInterest={toggleInterest}
-          />
-    
-          <StepNavigation
-            stepIndex={stepIndex}
-            steps={steps}
-            isStepValid={isStepValid}
-            goBack={goBack}
-            goNext={goNext}
-            generateItinerary={() => generateItinerary().then(() => setStepIndex(5))}
-            loading={loading}
-          />
-    
-          {stepIndex === 5 && itinerary && (
-            <TravelResult
-              itinerary={itinerary}
-              destination={destination}
-              userId={userId}
-              userEmail={user?.email}
-            />
-          )}
-        </div>
+      <h2 className='title'>Plan your Trip to {destination}</h2>
+
+      <StepIndicator steps={steps} currentStep={stepIndex} />
+
+      <StepContent
+        stepIndex={stepIndex}
+        form={form}
+        handleSelect={handleSelect}
+        toggleInterest={toggleInterest}
+      />
+
+      <StepNavigation
+        stepIndex={stepIndex}
+        steps={steps}
+        isStepValid={isStepValid}
+        goBack={goBack}
+        goNext={goNext}
+        generateItinerary={() => generateItinerary().then(() => setStepIndex(5))}
+        loading={loading}
+      />
+    </div>
   );
 }

@@ -22,9 +22,12 @@ export default function TravelAssistantModal({ destination }: { destination: str
 
   return (
     <>
-      <Button onClick={handleOpen} variant="accent" icon={<MapPin className="w-4 h-4 mr-2" />}>
-        Plan your trip
-      </Button>
+    <div className='flex justify-center'>
+        <Button onClick={handleOpen} variant="accent" size = "lg" icon={<MapPin className="w-4 h-4 mr-2" />}>
+                Plan your trip
+        </Button>
+    </div>
+      
 
       {/* Modal if user is logged in */}
       {isOpen && (
@@ -39,7 +42,7 @@ export default function TravelAssistantModal({ destination }: { destination: str
           <div className="space-y-4 text-center p-6">
             <h2 className="text-xl font-bold">Login Required</h2>
             <p>You need to be logged in to plan your trip.</p>
-            <Link href="/login" className="inline-block">
+            <Link href="/auth/signin" className="inline-block">
               <Button variant="primary">Go to Login</Button>
             </Link>
           </div>

@@ -40,12 +40,13 @@ const customIcon = (day: number) =>
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-4">
-      <div className="h-[500px] w-full rounded-lg shadow-lg">
+      <div className="h-[500px] w-full">
         <MapContainer
             center={defaultPosition}
             zoom={5}
             scrollWheelZoom={false}
             style={{ height: '100%', width: '100%' }}
+            className='rounded-lg shadow-lg'
             >
           <TileLayer
             url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
@@ -69,9 +70,9 @@ const customIcon = (day: number) =>
             {idx === 0 || item.day !== itineraryWithCoords[idx - 1].day ? (
             <p className="text-xl font-semibold mb-2">Day {item.day}</p>
             ) : null}
-            <p><strong className='text-blue-500 mb-4'>{item.title}</strong></p>
-            <p className='text-gray-800 mb-2'>{item.description}</p>
-            <p className="text-sm text-gray-500 whitespace-nowrap"><MapPin className='inline'/> {item.place}</p>
+            <p><strong className='text-blue-500 mb-4 text-sm'>{item.title}</strong></p>
+            <p className='text-gray-800 mb-2 text-sm'>{item.description}</p>
+            <p className="text-sm text-gray-500 whitespace-nowrap"><MapPin className='inline' size={12} /> {item.place}</p>
         </div>
         ))}
       </div>

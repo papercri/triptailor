@@ -12,6 +12,7 @@
     cursor: pointer;
     outline: none;
     transition: all 0.2s ease-in-out;
+    width: fit-content;
     &:hover{
         transform: translateY(-2px);
     }
@@ -33,7 +34,7 @@
   }
 }
 .accent{
-  width: 100%;
+
   background-color:  $secondary-color;
   color: $white;
   border: none;
