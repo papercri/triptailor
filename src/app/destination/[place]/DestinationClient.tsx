@@ -1,4 +1,5 @@
 'use client';
+
 import '@/styles/destination.scss';
 import React, { Suspense } from 'react';
 import Header from '@/components/layout/header/Header';
@@ -82,7 +83,7 @@ export default function DestinationClient({ place }: Props) {
         />
   
 
-   <section className="destination-content">
+        <section className="destination-content">
           <div className="container">
             <div className="content-grid">
               <div className="content-main">

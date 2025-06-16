@@ -1,5 +1,11 @@
-import React from 'react';
-import Map from '@/components/map/Map';
+import React, { useEffect, useState } from 'react';
+import dynamic from 'next/dynamic';
+
+const Map = dynamic(() => import('@/components/map/Map'), {
+  ssr: false,
+  loading: () => <p>Loading map...</p>,
+});
+
 type MapProps = {
   lat: number;
   lng: number;
@@ -7,20 +13,26 @@ type MapProps = {
 };
 
 function CompoMap({ lat, lng, place }: MapProps) {
-  return (
+  const [isClient, setIsClient] = useState(false);
 
-    <div className='info-card'>
-        <h3>Location</h3>
-        <div className="map-placeholder">
-            <div className="map-content">
-                <p className='w-[300px] '></p>
-                <small>   
-                <Map lat={lat} lng={lng} place={place} />
-                </small>
-            </div>
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  return (
+    <div className="info-card">
+      <h3>Location</h3>
+      <div className="map-placeholder">
+        <div className="map-content">
+          {isClient ? (
+            <Map lat={lat} lng={lng} place={place} />
+          ) : (
+            <p>Loading map...</p>
+          )}
         </div>
+      </div>
     </div>
-  )
+  );
 }
 
-export default CompoMap
+export default CompoMap;
