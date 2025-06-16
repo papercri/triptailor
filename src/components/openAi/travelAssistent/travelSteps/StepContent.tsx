@@ -43,7 +43,7 @@ export default function StepContent({ stepIndex, form, handleSelect, toggleInter
                   { label: 'Relax', icon: <FaSpa /> },
                   { label: 'Culture', icon: <FaLandmark /> },
                   { label: 'Food', icon: <FaUtensils /> },
-                  { label: 'Children', icon: <FaChild /> },
+                  { label: 'Family', icon: <FaChild /> },
                   { label: 'Solo', icon: <FaUser /> },
                 ].map(({ label, icon }) => (
                   <StepButton
