@@ -5,7 +5,9 @@ export async function getCountryBackgroundPhoto(country: string): Promise<string
   )}&orientation=landscape&per_page=1&client_id=${accessKey}`;
 
   try {
-    const res = await fetch(url);
+    const res = await fetch(url,{
+      next: { revalidate: 86400 }
+    });
     if (!res.ok) throw new Error('Failed to fetch image');
 
     const data = await res.json();

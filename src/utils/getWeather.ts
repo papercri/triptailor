@@ -4,7 +4,9 @@ export async function getWeather(lat: number, lon: number) {
   const endpoint = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric&lang=en`;
 
   try {
-    const res = await fetch(endpoint);
+    const res = await fetch(endpoint, {
+      next: { revalidate: 86400 }
+    });
     if (!res.ok) {
       throw new Error(`Failed to fetch weather: ${res.statusText}`);
     }

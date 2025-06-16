@@ -3,7 +3,9 @@
 
 export async function getCoordinates(place: string) {
   const res = await fetch(
-    `https://nominatim.openstreetmap.org/search?format=json&addressdetails=1&q=${encodeURIComponent(place)}`
+    `https://nominatim.openstreetmap.org/search?format=json&addressdetails=1&q=${encodeURIComponent(place)}`,{
+      next: { revalidate: 86400 } // 1 día
+    }
   );
   const data = await res.json();
 
