@@ -1,6 +1,6 @@
 // This function fetches culture information from Wikipedia based on the country name.
 
-import {toTitleCase} from './scripts';
+import {toTitleCase} from '../utils/scripts';
 export async function getCultureInfo(country: string) {
   try {
     const cultureTitle = `Culture_of_${toTitleCase(country)}`;

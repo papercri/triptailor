@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { getCountryBackgroundPhoto } from '@/utils/getCountryBackgroundPhoto';
+import { getCountryBackgroundPhoto } from '@/services/getCountryBackgroundPhoto';
 
 type Props = {
   cityName: string;

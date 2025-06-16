@@ -1,5 +1,5 @@
 // This function fetches cuisine information from Wikipedia based on the country name.
-import {toTitleCase} from './scripts';
+import {toTitleCase} from '../utils/scripts';
 export async function getCuisineInfo(country: string) {
   try {
     const cuisineTitle = `Cuisine_of_${toTitleCase(country)}`;

@@ -13,43 +13,16 @@ import Cuisine from '@/components/destination/cuisine/Cuisine';
 import Culture from '@/components/destination/culture/Culture';
 import TravelAssistantModal from '@/components/openAi/travelAssistent/TravelAssistantModal';
 import { useDestinationInfo } from '@/hooks/useDestinationInfo';
+import Spinner from '@/components/ui/Spinner/Spinner';
 
 
-function Spinner() {
-  return (
-    <div className="spinner-container">
-      <div className="spinner" />
-      <style jsx>{`
-        .spinner-container {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          min-height: 150px;
-        }
-        .spinner {
-          border: 4px solid rgba(0, 0, 0, 0.1);
-          width: 36px;
-          height: 36px;
-          border-radius: 50%;
-          border-left-color: #09f;
-          animation: spin 1s linear infinite;
-        }
-        @keyframes spin {
-          to {
-            transform: rotate(360deg);
-          }
-        }
-      `}</style>
-    </div>
-  );
-}
 type Props = {
   place: string;
 };
 export default function DestinationClient({ place }: Props) {
   const { data, error, isLoading } = useDestinationInfo(place);
 
-  if (isLoading) return <Spinner />;
+  if (isLoading) return <div className='grid items-center justify-center h-screen'><Spinner /></div>;
   if (error || !data) return <p className="text-center mt-10 text-red-500">Error loading destination data</p>;
 
   const {

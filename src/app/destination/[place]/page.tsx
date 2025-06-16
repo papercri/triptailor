@@ -1,9 +1,9 @@
 import { notFound } from 'next/navigation';
 import DestinationClient from './DestinationClient';
 
-type Props = {
-  params: { place: string };
-};
+  type Props = {
+    params: { place: string };
+  };
 
 export default function DestinationPage({ params }: Props) {
   if (!params.place) notFound();

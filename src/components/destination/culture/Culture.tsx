@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { getCountryBackgroundPhoto } from '@/utils/getCountryBackgroundPhoto';
+import { getCountryBackgroundPhoto } from '@/services/getCountryBackgroundPhoto';
 import {  CultureData } from '@/types/destinationProps';
 
 type CultureProps = {

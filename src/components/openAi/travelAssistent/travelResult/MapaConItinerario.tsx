@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
-import { getCoordinates } from '@/utils/geocode'; 
+import { getCoordinates } from '@/services/geocode'; 
 import { MapBounds }  from '@/components/map/MapBounds';
 import { ItineraryItem } from '@/types/itineraryItem';
 import L from 'leaflet';

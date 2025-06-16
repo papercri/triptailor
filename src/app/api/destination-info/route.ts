@@ -1,11 +1,13 @@
+// This File is uset to fetch destination information based on a place parameter.
+// It retrieves coordinates, country data, time zone, weather, cuisine, and culture information.
 
 import { NextResponse } from 'next/server';
 import { getCoordinatesWithTranslation } from '@/utils/geoCordTranslatorHelper';
-import { getCountryData } from '@/utils/getCountryData';
-import { getTimeZone } from '@/utils/getTimeZone';
-import { getWeather } from '@/utils/getWeather';
-import { getCuisineInfo } from '@/utils/getCuisineInfo';
-import { getCultureInfo } from '@/utils/getCultureInfo';
+import { getCountryData } from '@/services/getCountryData';
+import { getTimeZone } from '@/services/getTimeZone';
+import { getWeather } from '@/services/getWeather';
+import { getCuisineInfo } from '@/services/getCuisineInfo';
+import { getCultureInfo } from '@/services/getCultureInfo';
 import placeTranslations from '@/data/placeTranslations.json';
 
 const translations = placeTranslations as Record<string, string>;

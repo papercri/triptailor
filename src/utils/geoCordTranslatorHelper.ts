@@ -1,6 +1,6 @@
 // Translate place names to coordinates using a translation map and geocoding service
 
-import { getCoordinates } from '@/utils/geocode';
+import { getCoordinates } from '@/services/geocode';
 import placeTranslations from '@/data/placeTranslations.json' assert { type: "json" };
 const translations = placeTranslations as Record<string, string>;
 

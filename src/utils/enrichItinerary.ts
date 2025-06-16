@@ -1,4 +1,4 @@
-import { getCoordinates } from '@/utils/geocode';
+import { getCoordinates } from '@/services/geocode';
 import { ItineraryItem } from '@/types/itineraryItem';
 
 // This function enriches an itinerary with coordinates for each place.
