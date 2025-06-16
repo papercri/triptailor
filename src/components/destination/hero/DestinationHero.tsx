@@ -31,7 +31,7 @@ export default function DestinationHero({
               <div className="breadcrumb">
                 <a href="index.html">Home</a>
                 <span>›</span>
-                <a href="#destinations">Destinations</a>
+                <span>Destinations</span>
                 <span>›</span>
                 <span>{breadcrumbDisplay}</span>
               </div>

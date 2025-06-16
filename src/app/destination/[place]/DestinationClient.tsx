@@ -11,7 +11,7 @@ import CompoMap from '@/components/destination/map/CompoMap';
 import Cuisine from '@/components/destination/cuisine/Cuisine';
 import Culture from '@/components/destination/culture/Culture';
 import TravelAssistantModal from '@/components/openAi/travelAssistent/TravelAssistantModal';
-import {  Props } from '@/types/destinationProps';
+import { useDestinationInfo } from '@/hooks/useDestinationInfo';
 
 
 function Spinner() {
@@ -42,18 +42,27 @@ function Spinner() {
     </div>
   );
 }
+type Props = {
+  place: string;
+};
+export default function DestinationClient({ place }: Props) {
+  const { data, error, isLoading } = useDestinationInfo(place);
 
-export default function DestinationClient({
-  coords,
-  countryData,
-  timeZone,
-  weatherData,
-  cityName,
-  countryCommonName,
-  breadcrumbDisplay,
-  cuisineData,
-  cultureData,
-}: Props) {
+  if (isLoading) return <Spinner />;
+  if (error || !data) return <p className="text-center mt-10 text-red-500">Error loading destination data</p>;
+
+  const {
+    coords,
+    cityName,
+    breadcrumbDisplay,
+    countryData,
+    countryCommonName,
+    timeZone,
+    weatherData,
+    cuisineData,
+    cultureData,
+  } = data;
+
 
   return (
     <>
