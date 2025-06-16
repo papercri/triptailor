@@ -14,7 +14,7 @@ import Culture from '@/components/destination/culture/Culture';
 import TravelAssistantModal from '@/components/openAi/travelAssistent/TravelAssistantModal';
 import { useDestinationInfo } from '@/hooks/useDestinationInfo';
 import Spinner from '@/components/ui/Spinner/Spinner';
-
+import { notFound } from 'next/navigation';
 
 type Props = {
   place: string;
@@ -23,7 +23,7 @@ export default function DestinationClient({ place }: Props) {
   const { data, error, isLoading } = useDestinationInfo(place);
 
   if (isLoading) return <div className='grid items-center justify-center h-screen'><Spinner /></div>;
-  if (error || !data) return <p className="text-center mt-10 text-red-500">Error loading destination data</p>;
+  if (error || !data)  notFound();
 
   const {
     coords,
