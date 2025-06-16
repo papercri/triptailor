@@ -1,3 +1,6 @@
+// Nominatim OpenStreetMap geocoding utility
+// This function fetches coordinates and address details for a given place name
+
 export async function getCoordinates(place: string) {
   const res = await fetch(
     `https://nominatim.openstreetmap.org/search?format=json&addressdetails=1&q=${encodeURIComponent(place)}`

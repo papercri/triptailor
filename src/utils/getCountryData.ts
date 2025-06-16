@@ -1,10 +1,14 @@
-import { countryNameMap } from './translatePlaces';
+// This file contains a mapping of country names to their common names in various languages
+// The data is used to normalize country names for API requests and display purposes
+// The translations are in the format: { "originalName": "translatedName" }
+// The translations are used to ensure consistent naming across different languages and scripts
+
+import placeTranslations from '@/data/placeTranslations.json';
+
+const countryNameMap = placeTranslations as Record<string, string>;
 
 function normalizeCountryName(name: string): string {
   const trimmed = name.trim();
-
-  // Caso especial: si el nombre contiene varios alfabetos juntos (por ejemplo, latín + tifinagh + árabe)
-  // extraemos solo la parte en caracteres latinos, espacios, guiones y comas
   const latinMatch = trimmed.match(/^[a-zA-Z\s\-,]+/);
   if (latinMatch) {
     const latinName = latinMatch[0].trim();

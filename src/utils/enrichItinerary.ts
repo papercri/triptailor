@@ -1,6 +1,7 @@
 import { getCoordinates } from '@/utils/geocode';
 import { ItineraryItem } from '@/types/itineraryItem';
 
+// This function enriches an itinerary with coordinates for each place.
 
 export async function enrichItineraryWithCoords(itinerary: ItineraryItem[]) {
   const enriched = await Promise.all(

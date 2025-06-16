@@ -1,14 +1,14 @@
-import { translatePlaceName } from '@/utils/translatePlaces';
+// Translate place names to coordinates using a translation map and geocoding service
+
 import { getCoordinates } from '@/utils/geocode';
+import placeTranslations from '@/data/placeTranslations.json' assert { type: "json" };
+const translations = placeTranslations as Record<string, string>;
 
 export async function getCoordinatesWithTranslation(place: string) {
-  // Primero traducir el lugar si existe traducción
-  const translatedPlace = translatePlaceName(place);
+  const translatedPlace = translations[place] || place;
 
-  // Intentar con la traducción primero
   let coords = await getCoordinates(translatedPlace);
 
-  // Si no encuentra, intentar con el nombre original
   if (!coords) {
     coords = await getCoordinates(place);
   }

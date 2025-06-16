@@ -9,9 +9,9 @@ export const getUserItineraries = async (userId: string) => {
     if (snapshot.exists()) {
       const data = snapshot.val();
       // Convierte el objeto a array con las claves
-      return Object.entries(data).map(([key, value]: any) => ({
+      return Object.entries(data).map(([key, value]: [string, unknown]) => ({
         id: key,
-        ...value,
+        ...(value as Record<string, unknown>),
       }));
     } else {
       return [];

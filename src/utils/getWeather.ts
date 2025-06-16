@@ -1,4 +1,4 @@
-// src/utils/getWeather.ts
+
 export async function getWeather(lat: number, lon: number) {
   const apiKey = process.env.NEXT_PUBLIC_OPENWEATHER_API_KEY;
   const endpoint = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric&lang=en`;

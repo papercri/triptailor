@@ -3,10 +3,12 @@ import DestinationClient from './DestinationClient';
 import { getCoordinatesWithTranslation } from '@/utils/geoCordTranslatorHelper';
 import { getCountryData } from '@/utils/getCountryData';
 import { getTimeZone } from '@/utils/getTimeZone';
-import { translatePlaceName } from '@/utils/translatePlaces';
 import { getWeather } from '@/utils/getWeather';
 import { getCuisineInfo } from '@/utils/getCuisineInfo';
 import { getCultureInfo } from '@/utils/getCultureInfo';
+import placeTranslations from '@/data/placeTranslations.json';
+
+const translations = placeTranslations as Record<string, string>;
 
 type Props = {
   params: { place: string };
@@ -47,8 +49,8 @@ export default async function DestinationPage({ params }: Props) {
   }
 
   const parts = coords.displayName.split(', ');
-  const cityName = translatePlaceName(parts[0]);
-  const countryNameFromDisplay = translatePlaceName(parts[parts.length - 1]);
+  const cityName = translations[parts[0]] || parts[0];
+  const countryNameFromDisplay = translations[parts[parts.length - 1]] || parts[parts.length - 1];
   const breadcrumbDisplay = `${cityName}, ${countryNameFromDisplay}`;
   const countryCommonName = countryData.name.common;
   const cuisineDataRaw = await getCuisineInfo(countryNameFromDisplay);

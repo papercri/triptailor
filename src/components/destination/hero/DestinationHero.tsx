@@ -45,14 +45,7 @@ export default function DestinationHero({
                 </div>
                 <h1 className="capitalize !mb-0 ">{breadcrumbDisplay} </h1>
               </div>
-              <p>
-         
-                 {/* <Curiosity place={cityName} />  */}
-              </p>
-              <div className="destination-hero__actions">
-                <button className="btn btn--primary">💾 Save destination</button>
-                <button className="btn btn--secondary">📤 Share</button>
-              </div>
+
             </div>
           </div>
         </div>

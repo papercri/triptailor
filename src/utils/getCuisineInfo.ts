@@ -1,3 +1,4 @@
+// This function fetches cuisine information from Wikipedia based on the country name.
 import {toTitleCase} from './scripts';
 export async function getCuisineInfo(country: string) {
   try {
