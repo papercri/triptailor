@@ -1,7 +1,7 @@
 'use client';
 
-import { ref, set } from 'firebase/database';
-import { database } from '@/services/firebaseConfig';
+import { addDoc, collection, doc } from 'firebase/firestore';
+import { db } from '@/services/firebaseConfig';
 import { enrichItineraryWithCoords } from '@/utils/enrichItinerary';
 import { ItineraryItem } from '@/types/itineraryItem';
 import dynamic from 'next/dynamic';
@@ -21,12 +21,13 @@ export default function TravelResult({ itinerary, destination, userId, userEmail
   const saveItinerary = async () => {
     try {
       const enriched = await enrichItineraryWithCoords(itinerary);
-      const itineraryId = Date.now();
+      const userRef = doc(db, 'users', userId);
+      const itinerariesRef = collection(userRef, 'itineraries');
 
-      await set(ref(database, `itineraries/${userId}/${itineraryId}`), {
+        await addDoc(itinerariesRef, {
+        destination,
         userId,
         email: userEmail ?? null,
-        destination,
         itinerary: enriched,
         createdAt: new Date().toISOString(),
       });
