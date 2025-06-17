@@ -113,7 +113,7 @@ export default function UserItinerariesPage() {
               />
             </div>
           ) : (
-            <div ref={printRef}>
+            <div ref={printRef} className="h-[400px] w-full">
               <h4 className="text-xl font-semibold text-gray-800 mb-4">
                 {selectedItinerary.destination}
               </h4>
