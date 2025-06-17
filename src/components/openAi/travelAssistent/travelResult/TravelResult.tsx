@@ -15,21 +15,37 @@ type TravelResultProps = {
   destination: string;
   userId: string;
   userEmail?: string | null;
+  form: {
+    travelerType: string;
+    budget: string;
+    days: number;
+    season: string;
+    interests: string[];
+  };
 };
 
-export default function TravelResult({ itinerary, destination, userId, userEmail }: TravelResultProps) {
+export default function TravelResult({ itinerary, destination, userId, userEmail, form }: TravelResultProps) {
+
   const saveItinerary = async () => {
     try {
       const enriched = await enrichItineraryWithCoords(itinerary);
       const userRef = doc(db, 'users', userId);
       const itinerariesRef = collection(userRef, 'itineraries');
+       console.log(form.travelerType);
 
-        await addDoc(itinerariesRef, {
+       await addDoc(itinerariesRef, {
         destination,
         userId,
         email: userEmail ?? null,
         itinerary: enriched,
         createdAt: new Date().toISOString(),
+        prompt: {
+          travelerType: form.travelerType || '',
+          budget: form.budget || '',
+          days: form.days || 0,
+          season: form.season || '',
+          interests: Array.isArray(form.interests) ? form.interests : [],
+        },
       });
 
       alert('Itinerary saved successfully!');
