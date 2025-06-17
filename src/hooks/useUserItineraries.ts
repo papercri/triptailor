@@ -1,33 +1,42 @@
-// lib/hooks/useUserItineraries.ts
+"use client"
 import { useEffect, useState } from 'react'
-import { collection, getDocs, doc } from 'firebase/firestore'
-import { auth, db } from '@/services/firebaseConfig'
+import { collection, doc, onSnapshot, query } from 'firebase/firestore'
 import { useAuthState } from 'react-firebase-hooks/auth'
-
-interface Itinerary {
-  id: string
-  // Add other fields as needed, for example:
-  // name: string
-  // startDate: string
-  // endDate: string
-  // etc.
-}
+import { auth, db } from '@/services/firebaseConfig'
 
 export const useUserItineraries = () => {
   const [user] = useAuthState(auth)
-  const [itineraries, setItineraries] = useState<Itinerary[]>([])
+  const [itineraries, setItineraries] = useState<any[]>([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<Error | null>(null)
 
   useEffect(() => {
-    if (!user) return
-
-    const fetchItineraries = async () => {
-      const itinerariesRef = collection(doc(db, 'users', user.uid), 'itineraries')
-      const snapshot = await getDocs(itinerariesRef)
-      setItineraries(snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })))
+    if (!user) {
+      setItineraries([])
+      setLoading(false)
+      return
     }
 
-    fetchItineraries()
+    setLoading(true)
+    const userDocRef = doc(db, 'users', user.uid)
+    const itinerariesCollectionRef = collection(userDocRef, 'itineraries')
+    const q = query(itinerariesCollectionRef)
+
+    const unsubscribe = onSnapshot(
+      q,
+      (snapshot) => {
+        const data = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }))
+        setItineraries(data)
+        setLoading(false)
+      },
+      (err) => {
+        setError(err)
+        setLoading(false)
+      }
+    )
+
+    return () => unsubscribe()
   }, [user])
 
-  return { itineraries }
+  return { itineraries, loading, error }
 }
