@@ -5,20 +5,13 @@ import { getUserItineraries } from "@/utils/getUserItineraries";
 import { useUser } from "@/context/UserContext";
 import Modal from "@/components/ui/Modal/Modal";
 import dynamic from "next/dynamic";
+import { Itinerary } from '@/types/itineraryItem'
 
-import type { ItineraryItem } from '@/types/itineraryItem';
 const MapaConItinerarioNoSSR = dynamic(() => import('@/components/openAi/travelAssistent/travelResult/MapaConItinerario'), {
   ssr: false,
 });
 
 
-
-interface Itinerary {
-  id: string;
-  destination: string;
-  createdAt: string | number | Date;
-  itinerary: ItineraryItem[];
-}
 
 export default function UserItineraries() {
   const { user } = useUser();

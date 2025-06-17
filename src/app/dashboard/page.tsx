@@ -20,7 +20,7 @@ export default function DashboardPage() {
               
               <div className="user-area__tabs">
                   <button className="tab active">My Itineraries</button>
-                  <button className="tab">My Favorites</button>
+               
 
               </div>
               

@@ -4,9 +4,14 @@ import { collection, doc, onSnapshot, query } from 'firebase/firestore'
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { auth, db } from '@/services/firebaseConfig'
 
+interface Itinerary {
+  id: string
+  [key: string]: string 
+}
+
 export const useUserItineraries = () => {
   const [user] = useAuthState(auth)
-  const [itineraries, setItineraries] = useState<any[]>([])
+  const [itineraries, setItineraries] = useState<Itinerary[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<Error | null>(null)
 

@@ -1,10 +1,16 @@
+
 export interface ItineraryItem {
 
-  [key: string]: unknown;
-   day: number;
-  place: string;
-  lat: number;
-  lng: number;
-  title?: string;
-  description?: string;
+  day: number
+  activity: string
+  location?: string
+}
+
+export interface Itinerary {
+  id: string
+  destination: string
+  createdAt: string
+  email?: string
+  itinerary: ItineraryItem[]
+  prompt: string | object 
 }
