@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Clock, PiggyBank, SunSnow, Smile, Eye, CircleX } from 'lucide-react';
 import { Itinerary } from '@/types/itineraryItem';
 import { getCountryBackgroundPhoto } from '@/services/getCountryBackgroundPhoto';
-
+import { Tooltip } from 'react-tooltip'
 type PromptObj = {
   travelerType?: string;
   days?: number;
@@ -32,6 +32,7 @@ export default function ItineraryCard({ itinerary, onView, onDelete }: Itinerary
   const promptObj = parsePrompt(itinerary.prompt);
   const [imageUrl, setImageUrl] = useState<string | null>(null);
   const [hasMounted, setHasMounted] = useState(false);
+  
 
   useEffect(() => {
     setHasMounted(true);
@@ -81,7 +82,8 @@ export default function ItineraryCard({ itinerary, onView, onDelete }: Itinerary
             <Smile className='inline' color="grey" size={18} /> {Array.isArray(promptObj.interests) ? promptObj.interests.join(', ') : '—'}
           </div>
           <div className="flex gap-2 mt-4 justify-end">
-            <button  onClick={() => onView(itinerary)}>
+            <button  onClick={() => onView(itinerary)}
+              data-tooltip-id="details" data-tooltip-content="Details">
               <Eye color="grey"/>
             </button>
             <button
@@ -90,9 +92,12 @@ export default function ItineraryCard({ itinerary, onView, onDelete }: Itinerary
                   onDelete(itinerary.id);
                 }
               }}
+              data-tooltip-id="delete" data-tooltip-content="Delete"
             >
               <CircleX color="red"/>
             </button>
+            <Tooltip id="details" />
+            <Tooltip id="delete" />
           </div>
         </div>
       </div>

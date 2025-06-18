@@ -8,6 +8,8 @@ import Button from '@/components/ui/Button/Button';
 import MapaConItinerarioNoSSR from '@/components/openAi/travelAssistent/travelResult/MapaConItinerario';
 import { Itinerary } from '@/types/itineraryItem';
 import { Clock, Luggage, PiggyBank, SunSnow, Smile } from 'lucide-react';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 type PromptObj = {
   travelerType?: string;
@@ -56,7 +58,7 @@ export default function ItineraryModal({ itinerary, onClose }: ItineraryModalPro
       pdf.save(`${itinerary.destination}_itinerary.pdf`);
     } catch (error) {
       console.error("Error generating PDF:", error);
-      alert("Failed to generate PDF");
+      toast.error("Failed to generate PDF");
     }
   };
 
@@ -87,6 +89,7 @@ export default function ItineraryModal({ itinerary, onClose }: ItineraryModalPro
         <Button variant="secondary" onClick={handleDownloadPDF}>
           Download PDF
         </Button>
+        <ToastContainer position="top-center" autoClose={2000} />
       </div>
     </Modal>
   );

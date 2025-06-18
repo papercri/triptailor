@@ -3,11 +3,8 @@ import { useEffect, useState } from 'react'
 import { collection, doc, onSnapshot, query } from 'firebase/firestore'
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { auth, db } from '@/services/firebaseConfig'
+import { Itinerary } from '@/types/itineraryItem'
 
-interface Itinerary {
-  id: string
-  [key: string]: string 
-}
 
 export const useUserItineraries = () => {
   const [user] = useAuthState(auth)
@@ -30,7 +27,18 @@ export const useUserItineraries = () => {
     const unsubscribe = onSnapshot(
       q,
       (snapshot) => {
-        const data = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }))
+        const data = snapshot.docs.map(doc => {
+          const docData = doc.data()
+          return {
+            id: doc.id,
+            key: docData.key,
+            destination: docData.destination,
+            createdAt: docData.createdAt,
+            itinerary: docData.itinerary,
+            prompt: docData.prompt,
+    
+          } as Itinerary
+        })
         setItineraries(data)
         setLoading(false)
       },

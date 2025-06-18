@@ -5,6 +5,8 @@ import { db } from '@/services/firebaseConfig';
 import { enrichItineraryWithCoords } from '@/utils/enrichItinerary';
 import { ItineraryItem } from '@/types/itineraryItem';
 import dynamic from 'next/dynamic';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const MapaConItinerario = dynamic(
   () => import('@/components/openAi/travelAssistent/travelResult/MapaConItinerario'),
@@ -35,8 +37,7 @@ export default function TravelResult({ itinerary, destination, userId, userEmail
       const enriched = await enrichItineraryWithCoords(itinerary);
       const userRef = doc(db, 'users', userId);
       const itinerariesRef = collection(userRef, 'itineraries');
-       console.log(form.travelerType);
-
+    
        await addDoc(itinerariesRef, {
         destination,
         userId,
@@ -52,10 +53,10 @@ export default function TravelResult({ itinerary, destination, userId, userEmail
         },
       });
 
-      alert('Itinerary saved successfully!');
+      toast.error('Itinerary saved successfully!');
     } catch (error) {
       console.error(error);
-      alert('Error saving itinerary');
+      toast.error('Error saving itinerary');
     }
   };
 
@@ -73,6 +74,7 @@ export default function TravelResult({ itinerary, destination, userId, userEmail
       >
         Save Itinerary
       </button>
+      <ToastContainer position="top-center" autoClose={2000} />
     </div>
   );
 }

@@ -1,6 +1,8 @@
 
 export interface ItineraryItem {
 
+  date: string
+
   day: number
   activity: string
   location?: string
@@ -13,9 +15,11 @@ export interface ItineraryItem {
 
 export interface Itinerary {
   id: string
+  key: string 
   destination: string
   createdAt: string
   email?: string
   itinerary: ItineraryItem[]
   prompt: string | object 
+  
 }
