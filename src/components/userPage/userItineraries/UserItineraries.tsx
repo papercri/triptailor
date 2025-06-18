@@ -1,6 +1,8 @@
 "use client"
 
 import React, { useState, useRef } from 'react'
+import { doc, deleteDoc } from "firebase/firestore";
+import { auth, db } from '@/services/firebaseConfig'
 import { useUserItineraries } from '@/hooks/useUserItineraries'
 import Modal from '@/components/ui/Modal/Modal'
 import MapaConItinerarioNoSSR from '@/components/openAi/travelAssistent/travelResult/MapaConItinerario'
@@ -38,6 +40,23 @@ export default function UserItinerariesPage() {
         printWindow.document.close()
         printWindow.print()
       }
+    }
+  }
+  async function handleDelete(itineraryId: string) {
+    const userId = auth.currentUser?.uid;
+    if (!userId) {
+      alert("User not authenticated");
+      return;
+    }
+    
+    try {
+      await deleteDoc(doc(db, "users", userId, "itineraries", itineraryId));
+      alert("Itinerary deleted successfully");
+      // Aquí actualiza el estado local para eliminarlo de la lista sin recargar
+      // O bien, si usas SWR o React Query, refetcha los datos
+    } catch (error) {
+      console.error("Failed to delete itinerary", error);
+      alert("Failed to delete itinerary");
     }
   }
 
@@ -95,6 +114,16 @@ export default function UserItinerariesPage() {
                 <Button variant="secondary" onClick={() => { setSelectedItinerary(itinerary as unknown as Itinerary); handleModify() }}>
                   Modify
                 </Button>
+                <Button
+                variant="danger"
+                onClick={() => {
+                  if (confirm("Are you sure you want to delete this itinerary?")) {
+                    handleDelete(itinerary.id);
+                  }
+                }}
+              >
+                Delete
+              </Button>
               </div>
             </div>
           )

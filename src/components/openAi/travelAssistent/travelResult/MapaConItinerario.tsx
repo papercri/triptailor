@@ -15,7 +15,7 @@ const MapContainer = dynamic(() => import('react-leaflet').then(m => m.MapContai
 const TileLayer = dynamic(() => import('react-leaflet').then(m => m.TileLayer), { ssr: false });
 const Marker = dynamic(() => import('react-leaflet').then(m => m.Marker), { ssr: false });
 const Popup = dynamic(() => import('react-leaflet').then(m => m.Popup), { ssr: false });
-const LatLngTuple = dynamic(() => import('react-leaflet').then(m => m.Popup), { ssr: false });
+
 
 const defaultPosition: LatLngTuple = [48.8566, 2.3522]; // París por defecto
 
