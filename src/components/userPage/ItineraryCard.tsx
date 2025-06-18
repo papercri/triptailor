@@ -3,6 +3,9 @@ import { Clock, PiggyBank, SunSnow, Smile, Eye, CircleX } from 'lucide-react';
 import { Itinerary } from '@/types/itineraryItem';
 import { getCountryBackgroundPhoto } from '@/services/getCountryBackgroundPhoto';
 import { Tooltip } from 'react-tooltip'
+import ConfirmDialog from '@/components/ui/ConfirmDialog/ConfirmDialog';
+
+
 type PromptObj = {
   travelerType?: string;
   days?: number;
@@ -16,6 +19,7 @@ type ItineraryCardProps = {
   onView: (itinerary: Itinerary) => void;
   onDelete: (id: string) => void;
 };
+
 
 const parsePrompt = (prompt: unknown): PromptObj => {
   try {
@@ -32,7 +36,7 @@ export default function ItineraryCard({ itinerary, onView, onDelete }: Itinerary
   const promptObj = parsePrompt(itinerary.prompt);
   const [imageUrl, setImageUrl] = useState<string | null>(null);
   const [hasMounted, setHasMounted] = useState(false);
-  
+  const [confirmOpen, setConfirmOpen] = useState(false);
 
   useEffect(() => {
     setHasMounted(true);
@@ -87,13 +91,11 @@ export default function ItineraryCard({ itinerary, onView, onDelete }: Itinerary
               <Eye color="grey"/>
             </button>
             <button
-              onClick={() => {
-                if (confirm("Are you sure you want to delete this itinerary?")) {
-                  onDelete(itinerary.id);
-                }
-              }}
-              data-tooltip-id="delete" data-tooltip-content="Delete"
+              onClick={() => setConfirmOpen(true)}
+              data-tooltip-id="delete"
+              data-tooltip-content="Delete"
             >
+             
               <CircleX color="red"/>
             </button>
             <Tooltip id="details" />
@@ -101,7 +103,14 @@ export default function ItineraryCard({ itinerary, onView, onDelete }: Itinerary
           </div>
         </div>
       </div>
-      
+       <ConfirmDialog
+        open={confirmOpen}
+        onOpenChange={setConfirmOpen}
+        onConfirm={() => onDelete(itinerary.id)}
+        title="Delete Itinerary"
+        description="Are you sure you want to delete this itinerary? This action cannot be undone."
+      />
+ 
     </div>
   );
 }
