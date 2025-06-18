@@ -14,13 +14,22 @@
   background: white;
   border-radius: 0.5rem;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-  max-width: 800px;
-  max-height: 90vh;
-  width: 100%;
-  padding: 2rem;
+  height: auto;
+  width: auto;
+  max-width: 95%;
+  max-height: 95%;
+  padding: 1rem;
   overflow-y: auto;
 }
+.small {
+  width: 300px;
+  height:auto;
+}
 
+.large {
+  width: 95%;
+  height: 95%;
+}
 .closeButton {
   position: absolute;
   top: 1rem;

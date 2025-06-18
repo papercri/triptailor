@@ -49,7 +49,7 @@ export default function TravelAssistantSteps({ destination }: { destination: str
     );
   }
 
-  // Resto de pasos normales
+
   return (
     <div className="travel-assistent">
       <h2 className='title'>Plan your Trip to {destination}</h2>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
-
+import Spinner from '@/components/ui/Spinner/Spinner';
 const Map = dynamic(() => import('@/components/map/Map'), {
   ssr: false,
   loading: () => <p>Loading map...</p>,
@@ -27,7 +27,7 @@ function CompoMap({ lat, lng, place }: MapProps) {
           {isClient ? (
             <Map lat={lat} lng={lng} place={place} />
           ) : (
-            <p>Loading...</p>
+            <p><Spinner /></p>
           )}
         </div>
       </div>

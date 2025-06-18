@@ -1,0 +1,54 @@
+@use "@/styles/variables.scss"  as *;
+.user-itineraries{
+    h1{
+        font-size: 1.875rem; // text-3xl
+        font-weight: 700;    // font-bold
+        margin-bottom: 1.5rem; // mb-6
+        text-align: center;
+    }
+    .itineraries-grid{
+        display: grid;
+        gap: 2rem;
+         grid-template-columns: 1fr;
+        @media (min-width: 768px) {
+            grid-template-columns: repeat(2, 1fr);
+        }
+        @media (min-width: 1024px) {
+            grid-template-columns: repeat(3, 1fr);
+        }
+        .card{
+            background-color: white;
+            border-radius: $radius; 
+            box-shadow: $shadow; 
+            padding:0;
+            .title{
+                font-size: 1.25rem;       
+                font-weight: 600;        
+                color:$primary-color;           
+                margin-bottom: 0.25rem;
+            }
+            .subtitle{
+                font-size: 0.875rem;     
+                color: $text-light;  
+                margin-bottom: 0.5rem;  
+            }
+            .image-wrapper{
+                 margin-bottom: 0.5rem;
+                 border-radius: $radius $radius 0 0;
+                 overflow: hidden;
+                 cursor:pointer;
+            }
+            .card-content{
+                padding:1rem;
+            }
+            .travel-details{
+                margin: 10px 0;
+                color: $text-light; 
+                span{
+                    margin: 0 5px;
+                    color:$background-grey
+                }
+            }
+        }
+    }
+}

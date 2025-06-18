@@ -1,10 +1,8 @@
-import UserItineraries from "@/components/userPage/userItineraries/UserItineraries";
+import UserItineraries from "@/components/userPage/UserItineraries";
 import Header from "@/components/layout/header/Header"
 import Footer from "@/components/layout/footer/Footer"
 import './user.scss'
 
-
-   
 export default function DashboardPage() {
  
   return (
@@ -13,12 +11,6 @@ export default function DashboardPage() {
     <main>
      <section className="section user-area">
           <div className="container">
-              {/* <div className="header">
-                <h2>Your personal area</h2>
-                <p>Manage all your trips from one place</p>
-              </div> */}
-
-              
               <div className="user-area__content">
                   <div className="trip-list">
                        <UserItineraries />
@@ -27,7 +19,6 @@ export default function DashboardPage() {
           </div>
       </section>
     </main>
-
     <Footer />
     </>
     
