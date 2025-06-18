@@ -1,7 +1,7 @@
 'use client';
-
+import 'leaflet/dist/leaflet.css';
 import { useEffect, useState } from 'react';
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import dynamic from 'next/dynamic';
 import { getCoordinates } from '@/services/geocode'; 
 import { MapBounds }  from '@/components/map/MapBounds';
 import { ItineraryItem } from '@/types/itineraryItem';
@@ -9,6 +9,13 @@ import L from 'leaflet';
 import { MapPin } from 'lucide-react';
 
 import type { LatLngTuple } from 'leaflet';
+
+
+const MapContainer = dynamic(() => import('react-leaflet').then(m => m.MapContainer), { ssr: false });
+const TileLayer = dynamic(() => import('react-leaflet').then(m => m.TileLayer), { ssr: false });
+const Marker = dynamic(() => import('react-leaflet').then(m => m.Marker), { ssr: false });
+const Popup = dynamic(() => import('react-leaflet').then(m => m.Popup), { ssr: false });
+const LatLngTuple = dynamic(() => import('react-leaflet').then(m => m.Popup), { ssr: false });
 
 const defaultPosition: LatLngTuple = [48.8566, 2.3522]; // París por defecto
 

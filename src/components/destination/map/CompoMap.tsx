@@ -27,7 +27,7 @@ function CompoMap({ lat, lng, place }: MapProps) {
           {isClient ? (
             <Map lat={lat} lng={lng} place={place} />
           ) : (
-            <p>Loading map...</p>
+            <p>Loading...</p>
           )}
         </div>
       </div>

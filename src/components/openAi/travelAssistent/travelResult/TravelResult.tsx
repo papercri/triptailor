@@ -6,9 +6,13 @@ import { enrichItineraryWithCoords } from '@/utils/enrichItinerary';
 import { ItineraryItem } from '@/types/itineraryItem';
 import dynamic from 'next/dynamic';
 
-const MapaConItinerarioNoSSR = dynamic(() => import('./MapaConItinerario'), {
-  ssr: false,
-});
+const MapaConItinerario = dynamic(
+  () => import('@/components/openAi/travelAssistent/travelResult/MapaConItinerario'),
+  {
+    ssr: false,
+    loading: () => <p>Loading map...</p>,
+  }
+);
 
 type TravelResultProps = {
   itinerary: ItineraryItem[];
@@ -62,7 +66,7 @@ export default function TravelResult({ itinerary, destination, userId, userEmail
         <p className="text-gray-600">Discover the beauty of {destination}</p>
       </div>
       
-      <MapaConItinerarioNoSSR itinerary={itinerary} />
+      <MapaConItinerario itinerary={itinerary} />
       <button
         onClick={saveItinerary}
         className="mt-4 bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
