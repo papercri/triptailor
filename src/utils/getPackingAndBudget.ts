@@ -38,9 +38,9 @@ export async function getPackingAndBudget({
     }
   );
 
-  console.log("Status:", response.status);
+  // console.log("Status:", response.status);
   const result = await response.json();
-  console.log("Result:", JSON.stringify(result, null, 2));
+  // console.log("Result:", JSON.stringify(result, null, 2));
 
   if (Array.isArray(result) && result[0]?.generated_text) {
     return result[0].generated_text;

@@ -6,7 +6,7 @@ import styles from './Modal.module.scss';
 interface ModalProps {
   children: ReactNode;
   onClose: () => void;
-  variant?: 'small' | 'large'; 
+  variant?: 'small' | 'large'| 'med'; 
 }
 
 export default function Modal({ children, onClose, variant = 'large' }: ModalProps) {
@@ -27,6 +27,8 @@ export default function Modal({ children, onClose, variant = 'large' }: ModalPro
         className={clsx(styles.modal, {
           [styles.small]: variant === 'small',
           [styles.large]: variant === 'large',
+          [styles.med]: variant === 'med'
+          
         })}
       >
         <button className={styles.closeButton} onClick={onClose}>

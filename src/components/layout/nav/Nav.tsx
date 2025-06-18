@@ -9,7 +9,7 @@ function Nav() {
   const [isMobileMenuActive, setMobileMenuActive] = useState(false);
   const router = useRouter();
   const { user,  logout } = useUser();
-  console.log(user?.displayName);
+  // console.log(user?.displayName);
   const toggleMobileMenu = () => {
     setMobileMenuActive(prev => !prev);
   };

@@ -53,7 +53,7 @@ export default function TravelResult({ itinerary, destination, userId, userEmail
         },
       });
 
-      toast.error('Itinerary saved successfully!');
+      toast.success('Itinerary saved successfully!');
     } catch (error) {
       console.error(error);
       toast.error('Error saving itinerary');

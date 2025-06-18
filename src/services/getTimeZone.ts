@@ -7,7 +7,7 @@ export const getTimeZone = async (lat: number, lng: number) => {
   });
   const data = await res.json();
 
-  console.log('🕐 TimeZoneDB response:', data); 
+  // console.log('🕐 TimeZoneDB response:', data); 
 
   if (data.status !== 'OK') {
     

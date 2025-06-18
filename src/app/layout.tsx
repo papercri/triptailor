@@ -13,6 +13,9 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "TripTailor",
   description: "Your AI-powered personal travel companion. Plan, discover, and live unique experiences tailored to your style.",
+  icons: {
+    icon: "/images/favicon.ico?v=2",
+  },
 };
 
 export default function RootLayout({

@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { doc, deleteDoc } from "firebase/firestore";
 import { auth, db } from '@/services/firebaseConfig'
 import { useUserItineraries } from '@/hooks/useUserItineraries'
@@ -15,6 +15,13 @@ import ItineraryCard from '@/components/userPage/ItineraryCard';
 export default function UserItinerariesPage() {
   const { itineraries, loading, error } = useUserItineraries()
   const [selectedItinerary, setSelectedItinerary] = useState<Itinerary | null>(null)
+  const [userName, setUserName] = useState<string | null>(null)
+  useEffect(() => {
+    const currentUser = auth.currentUser;
+    if (currentUser) {
+      setUserName(currentUser.displayName || currentUser.email); 
+    }
+  }, []);
   async function handleDelete(itineraryId: string) {
     const userId = auth.currentUser?.uid;
     if (!userId) {
@@ -38,7 +45,7 @@ export default function UserItinerariesPage() {
 
   return (
     <div className="user-itineraries">
-      <h1>Your Saved Itineraries</h1>
+      <h1 className='capitalize'>{userName ? `${userName}'s saved Itineraries` : 'Your Saved Itineraries'}</h1>
       <div className="itineraries-grid">
        {itineraries.map((itinerary) => (
         <ItineraryCard
