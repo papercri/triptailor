@@ -7,7 +7,6 @@ import Link from "next/link";
 import { useState } from 'react';
 import { useUser } from '@/context/UserContext';
 
-
 export default function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -67,6 +66,11 @@ export default function LoginPage() {
                 </div>
 
                 <button type="submit" className="btn btn--primary btn--full">Sign In</button>
+                {error && (
+                  <div className="auth-error" style={{ color: 'red', marginTop: '1rem' }}>
+                    {error}
+                  </div>
+                )}
               </form>
               <div className="auth-footer">
                 <p>Don&apos;t have an account? <Link href="/auth/signup">Sign up</Link></p>

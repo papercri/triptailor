@@ -34,6 +34,7 @@ export default function TravelAssistantSteps({ destination }: { destination: str
           destination={destination}
           userId={userId}
           userEmail={user?.email}
+          form={form} 
         />
 
         <div className="flex justify-between mt-6 gap-4">
@@ -48,7 +49,7 @@ export default function TravelAssistantSteps({ destination }: { destination: str
     );
   }
 
-  // Resto de pasos normales
+
   return (
     <div className="travel-assistent">
       <h2 className='title'>Plan your Trip to {destination}</h2>
@@ -57,7 +58,7 @@ export default function TravelAssistantSteps({ destination }: { destination: str
 
       <StepContent
         stepIndex={stepIndex}
-        form={form}
+        form={{ ...form, days: String(form.days) }}
         handleSelect={handleSelect}
         toggleInterest={toggleInterest}
       />

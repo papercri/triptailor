@@ -1,5 +1,5 @@
 import React from 'react';
-
+import Spinner from '@/components/ui/Spinner/Spinner';
 type WeatherData = {
   weather: { icon: string; description: string }[];
   main: { temp: number; feels_like: number; humidity: number };
@@ -11,7 +11,7 @@ type ClimaProps = {
 };
 
 function Clima({ weatherData }: ClimaProps) {
-  if (!weatherData) return <div>Loading...</div>;
+  if (!weatherData) return <div><Spinner /></div>;
   return (
     <div className="info-card">
       <h3>Weather and Meteorology</h3>

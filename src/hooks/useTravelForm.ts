@@ -1,3 +1,4 @@
+'use client';
 import { useState } from 'react';
 import { ItineraryItem } from '@/types/itineraryItem';
 import { getAIPrompt } from '@/utils/getAiPrompt';
@@ -6,7 +7,7 @@ export default function useTravelForm(destination: string) {
   const [form, setForm] = useState({
     travelerType: '',
     budget: '',
-    days: '',
+    days: 0,
     season: '',
     interests: [] as string[],
   });
@@ -19,7 +20,10 @@ export default function useTravelForm(destination: string) {
   const goBack = () => setStepIndex((prev) => Math.max(prev - 1, 0));
 
   const handleSelect = (key: string, value: string) => {
-    setForm((prev) => ({ ...prev, [key]: value }));
+  setForm((prev) => ({
+      ...prev,
+      [key]: key === 'days' ? Number(value) : value,
+    }));
   };
 
   const toggleInterest = (interest: string) => {
@@ -34,7 +38,7 @@ export default function useTravelForm(destination: string) {
   const isStepValid = () => {
     if (stepIndex === 0) return !!form.travelerType;
     if (stepIndex === 1) return !!form.budget;
-    if (stepIndex === 2) return !!form.days;
+    if (stepIndex === 2) return form.days > 0;
     if (stepIndex === 3) return !!form.season;
     if (stepIndex === 4) return form.interests.length > 0;
     return true;
@@ -50,6 +54,7 @@ export default function useTravelForm(destination: string) {
     - Use HTML-friendly formatting (e.g., <strong> instead of **).
     - Keep each day's plan short and clear.
     - Include real place names (museums, landmarks, restaurants, parks, etc.).
+    - Limit to a maximum of 3 activities per day.
     - Format the output as a JSON array, like:
     [
       {
@@ -62,6 +67,7 @@ export default function useTravelForm(destination: string) {
     ]
     - Always include the city and country in the "place" field.
     - Output only the JSON array.`; 
+
     const result = await getAIPrompt(prompt);
     try {
       if (result !== null) {

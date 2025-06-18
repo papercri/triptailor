@@ -6,27 +6,32 @@ import Link from "next/link";
 import '../auth.scss'
 import { useState } from 'react';
 import { useUser } from '@/context/UserContext';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function RegisterPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [username, setUsername] = useState('');
-  const [error, setError] = useState('');
+  // const [error, setError] = useState('');
   const router = useRouter();
   const { signUp } = useUser();
-
-
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
+    
     try {
       const user = await signUp(email, password, username);
       console.log('User registered:', user.uid, user.displayName);
-      alert('Registration successful!');
+      toast.success("Registration successful!");
+      router.push('/');
+     
     } catch (err: unknown) {
       if (err instanceof Error) {
-        alert(err.message);
+        toast.error(err.message);
+        
       } else {
-        alert('An unknown error occurred.');
+        toast.error('An unknown error occurred.');
+        
       }
     }
   };
@@ -35,6 +40,7 @@ export default function RegisterPage() {
   return (
     <>
       <Header />
+      
       <main className="auth-section">
         <div className="container">
           <div className="auth-container">
@@ -104,6 +110,7 @@ export default function RegisterPage() {
             </div>
           </div>
         </div>
+        <ToastContainer position="top-center" autoClose={2000} />
       </main>
       <Footer />
     </>

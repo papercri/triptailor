@@ -40,7 +40,7 @@ function Culture({ cultureData, countryCommonName }: CultureProps) {
                 className="rounded mb-4 w-full h-auto object-cover"
               />
             ) : (
-              // placeholder mientras carga o en SSR
+   
               <div className="w-full h-48 bg-gray-200 rounded mb-4" aria-hidden="true" />
             )}
           </div>

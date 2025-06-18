@@ -31,14 +31,14 @@ export default function TravelAssistantModal({ destination }: { destination: str
 
       {/* Modal if user is logged in */}
       {isOpen && (
-        <Modal onClose={() => setIsOpen(false)}>
+        <Modal onClose={() => setIsOpen(false)} variant="large">
           <TravelAssistantSteps destination={destination} />
         </Modal>
       )}
 
       {/* Modal if not logged in */}
       {showLoginModal && (
-        <Modal onClose={() => setShowLoginModal(false)}>
+        <Modal onClose={() => setShowLoginModal(false)} variant="small">
           <div className="space-y-4 text-center p-6">
             <h2 className="text-xl font-bold">Login Required</h2>
             <p>You need to be logged in to plan your trip.</p>

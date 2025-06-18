@@ -1,40 +1,62 @@
 'use client';
 
-import { ref, set } from 'firebase/database';
-import { database } from '@/services/firebaseConfig';
+import { addDoc, collection, doc } from 'firebase/firestore';
+import { db } from '@/services/firebaseConfig';
 import { enrichItineraryWithCoords } from '@/utils/enrichItinerary';
 import { ItineraryItem } from '@/types/itineraryItem';
 import dynamic from 'next/dynamic';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-const MapaConItinerarioNoSSR = dynamic(() => import('./MapaConItinerario'), {
-  ssr: false,
-});
+const MapaConItinerario = dynamic(
+  () => import('@/components/openAi/travelAssistent/travelResult/MapaConItinerario'),
+  {
+    ssr: false,
+    loading: () => <p>Loading map...</p>,
+  }
+);
 
 type TravelResultProps = {
   itinerary: ItineraryItem[];
   destination: string;
   userId: string;
   userEmail?: string | null;
+  form: {
+    travelerType: string;
+    budget: string;
+    days: number;
+    season: string;
+    interests: string[];
+  };
 };
 
-export default function TravelResult({ itinerary, destination, userId, userEmail }: TravelResultProps) {
+export default function TravelResult({ itinerary, destination, userId, userEmail, form }: TravelResultProps) {
+
   const saveItinerary = async () => {
     try {
       const enriched = await enrichItineraryWithCoords(itinerary);
-      const itineraryId = Date.now();
-
-      await set(ref(database, `itineraries/${userId}/${itineraryId}`), {
+      const userRef = doc(db, 'users', userId);
+      const itinerariesRef = collection(userRef, 'itineraries');
+    
+       await addDoc(itinerariesRef, {
+        destination,
         userId,
         email: userEmail ?? null,
-        destination,
         itinerary: enriched,
         createdAt: new Date().toISOString(),
+        prompt: {
+          travelerType: form.travelerType || '',
+          budget: form.budget || '',
+          days: form.days || 0,
+          season: form.season || '',
+          interests: Array.isArray(form.interests) ? form.interests : [],
+        },
       });
 
-      alert('Itinerary saved successfully!');
+      toast.error('Itinerary saved successfully!');
     } catch (error) {
       console.error(error);
-      alert('Error saving itinerary');
+      toast.error('Error saving itinerary');
     }
   };
 
@@ -45,13 +67,14 @@ export default function TravelResult({ itinerary, destination, userId, userEmail
         <p className="text-gray-600">Discover the beauty of {destination}</p>
       </div>
       
-      <MapaConItinerarioNoSSR itinerary={itinerary} />
+      <MapaConItinerario itinerary={itinerary} />
       <button
         onClick={saveItinerary}
         className="mt-4 bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
       >
         Save Itinerary
       </button>
+      <ToastContainer position="top-center" autoClose={2000} />
     </div>
   );
 }
