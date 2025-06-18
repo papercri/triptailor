@@ -11,18 +11,13 @@ export default function DashboardPage() {
     <>
     <Header />
     <main>
-     <section className="section user-area" style={{background: "white"}}>
+     <section className="section user-area">
           <div className="container">
-              <div className="header">
+              {/* <div className="header">
                 <h2>Your personal area</h2>
                 <p>Manage all your trips from one place</p>
-              </div>
-              
-              <div className="user-area__tabs">
-                  <button className="tab active">My Itineraries</button>
-               
+              </div> */}
 
-              </div>
               
               <div className="user-area__content">
                   <div className="trip-list">

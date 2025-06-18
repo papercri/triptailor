@@ -9,6 +9,8 @@ import MapaConItinerarioNoSSR from '@/components/openAi/travelAssistent/travelRe
 import Button from '@/components/ui/Button/Button'
 import { Itinerary } from '@/types/itineraryItem'
 import TravelAssistantSteps from '@/components/openAi/travelAssistent/TravelAssistent'
+import jsPDF from "jspdf";
+import html2canvas from "html2canvas-pro";
 
 type PromptObj = {
   travelerType?: string
@@ -23,25 +25,33 @@ export default function UserItinerariesPage() {
   const [selectedItinerary, setSelectedItinerary] = useState<Itinerary | null>(null)
   const [modifyMode, setModifyMode] = useState(false)
   const printRef = useRef<HTMLDivElement>(null)
+  
+  const handleDownloadPDF = async () => {
+    
+    if (!printRef.current || !selectedItinerary) return;
 
-  const handlePrint = () => {
-    if (printRef.current && selectedItinerary) {
-      const printWindow = window.open('', '_blank')
-      if (printWindow) {
-        printWindow.document.write(`
-          <html>
-            <head>
-              <title>Itinerary for ${selectedItinerary.destination}</title>
-              <style>body { font-family: sans-serif; padding: 20px; }</style>
-            </head>
-            <body>${printRef.current.innerHTML}</body>
-          </html>
-        `)
-        printWindow.document.close()
-        printWindow.print()
-      }
+    try {
+      const element = printRef.current;
+      const canvas = await html2canvas(element, { scale: 2 });
+      const imgData = canvas.toDataURL('image/png');
+
+      const pdf = new jsPDF({
+        orientation: 'portrait',
+        unit: 'pt',
+        format: 'a4',
+      });
+
+      const pdfWidth = pdf.internal.pageSize.getWidth();
+      const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+
+      pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+      pdf.save(`${selectedItinerary.destination}_itinerary.pdf`);
+    } catch (error) {
+      console.error("Error generating PDF:", error);
+      alert("Failed to generate PDF");
     }
-  }
+  };
+
   async function handleDelete(itineraryId: string) {
     const userId = auth.currentUser?.uid;
     if (!userId) {
@@ -52,8 +62,7 @@ export default function UserItinerariesPage() {
     try {
       await deleteDoc(doc(db, "users", userId, "itineraries", itineraryId));
       alert("Itinerary deleted successfully");
-      // Aquí actualiza el estado local para eliminarlo de la lista sin recargar
-      // O bien, si usas SWR o React Query, refetcha los datos
+
     } catch (error) {
       console.error("Failed to delete itinerary", error);
       alert("Failed to delete itinerary");
@@ -108,9 +117,7 @@ export default function UserItinerariesPage() {
                 <Button variant="primary" onClick={() => { setSelectedItinerary(itinerary as unknown as Itinerary); setModifyMode(false) }}>
                   View Details
                 </Button>
-                <Button variant="secondary" onClick={() => { setSelectedItinerary(itinerary as unknown as Itinerary); setModifyMode(false); setTimeout(handlePrint, 0) }}>
-                  Print
-                </Button>
+    
                 <Button variant="secondary" onClick={() => { setSelectedItinerary(itinerary as unknown as Itinerary); handleModify() }}>
                   Modify
                 </Button>
@@ -147,6 +154,9 @@ export default function UserItinerariesPage() {
                 {selectedItinerary.destination}
               </h4>
               <MapaConItinerarioNoSSR itinerary={selectedItinerary.itinerary} />
+              <Button variant="secondary"  onClick={handleDownloadPDF}>
+                Download PDF
+              </Button>
             </div>
           )}
         </Modal>
