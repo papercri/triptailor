@@ -25,16 +25,24 @@ export default function UserItinerariesPage() {
   const [selectedItinerary, setSelectedItinerary] = useState<Itinerary | null>(null)
   const [modifyMode, setModifyMode] = useState(false)
   const printRef = useRef<HTMLDivElement>(null)
-  
+
   const handleDownloadPDF = async () => {
     
     if (!printRef.current || !selectedItinerary) return;
 
     try {
+
+      const mapContainer = printRef.current.querySelector('.mapaConItinerario');
+        if (mapContainer) {
+          mapContainer.classList.add('hide-map');
+        }
+
       const element = printRef.current;
       const canvas = await html2canvas(element, { scale: 2 });
       const imgData = canvas.toDataURL('image/png');
-
+      if (mapContainer) {
+        mapContainer.classList.remove('hide-map');
+      }
       const pdf = new jsPDF({
         orientation: 'portrait',
         unit: 'pt',
@@ -60,6 +68,7 @@ export default function UserItinerariesPage() {
     }
     
     try {
+      
       await deleteDoc(doc(db, "users", userId, "itineraries", itineraryId));
       alert("Itinerary deleted successfully");
 
