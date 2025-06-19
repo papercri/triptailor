@@ -5,7 +5,6 @@ import { getCountryBackgroundPhoto } from '@/services/getCountryBackgroundPhoto'
 import { Tooltip } from 'react-tooltip'
 import ConfirmDialog from '@/components/ui/ConfirmDialog/ConfirmDialog';
 
-
 type PromptObj = {
   travelerType?: string;
   days?: number;

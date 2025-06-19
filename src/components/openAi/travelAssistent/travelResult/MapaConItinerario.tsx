@@ -6,14 +6,14 @@ import { getCoordinates } from '@/services/geocode';
 import { MapBounds }  from '@/components/map/MapBounds';
 import { ItineraryItem } from '@/types/itineraryItem';
 import L from 'leaflet';
-import { MapPin } from 'lucide-react';
+import { MapPin, Download} from 'lucide-react';
 import Spinner from '@/components/ui/Spinner/Spinner';
 import type { LatLngTuple } from 'leaflet';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas-pro';
-import {  Download } from 'lucide-react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Button from '@/components/ui/Button/Button';
 
 const MapContainer = dynamic(() => import('react-leaflet').then(m => m.MapContainer), { ssr: false });
 const TileLayer = dynamic(() => import('react-leaflet').then(m => m.TileLayer), { ssr: false });
@@ -138,7 +138,7 @@ export default function MapaConItinerario({ itinerary }: { itinerary: Place[] })
             {idx === 0 || item.day !== itineraryWithCoords[idx - 1].day ? (
               <p className="text-xl font-semibold mb-2">Day {item.day}</p>
             ) : null}
-            <p><strong className="text-blue-500 mb-4 text-sm">{item.title}</strong></p>
+            <p><strong className="text-gray-800 mb-4 text-sm">{item.title}</strong></p>
             <p className="text-gray-800 mb-2 text-sm">{item.description}</p>
             <p className="text-sm text-gray-500 whitespace-nowrap">
               <MapPin className="inline" size={12} /> {item.place}
@@ -147,9 +147,12 @@ export default function MapaConItinerario({ itinerary }: { itinerary: Place[] })
           </div>
          
         ))}
-            <button onClick={handleDownloadPDF} className='mt-4 text-right'>
-              <Download className='inline'/> Download PDF
-            </button>
+            <div className='block text-right mt-4'>
+              <Button onClick={handleDownloadPDF} variant="secondary" size = "sm" icon={<Download className='inline'/>}>
+                  Download PDF
+              </Button>
+            </div>
+            
       </div>
       <ToastContainer position="top-center" autoClose={2000} />
     </div>

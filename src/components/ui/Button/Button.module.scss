@@ -8,13 +8,13 @@
     border: 1px solid $primary-color;
     color: $white;
     background-color: $primary-color;
-    border-radius: $radius;
+    border-radius: 5px;
     cursor: pointer;
     outline: none;
     transition: all 0.2s ease-in-out;
     width: fit-content;
     &:hover{
-        transform: translateY(-2px);
+       // transform: translateY(-2px);
     }
 }
 .primary {
@@ -26,11 +26,11 @@
   }
 }
 .secondary {
-  background-color: $background-grey;
-  color: black;
+  background-color: transparent;
+  color: $text-dark;
+  border-color: $text-light;
   &:hover{
-    background-color: $background-light;
-    color: $primary-color;
+    background-color: $background-grey;
   }
 }
 .accent{

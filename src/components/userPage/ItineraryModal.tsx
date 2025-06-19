@@ -56,8 +56,6 @@ export default function ItineraryModal({ itinerary, onClose }: ItineraryModalPro
           </div>
         </div>
         <MapaConItinerarioNoSSR itinerary={itinerary.itinerary} />
-      
-
       </div>
     </Modal>
   );

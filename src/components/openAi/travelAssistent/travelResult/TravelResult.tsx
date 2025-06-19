@@ -7,12 +7,14 @@ import { ItineraryItem } from '@/types/itineraryItem';
 import dynamic from 'next/dynamic';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import Button from '@/components/ui/Button/Button';
+import {  Download} from 'lucide-react';
+import Spinner from '@/components/ui/Spinner/Spinner';
 const MapaConItinerario = dynamic(
   () => import('@/components/openAi/travelAssistent/travelResult/MapaConItinerario'),
   {
     ssr: false,
-    loading: () => <p>Loading map...</p>,
+    loading: () => <p><Spinner /></p>,
   }
 );
 
@@ -68,12 +70,12 @@ export default function TravelResult({ itinerary, destination, userId, userEmail
       </div>
       
       <MapaConItinerario itinerary={itinerary} />
-      <button
-        onClick={saveItinerary}
-        className="mt-4 bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
-      >
-        Save Itinerary
-      </button>
+ 
+      <div className='block text-right mt-4'>
+        <Button onClick={saveItinerary} variant="secondary" size = "sm" icon={<Download className='inline'/>}>
+            Save Itinerary
+        </Button>
+      </div>
       <ToastContainer position="top-center" autoClose={2000} />
     </div>
   );
