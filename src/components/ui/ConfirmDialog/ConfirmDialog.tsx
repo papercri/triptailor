@@ -2,13 +2,12 @@
 'use client'
 import * as Dialog from '@radix-ui/react-dialog';
 import { X } from 'lucide-react';
-import React from 'react';
+import React, { useState } from 'react';
 
 type ConfirmDialogProps = {
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  onConfirm: () => void;
-  onCancel: () => void;
+  onConfirm: () => Promise<void>;
   title: string;
   description: string;
   cancel: string;
@@ -19,12 +18,24 @@ export default function ConfirmDialog({
   open,
   onOpenChange,
   onConfirm,
-  onCancel,
   title,
   description,
   cancel,
   confirm
 }: ConfirmDialogProps) {
+  const [loading, setLoading] = useState(false);
+
+  const handleConfirm = async () => {
+    setLoading(true);
+    try {
+      await onConfirm(); // espera a que termine
+    } catch (err) {
+      console.error('Error in onConfirm:', err);
+    } finally {
+      setLoading(false);
+      onOpenChange(false); // solo cierra si todo fue bien
+    }
+  };
   return (
     <Dialog.Root open={open} onOpenChange={onOpenChange}>
       <Dialog.Portal>
@@ -49,13 +60,10 @@ export default function ConfirmDialog({
             </Dialog.Close>
             <button
               className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
-              onClick={() => {
-                onConfirm();
-                onCancel();
-                onOpenChange(false);
-              }}
+               onClick={handleConfirm}
+              disabled={loading}
             >
-              {confirm}
+              {loading ? 'Saving...' : confirm}
             </button>
           </div>
         </Dialog.Content>

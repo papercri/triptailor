@@ -11,6 +11,7 @@ import Button from '@/components/ui/Button/Button';
 import { Save } from 'lucide-react';
 import Spinner from '@/components/ui/Spinner/Spinner';
 
+
 const MapaConItinerario = dynamic(
   () => import('@/components/openAi/travelAssistent/travelResult/MapaConItinerario'),
   {
