@@ -2,16 +2,19 @@
 
 .travel-assistent{
     margin-bottom: 2rem;
-    
+    max-width:600px;
     font-weight: 600;
     .title{
-        margin-bottom:20px;
+        margin:20px auto 30px;
         font-size:xx-large;
+        text-align: center;
     }
     .step-indicators {
         display: flex;
         justify-content: space-between;
         align-items: center;
+        margin-bottom:30px;
+        gap:20px
         }
         .step-indicator {
         flex: 1;
@@ -56,4 +59,9 @@
         }
     }
     
+    
+}
+.itinerary-view{
+    width:100%!important;
+    max-width:100%!important
 }

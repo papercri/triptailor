@@ -1,5 +1,5 @@
 'use client';
-
+import { useState } from 'react';
 import { addDoc, collection, doc, query, where, getDocs, updateDoc } from 'firebase/firestore';
 import { db } from '@/services/firebaseConfig';
 import { enrichItineraryWithCoords } from '@/utils/enrichItinerary';
@@ -35,7 +35,9 @@ type TravelResultProps = {
 
 export default function TravelResult({ itinerary, destination, userId, userEmail, form }: TravelResultProps) {
 
+  const [isSaving, setIsSaving] = useState(false);
   const saveItinerary = async () => {
+    setIsSaving(true);
     try {
       const enriched = await enrichItineraryWithCoords(itinerary);
       const userRef = doc(db, 'users', userId);
@@ -88,14 +90,21 @@ export default function TravelResult({ itinerary, destination, userId, userEmail
       console.error(error);
       toast.error('Error saving itinerary');
     }
+      finally {
+        setIsSaving(false);
+    }
   };
 
   return (
    <div className="mt-4 bg-white p-4 rounded shadow">
         <h3 className="text-4xl text-center font-bold text-gray-800 mb-2">Your Itinerary to {destination}</h3>
         <div className='block text-right mr-[20px]'>
-            <Button onClick={saveItinerary} variant="secondary" size="sm" icon={<Save className="inline" />}>
-            Save Itinerary
+            <Button onClick={saveItinerary} 
+            variant="secondary" 
+            size="sm" 
+            icon={<Save className="inline" />}
+            disabled={isSaving}>
+            {isSaving ? 'Saving...' : 'Save Itinerary'}
           </Button>
         </div>
       <MapaConItinerario itinerary={itinerary} />
