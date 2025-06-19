@@ -1,6 +1,5 @@
 'use client';
 
-
 import useTravelForm from '@/hooks/useTravelForm';
 import TravelResult from './travelResult/TravelResult';
 import StepContent from '@/components/openAi/travelAssistent/travelSteps/StepContent';
@@ -9,7 +8,6 @@ import StepNavigation from './travelSteps/StepNavigation';
 import "@/styles/travelAssistent.scss";
 import { useUser } from '@/context/UserContext';
 import Button from '@/components/ui/Button/Button';
-
 
 const steps = ['Traveler Type', 'Budget', 'Days', 'Season', 'Interests', 'Your Itinerary'];
 
@@ -27,7 +25,7 @@ export default function TravelAssistantSteps({ destination }: { destination: str
   if (stepIndex === 5 && itinerary) {
     return (
       <div className="travel-assistent itinerary-view">
-        <h2 className='title'>Your Itinerary for {destination}</h2>
+        {/* <h2 className='title'>Your Itinerary for {destination}</h2> */}
 
         <TravelResult
           itinerary={itinerary}
@@ -49,20 +47,16 @@ export default function TravelAssistantSteps({ destination }: { destination: str
     );
   }
 
-
   return (
     <div className="travel-assistent">
       <h2 className='title'>Plan your Trip to {destination}</h2>
-
       <StepIndicator steps={steps} currentStep={stepIndex} />
-
       <StepContent
         stepIndex={stepIndex}
         form={{ ...form, days: String(form.days) }}
         handleSelect={handleSelect}
         toggleInterest={toggleInterest}
       />
-
       <StepNavigation
         stepIndex={stepIndex}
         steps={steps}

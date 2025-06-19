@@ -106,8 +106,11 @@ export default function ItineraryCard({ itinerary, onView, onDelete }: Itinerary
         open={confirmOpen}
         onOpenChange={setConfirmOpen}
         onConfirm={() => onDelete(itinerary.id)}
+        onCancel={() => setConfirmOpen(false)}
         title="Delete Itinerary"
         description="Are you sure you want to delete this itinerary? This action cannot be undone."
+        cancel="Cancel"
+        confirm="Delete"
       />
  
     </div>

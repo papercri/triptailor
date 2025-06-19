@@ -8,16 +8,22 @@ type ConfirmDialogProps = {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   onConfirm: () => void;
+  onCancel: () => void;
   title: string;
   description: string;
+  cancel: string;
+  confirm: string;
 };
 
 export default function ConfirmDialog({
   open,
   onOpenChange,
   onConfirm,
+  onCancel,
   title,
-  description
+  description,
+  cancel,
+  confirm
 }: ConfirmDialogProps) {
   return (
     <Dialog.Root open={open} onOpenChange={onOpenChange}>
@@ -38,17 +44,18 @@ export default function ConfirmDialog({
           <div className="flex justify-end gap-3">
             <Dialog.Close asChild>
               <button className="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300">
-                Cancel
+                {cancel}
               </button>
             </Dialog.Close>
             <button
               className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
               onClick={() => {
                 onConfirm();
+                onCancel();
                 onOpenChange(false);
               }}
             >
-              Delete
+              {confirm}
             </button>
           </div>
         </Dialog.Content>

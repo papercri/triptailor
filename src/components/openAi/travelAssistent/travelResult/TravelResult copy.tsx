@@ -1,6 +1,6 @@
 'use client';
 
-import { addDoc, collection, doc, query, where, getDocs, updateDoc } from 'firebase/firestore';
+import { addDoc, collection, doc } from 'firebase/firestore';
 import { db } from '@/services/firebaseConfig';
 import { enrichItineraryWithCoords } from '@/utils/enrichItinerary';
 import { ItineraryItem } from '@/types/itineraryItem';
@@ -8,7 +8,7 @@ import dynamic from 'next/dynamic';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Button from '@/components/ui/Button/Button';
-import { Save } from 'lucide-react';
+import { Download} from 'lucide-react';
 import Spinner from '@/components/ui/Spinner/Spinner';
 
 const MapaConItinerario = dynamic(
@@ -40,35 +40,8 @@ export default function TravelResult({ itinerary, destination, userId, userEmail
       const enriched = await enrichItineraryWithCoords(itinerary);
       const userRef = doc(db, 'users', userId);
       const itinerariesRef = collection(userRef, 'itineraries');
-
-      // 🔍 Buscar si ya existe con ese destino
-      const q = query(itinerariesRef, where('destination', '==', destination));
-      const existingSnapshot = await getDocs(q);
-
-      if (!existingSnapshot.empty) {
-        const confirmOverwrite = confirm(`You already have an itinerary for ${destination}. Do you want to overwrite it? Click "Cancel" to save a new one.`);
-
-        if (confirmOverwrite) {
-          // ✏️ Sobrescribimos el primero que encontremos
-          const docToUpdate = existingSnapshot.docs[0];
-          await updateDoc(docToUpdate.ref, {
-            itinerary: enriched,
-            updatedAt: new Date().toISOString(),
-            prompt: {
-              travelerType: form.travelerType || '',
-              budget: form.budget || '',
-              days: form.days || 0,
-              season: form.season || '',
-              interests: Array.isArray(form.interests) ? form.interests : [],
-            },
-          });
-          toast.success('Itinerary overwritten successfully!');
-          return;
-        }
-      }
-
-      // 🆕 Crear uno nuevo
-      await addDoc(itinerariesRef, {
+    
+       await addDoc(itinerariesRef, {
         destination,
         userId,
         email: userEmail ?? null,
@@ -91,15 +64,19 @@ export default function TravelResult({ itinerary, destination, userId, userEmail
   };
 
   return (
-   <div className="mt-4 bg-white p-4 rounded shadow">
-        <h3 className="text-4xl text-center font-bold text-gray-800 mb-2">Your Itinerary to {destination}</h3>
-        <div className='block text-right mr-[20px]'>
-            <Button onClick={saveItinerary} variant="secondary" size="sm" icon={<Save className="inline" />}>
-            Save Itinerary
-          </Button>
-        </div>
+    <div className="mt-6 bg-white p-4 rounded shadow">
+      <div className="text-center mb-8">
+        <h3 className="text-4xl font-bold text-gray-800 mb-2">Your Itinerary</h3>
+        <p className="text-gray-600">Discover the beauty of {destination}</p>
+      </div>
+      
       <MapaConItinerario itinerary={itinerary} />
-
+ 
+      <div className='block text-right mt-4'>
+        <Button onClick={saveItinerary} variant="secondary" size = "sm" icon={<Download className='inline'/>}>
+            Save Itinerary
+        </Button>
+      </div>
       <ToastContainer position="top-center" autoClose={2000} />
     </div>
   );
