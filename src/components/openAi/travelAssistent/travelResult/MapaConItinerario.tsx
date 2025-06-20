@@ -12,6 +12,7 @@ import type { LatLngTuple } from 'leaflet';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas-pro';
 import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import Button from '@/components/ui/Button/Button';
 
 const MapContainer = dynamic(() => import('react-leaflet').then(m => m.MapContainer), { ssr: false });
