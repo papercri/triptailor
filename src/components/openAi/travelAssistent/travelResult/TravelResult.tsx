@@ -10,7 +10,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import Button from '@/components/ui/Button/Button';
 import { Save } from 'lucide-react';
 import Spinner from '@/components/ui/Spinner/Spinner';
-
+import Modal from '@/components/ui/Modal/Modal';
 
 const MapaConItinerario = dynamic(
   () => import('@/components/openAi/travelAssistent/travelResult/MapaConItinerario'),
@@ -37,6 +37,10 @@ type TravelResultProps = {
 export default function TravelResult({ itinerary, destination, userId, userEmail, form }: TravelResultProps) {
 
   const [isSaving, setIsSaving] = useState(false);
+  const [showConfirm, setShowConfirm] = useState(false);
+  const [overwriteDocId, setOverwriteDocId] = useState<string | null>(null);
+
+  
   const saveItinerary = async () => {
     setIsSaving(true);
     try {
@@ -44,33 +48,19 @@ export default function TravelResult({ itinerary, destination, userId, userEmail
       const userRef = doc(db, 'users', userId);
       const itinerariesRef = collection(userRef, 'itineraries');
 
-      // 🔍 Buscar si ya existe con ese destino
+      // Busca si ya existe con ese destino
       const q = query(itinerariesRef, where('destination', '==', destination));
       const existingSnapshot = await getDocs(q);
 
-      if (!existingSnapshot.empty) {
-        const confirmOverwrite = confirm(`You already have an itinerary for ${destination}. Do you want to overwrite it? Click "Cancel" to save a new one.`);
-
-        if (confirmOverwrite) {
-          // ✏️ Sobrescribimos el primero que encontremos
-          const docToUpdate = existingSnapshot.docs[0];
-          await updateDoc(docToUpdate.ref, {
-            itinerary: enriched,
-            updatedAt: new Date().toISOString(),
-            prompt: {
-              travelerType: form.travelerType || '',
-              budget: form.budget || '',
-              days: form.days || 0,
-              season: form.season || '',
-              interests: Array.isArray(form.interests) ? form.interests : [],
-            },
-          });
-          toast.success('Itinerary overwritten successfully!');
-          return;
-        }
+       if (!existingSnapshot.empty) {
+        // Guarda el id del doc a sobrescribir y muestra el modal
+        setOverwriteDocId(existingSnapshot.docs[0].id);
+        setShowConfirm(true);
+        setIsSaving(false);
+        return;
       }
 
-      // 🆕 Crear uno nuevo
+      // Crear uno nuevo
       await addDoc(itinerariesRef, {
         destination,
         userId,
@@ -90,9 +80,39 @@ export default function TravelResult({ itinerary, destination, userId, userEmail
     } catch (error) {
       console.error(error);
       toast.error('Error saving itinerary');
+    } finally {
+      setIsSaving(false);
     }
-      finally {
-        setIsSaving(false);
+  };
+
+  // Lógica para sobrescribir
+  const handleOverwrite = async () => {
+    if (!overwriteDocId) return;
+    setIsSaving(true);
+    try {
+      const userRef = doc(db, 'users', userId);
+      const itinerariesRef = collection(userRef, 'itineraries');
+      const docToUpdate = doc(itinerariesRef, overwriteDocId);
+      const enriched = await enrichItineraryWithCoords(itinerary);
+      await updateDoc(docToUpdate, {
+        itinerary: enriched,
+        updatedAt: new Date().toISOString(),
+        prompt: {
+          travelerType: form.travelerType || '',
+          budget: form.budget || '',
+          days: form.days || 0,
+          season: form.season || '',
+          interests: Array.isArray(form.interests) ? form.interests : [],
+        },
+      });
+      toast.success('Itinerary overwritten successfully!');
+      setShowConfirm(false);
+      setOverwriteDocId(null);
+    } catch (error) {
+      console.error(error);
+      toast.error('Error overwriting itinerary');
+    } finally {
+      setIsSaving(false);
     }
   };
 
@@ -109,8 +129,63 @@ export default function TravelResult({ itinerary, destination, userId, userEmail
           </Button>
         </div>
       <MapaConItinerario itinerary={itinerary} />
+        {/* Modal de confirmación */}
+      {showConfirm && (
+        <Modal onClose={() => setShowConfirm(false)} variant="med">
+          <div className="max-w[600px] p-4 flex justify-center">
+            <div>
+              <h4 className="text-lg font-bold mb-2">Overwrite Itinerary?</h4>
+              <p className="mb-4">
+                You already have an itinerary for <b>{destination}</b>.<br />
+                Do you want to overwrite it? <br />
+                <span className="text-xs text-gray-500">Click &apos;Cancel&apos; to save a new one instead.</span>
+              </p>
+              <div className="flex gap-4 justify-end">
+                <Button
+                  variant="secondary"
+                  onClick={async () => {
+                    setShowConfirm(false);
+                    setIsSaving(true);
+                    try {
+                      const enriched = await enrichItineraryWithCoords(itinerary);
+                      const userRef = doc(db, 'users', userId);
+                      const itinerariesRef = collection(userRef, 'itineraries');
+                      await addDoc(itinerariesRef, {
+                        destination,
+                        userId,
+                        email: userEmail ?? null,
+                        itinerary: enriched,
+                        createdAt: new Date().toISOString(),
+                        prompt: {
+                          travelerType: form.travelerType || '',
+                          budget: form.budget || '',
+                          days: form.days || 0,
+                          season: form.season || '',
+                          interests: Array.isArray(form.interests) ? form.interests : [],
+                        },
+                      });
+                      toast.success('Itinerary saved as new!');
+                    } catch (error) {
+                      console.error(error);
+                      toast.error('Error saving new itinerary');
+                    } finally {
+                      setIsSaving(false);
+                    }
+                  }}
+                  disabled={isSaving}
+                >
+                  Save as New
+                </Button>
+                <Button variant="danger" onClick={handleOverwrite} disabled={isSaving}>
+                  {isSaving ? 'Overwriting...' : 'Overwrite'}
+                </Button>
+              </div>
+            </div>
+          </div>
+        </Modal>
+      )}
 
-      <ToastContainer position="top-center" autoClose={2000} />
+      <ToastContainer position="top-center" autoClose={1000} />
     </div>
   );
 }
