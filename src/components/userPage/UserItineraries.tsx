@@ -7,8 +7,7 @@ import { useUserItineraries } from '@/hooks/useUserItineraries'
 import ItineraryModal from '@/components/userPage/ItineraryModal'
 import { Itinerary } from '@/types/itineraryItem'
 import Spinner from '@/components/ui/Spinner/Spinner';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast } from 'react-toastify';
 import '@/styles/userItineraries.scss'
 import ItineraryCard from '@/components/userPage/ItineraryCard';
 
@@ -64,7 +63,6 @@ export default function UserItinerariesPage() {
           onClose={() => setSelectedItinerary(null)}
         />
       )}
-      <ToastContainer position="top-center" autoClose={1000} />
     </div>
   )
 }

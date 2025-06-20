@@ -11,8 +11,7 @@ import Spinner from '@/components/ui/Spinner/Spinner';
 import type { LatLngTuple } from 'leaflet';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas-pro';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast } from 'react-toastify';
 import Button from '@/components/ui/Button/Button';
 
 const MapContainer = dynamic(() => import('react-leaflet').then(m => m.MapContainer), { ssr: false });
@@ -154,7 +153,7 @@ export default function MapaConItinerario({ itinerary }: { itinerary: Place[] })
             </div>
             
       </div>
-      <ToastContainer position="top-center" autoClose={1000} />
+
     </div>
   );
 }

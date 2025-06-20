@@ -6,8 +6,8 @@ import Link from "next/link";
 import '../auth.scss'
 import { useState } from 'react';
 import { useUser } from '@/context/UserContext';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast } from 'react-toastify';
+
 
 export default function RegisterPage() {
   const [email, setEmail] = useState('');
@@ -110,7 +110,7 @@ export default function RegisterPage() {
             </div>
           </div>
         </div>
-        <ToastContainer position="top-center" autoClose={1000} />
+
       </main>
       <Footer />
     </>
