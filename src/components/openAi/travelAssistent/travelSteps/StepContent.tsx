@@ -4,11 +4,11 @@ import {
   FaHiking,
   FaSpa,
   FaLandmark,
-  FaUtensils,
-  FaChild,
   FaUser,
+  
 } from 'react-icons/fa';
-
+import { GiThreeFriends, GiLovers } from "react-icons/gi";
+import { MdOutlineFamilyRestroom, MdBusinessCenter } from "react-icons/md";
  const stepAnimation = {
     initial: { opacity: 0, x: 40 },
     animate: { opacity: 1, x: 0 },
@@ -42,9 +42,11 @@ export default function StepContent({ stepIndex, form, handleSelect, toggleInter
                   { label: 'Adventure', icon: <FaHiking /> },
                   { label: 'Relax', icon: <FaSpa /> },
                   { label: 'Culture', icon: <FaLandmark /> },
-                  { label: 'Food', icon: <FaUtensils /> },
-                  { label: 'Family', icon: <FaChild /> },
+                  { label: 'Romantic', icon: <GiLovers />},
+                  { label: 'Family', icon: <MdOutlineFamilyRestroom /> },
+                  { label: 'Friends', icon: <GiThreeFriends /> },
                   { label: 'Solo', icon: <FaUser /> },
+                  { label: 'Business', icon: <MdBusinessCenter />},
                 ].map(({ label, icon }) => (
                   <StepButton
                     key={label}
@@ -83,7 +85,7 @@ export default function StepContent({ stepIndex, form, handleSelect, toggleInter
             <div>
               <p className="mb-2 font-medium">How many days will you stay?</p>
               <div className="flex gap-2 flex-wrap">
-                {['1', '3', '5', '7', 'More than 7'].map((day) => (
+                {['1', '2','3','4','5', '7', 'More than 7'].map((day) => (
                   <button
                     key={day}
                     onClick={() => handleSelect('days', day)}
@@ -125,7 +127,7 @@ export default function StepContent({ stepIndex, form, handleSelect, toggleInter
             <div>
               <p className="mb-2 font-medium">Select your interests:</p>
               <div className="flex flex-wrap gap-3">
-                {['Museums', 'Nature', 'Beaches', 'Gastronomy', 'Shopping', 'History'].map(
+                {['Museums', 'History', 'Nature', 'Beaches', 'Wellness & Spa', 'Gastronomy', 'Shopping', 'Nightlife','Festivals' ].map(
                   (interest) => (
                     <button
                       key={interest}

@@ -5,7 +5,6 @@ import { getCountryBackgroundPhoto } from '@/services/getCountryBackgroundPhoto'
 import { Tooltip } from 'react-tooltip'
 import ConfirmDialog from '@/components/ui/ConfirmDialog/ConfirmDialog';
 
-
 type PromptObj = {
   travelerType?: string;
   days?: number;
@@ -106,9 +105,11 @@ export default function ItineraryCard({ itinerary, onView, onDelete }: Itinerary
        <ConfirmDialog
         open={confirmOpen}
         onOpenChange={setConfirmOpen}
-        onConfirm={() => onDelete(itinerary.id)}
+        onConfirm={async () => { onDelete(itinerary.id); }}
         title="Delete Itinerary"
         description="Are you sure you want to delete this itinerary? This action cannot be undone."
+        cancel="Cancel"
+        confirm="Delete"
       />
  
     </div>

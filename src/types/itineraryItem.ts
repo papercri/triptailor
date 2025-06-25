@@ -20,6 +20,12 @@ export interface Itinerary {
   createdAt: string
   email?: string
   itinerary: ItineraryItem[]
-  prompt: string | object 
+  prompt: {
+    travelerType: string;
+    budget: string;
+    days: number;
+    season: string;
+    interests: string[];
+  };
   
 }

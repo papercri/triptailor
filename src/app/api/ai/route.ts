@@ -1,4 +1,4 @@
-// This file handles the AI API route for generating responses using OpenAI's GPT-4.1 model.
+// This file handles the AI API route for generating responses using OpenAI's GPT-4.1-nano model.
 
 import { NextResponse } from 'next/server';
 import OpenAI from 'openai';

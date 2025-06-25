@@ -24,7 +24,7 @@ export default function TravelAssistantModal({ destination }: { destination: str
     <>
     <div className='flex justify-center'>
         <Button onClick={handleOpen} variant="accent" size = "lg" icon={<MapPin className="w-4 h-4 mr-2" />}>
-                Plan your trip
+            Plan your trip
         </Button>
     </div>
       
