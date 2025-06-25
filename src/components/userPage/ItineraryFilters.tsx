@@ -1,9 +1,6 @@
 "use client"
-
 import React, { useState } from 'react'
-
 import '@/styles/userItineraries.scss'
-
 import { Search, RotateCcw, Calendar, Users, Wallet, Heart, Clock, ChevronDown, ChevronUp } from "lucide-react"
 
 type Filters = {
@@ -77,7 +74,6 @@ export default function ItineraryFilters({
     { value: "Festivals", label: "Festivals" },
   ]
 
-  const activeFiltersCount = Object.values(filters).filter((value) => value !== "").length + (searchQuery ? 1 : 0)
 
   const handleFilterChange = (filterType: keyof Filters, value: string) => {
     setFilters((prev) => ({
@@ -167,14 +163,11 @@ export default function ItineraryFilters({
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-lg font-semibold text-gray-900">Filters</h2>
 
-           {/* Reset Button */}
+      {/* Reset Button */}
         <button
           onClick={onReset}
-          disabled={activeFiltersCount === 0}
-
         >
           <RotateCcw className="h-4 w-4" />
-
         </button>
         </div>
 
@@ -183,7 +176,7 @@ export default function ItineraryFilters({
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
           <input
             type="text"
-            placeholder="Search destinations..."
+            placeholder="Search..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors duration-200"
@@ -220,7 +213,6 @@ export default function ItineraryFilters({
                   checked={filters.season === season.value}
                   onChange={() => handleFilterChange("season", season.value)}
                   label={season.label}
-
                 />
               ))}
             </div>
@@ -235,8 +227,7 @@ export default function ItineraryFilters({
                   id={`budget-${budget.value}`}
                   checked={filters.budget === budget.value}
                   onChange={() => handleFilterChange("budget", budget.value)}
-                  label={budget.label}
-           
+                  label={budget.label} 
                 />
               ))}
             </div>
@@ -252,7 +243,6 @@ export default function ItineraryFilters({
                   checked={filters.interest === interest.value}
                   onChange={() => handleFilterChange("interest", interest.value)}
                   label={interest.label}
-  
                 />
               ))}
             </div>
@@ -272,7 +262,7 @@ export default function ItineraryFilters({
                 placeholder="e.g., 7"
                 value={filters.days}
                 onChange={(e) => setFilters((prev) => ({ ...prev, days: e.target.value }))}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors duration-200"
+                className="w-full px-3 py-2 border border-gray-300 rounded-md outline-none transition-colors duration-200"
               />
             </div>
           </AccordionSection>
@@ -286,16 +276,13 @@ export default function ItineraryFilters({
           <select
             value={sortBy}
             onChange={(e) => setSortBy(e.target.value as "destination" | "createdAt")}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors duration-200 bg-white"
+            className="w-full px-3 py-2 border border-gray-300 rounded-md  outline-none transition-colors duration-200 bg-white"
           >
             <option value="createdAt">Date Created</option>
             <option value="destination">Destination (A-Z)</option>
           </select>
         </div>
 
- 
-
-       
       </div>
     </div>
   )
