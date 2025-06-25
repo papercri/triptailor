@@ -30,7 +30,7 @@ const Button = ({
 
   return (
     <button className={className} disabled={disabled} onClick={onClick}>
-      {icon && <span>{icon}</span>}
+      {icon && <span className="mr-2">{icon}</span>}
       <span>{children}</span>
     </button>
   );

@@ -2,10 +2,15 @@
 
 import { useRef } from 'react';
 import Modal from '@/components/ui/Modal/Modal';
-import MapaConItinerarioNoSSR from '@/components/openAi/travelAssistent/travelResult/MapaConItinerario';
+
 import { Itinerary } from '@/types/itineraryItem';
 import { Clock, Luggage, PiggyBank, SunSnow, Smile } from 'lucide-react';
+import dynamic from 'next/dynamic';
 
+const MapaConItinerario = dynamic(() =>
+  import('../openAi/travelAssistent/travelResult/MapaConItinerario'), {
+    ssr: false
+  });
 type PromptObj = {
   travelerType?: string;
   days?: number;
@@ -55,7 +60,7 @@ export default function ItineraryModal({ itinerary, onClose }: ItineraryModalPro
             <Smile className="icon" /> {selectedPromptObj.interests ?? '—'}
           </div>
         </div>
-        <MapaConItinerarioNoSSR itinerary={itinerary.itinerary} />
+        <MapaConItinerario itinerary={itinerary.itinerary} />
       </div>
     </Modal>
   );

@@ -8,7 +8,7 @@
     }
     .itineraries-grid{
         display: grid;
-        gap: 2rem;
+        gap: 1rem;
          grid-template-columns: 1fr;
         @media (min-width: 768px) {
             grid-template-columns: repeat(2, 1fr);
@@ -51,4 +51,51 @@
             }
         }
     }
+}
+
+/* Ocultar botón filtros en desktop y mostrar solo en móvil */
+.filters-button-mobile {
+  display: none;
+  margin-bottom: 1rem;
+}
+
+.filters-desktop {
+  display: block;
+}
+
+.filters-mobile-panel {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 80vw;
+  max-width: 300px;
+  height: 100vh;
+  background: white;
+  box-shadow: 2px 0 8px rgba(0,0,0,0.3);
+  padding: 1rem;
+  z-index: 1000;
+  overflow-y: auto;
+}
+
+.close-filters-mobile {
+  background: none;
+  border: none;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  cursor: pointer;
+}
+
+/* Media queries */
+@media (max-width: 768px) {
+  .filters-button-mobile {
+    display: flex;
+  }
+
+  .filters-desktop {
+    display: none;
+  }
+  
+  .itineraries-grid {
+    grid-column: span 4;
+  }
 }
