@@ -116,6 +116,7 @@
     grid-template-columns: 1fr;
     gap: 1.5rem;
     margin-bottom: 2rem;
+    //align-items: start;
   }
 
   .content-grid {
@@ -142,6 +143,10 @@
     overflow: hidden;
     border-radius: $radius;
     padding:0;
+     &:hover {
+      transform: none;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    }
   }
 
   .card-header {
@@ -309,10 +314,7 @@
     transition: all 0.3s ease;
   }
 
-  .content-card:hover {
-    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
-    transform: translateY(-2px);
-  }
+ 
 
   .content-header {
     padding: 1.5rem 1.5rem 0;
@@ -338,8 +340,35 @@
 
   .content-text {
     color: #6b7280;
-    line-height: 1.5;
+    line-height: 1.7;
     text-align: justify;
+    display: -webkit-box;
+    -webkit-line-clamp: 5; // Limita a 5 líneas
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: all 0.3s ease;
+     &.expanded {
+      -webkit-line-clamp: unset;
+      overflow: visible;
+    }
+  }
+  .read-more-btn {
+    margin-top: 0.5rem;
+    color: $primary-color-light;
+    cursor: pointer;
+    font-size: 0.875rem;
+    text-decoration: underline;
+    background: none;
+    border: none;
+    padding: 0;
+    transition: all 0.3s ease;
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    &:hover{
+      color: $primary-color;
+    }
   }
 
   /* Chatbot styles */
@@ -432,6 +461,7 @@
     grid-template-columns: 1fr 1fr 1fr;
   }
   &.info-grid__2col{
+    align-items: start;
     @media (min-width: $mobile) {
       grid-template-columns: 1fr 1fr;
     }

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { getCountryBackgroundPhoto } from '@/services/getCountryBackgroundPhoto';
 import {  CultureData } from '@/types/destinationProps';
-
+import { CircleEllipsis, CircleChevronUp} from 'lucide-react';
 type CultureProps = {
   cultureData?: CultureData;
   countryCommonName: string;
@@ -10,6 +10,7 @@ type CultureProps = {
 function Culture({ cultureData, countryCommonName }: CultureProps) {
   const [imageUrl, setImageUrl] = useState<string | null>(null);
   const [hasMounted, setHasMounted] = useState(false);
+  const [expanded, setExpanded] = useState(false);
 
   useEffect(() => {
     setHasMounted(true);
@@ -46,9 +47,15 @@ function Culture({ cultureData, countryCommonName }: CultureProps) {
               <div className="content-image bg-gray-200 " aria-hidden="true" />
             )}
           </div>
-          <p className="content-text">
+          <p className={`content-text ${expanded ? 'expanded' : ''}`}>
             {cultureData.extract}
           </p>
+          <button
+            className="read-more-btn"
+            onClick={() => setExpanded(!expanded)}
+          >
+            {expanded ? <CircleChevronUp /> : <CircleEllipsis />}
+          </button>
       </div>
     </div>
   );

@@ -1,15 +1,16 @@
-import React from 'react';
+import React, {  useState } from 'react';
 import {  CuisineData } from '@/types/destinationProps';
+import { CircleEllipsis, CircleChevronUp} from 'lucide-react';
 
 type CuisineProps = {
   cuisineData?: CuisineData;
 };
 
 function Cuisine({ cuisineData }: CuisineProps) {
+  const [expanded, setExpanded] = useState(false);  
   if (!cuisineData) {
     return null; 
   }
-
   return (
     <div className="content-card">
       <div className="content-header">
@@ -27,9 +28,17 @@ function Cuisine({ cuisineData }: CuisineProps) {
             )}
 
           </div>
-          <p className="content-text">
+
+
+          <p className={`content-text ${expanded ? 'expanded' : ''}`}>
             {cuisineData.extract}
           </p>
+          <button
+            className="read-more-btn"
+            onClick={() => setExpanded(!expanded)}
+          >
+            {expanded ? <CircleChevronUp /> : <CircleEllipsis />}
+          </button>
       </div>
     </div>
 
