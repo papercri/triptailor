@@ -2,7 +2,7 @@
 
 import useTravelForm from '@/hooks/useTravelForm';
 import TravelResult from './travelResult/TravelResult';
-import StepContent from '@/components/openAi/travelAssistent/travelSteps/StepContent';
+import StepContent from '@/components/travelAssistent/travelSteps/StepContent';
 import StepIndicator from './travelSteps/StepIndicator';
 import StepNavigation from './travelSteps/StepNavigation';
 import "@/styles/travelAssistent.scss";

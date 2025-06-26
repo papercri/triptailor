@@ -42,7 +42,7 @@ function Nav() {
                 <li >  <a onClick={handleLogout}  data-tooltip-id="logout" data-tooltip-content="Log Out">
                   Log Out
                 </a></li>
-                <li ><Link href="/dashboard" data-tooltip-id="myaccount" data-tooltip-content="My Account"><CircleUser /></Link></li>
+                <li ><Link href="/user" data-tooltip-id="myaccount" data-tooltip-content="My Account"><CircleUser /></Link></li>
                 <Tooltip id="myaccount" />
                 <Tooltip id="logout" />
               </>
@@ -77,7 +77,7 @@ function Nav() {
           <ul className="nav__menu">
             {user ? (
              <>
-                <li><Link href="/dashboard">My Account</Link></li>
+                <li><Link href="/user">My Account</Link></li>
                 <li>  <a onClick={handleLogout} className="font-semibold">
                   Logout
                 </a></li>

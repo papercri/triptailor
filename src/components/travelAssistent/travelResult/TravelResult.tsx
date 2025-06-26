@@ -12,7 +12,7 @@ import Spinner from '@/components/ui/Spinner/Spinner';
 import Modal from '@/components/ui/Modal/Modal';
 
 const MapaConItinerario = dynamic(
-  () => import('@/components/openAi/travelAssistent/travelResult/MapaConItinerario'),
+  () => import('@/components/travelAssistent/travelResult/MapaConItinerario'),
   {
     ssr: false,
     loading: () => <p><Spinner /></p>,

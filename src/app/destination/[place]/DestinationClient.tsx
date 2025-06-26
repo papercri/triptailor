@@ -11,7 +11,7 @@ import Clima from '@/components/destination/clima/Clima';
 import CompoMap from '@/components/destination/map/CompoMap';
 import Cuisine from '@/components/destination/cuisine/Cuisine';
 import Culture from '@/components/destination/culture/Culture';
-import TravelAssistantModal from '@/components/openAi/travelAssistent/TravelAssistantModal';
+import TravelAssistantModal from '@/components/travelAssistent/TravelAssistantModal';
 import { useDestinationInfo } from '@/hooks/useDestinationInfo';
 import Spinner from '@/components/ui/Spinner/Spinner';
 import { notFound } from 'next/navigation';

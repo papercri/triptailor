@@ -6,7 +6,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import About from '@/components/homePage/about/About';
 // import Destinos from '@/components/homePage/destinos/Destinos';
-// import Planificador from '@/components/homePage/planificador/Planificador';
+
 export default function Home() {
   
   return (
@@ -20,9 +20,7 @@ export default function Home() {
       <About />
 
       {/*<div id="destinos"></div>
-      <Destinos />
-      <div id="planificador"></div>
-      <Planificador /> */}
+      <Destinos />*/}
     </main>
     <ToastContainer position="top-center" autoClose={1000} />
     <Footer />

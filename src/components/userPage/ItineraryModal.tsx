@@ -8,7 +8,7 @@ import { Clock, Luggage, PiggyBank, SunSnow, Smile } from 'lucide-react';
 import dynamic from 'next/dynamic';
 
 const MapaConItinerario = dynamic(() =>
-  import('../openAi/travelAssistent/travelResult/MapaConItinerario'), {
+  import('../travelAssistent/travelResult/MapaConItinerario'), {
     ssr: false
   });
 type PromptObj = {
