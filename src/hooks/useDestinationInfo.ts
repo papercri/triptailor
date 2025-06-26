@@ -1,9 +1,30 @@
 import useSWR from 'swr';
 
-const fetcher = (url: string) => fetch(url).then(res => {
-  if (!res.ok) throw new Error('Failed to fetch destination data');
+const fetcher = async (url: string) => {
+  const res = await fetch(url);
+
+  if (!res.ok) {
+    // Leer el texto para poder mostrarlo o incluirlo en el error
+    const text = await res.text();
+
+    // Intenta parsear JSON para mostrar el mensaje de error
+    let errorMessage = `Failed to fetch destination data: ${res.status} ${res.statusText}`;
+
+    try {
+      const data = JSON.parse(text);
+      if (data.error) errorMessage += ` - ${data.error}`;
+    } catch {
+      // No es JSON, texto plano o HTML, se puede mostrar raw
+      errorMessage += ` - ${text.substring(0, 100)}`; // corta el texto largo
+    }
+
+    throw new Error(errorMessage);
+  }
+
+  // Si está OK, parsea y devuelve JSON
   return res.json();
-});
+};
+
 
 export function useDestinationInfo(place: string) {
   const encoded = encodeURIComponent(place);
