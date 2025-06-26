@@ -1,0 +1,13 @@
+{
+  "functions": {
+    "src/app/destination/[place]/page.tsx": {
+      "maxDuration": 30
+    }
+  },
+  "rewrites": [
+    {
+      "source": "/destination/:place",
+      "destination": "/destination/:place"
+    }
+  ]
+}
