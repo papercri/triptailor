@@ -43,7 +43,7 @@ export default function DestinationHero({
                     className="flag-image h-full object-cover relatve"
                   />
                 </div>
-                <h1 className="capitalize !mb-0 ">{breadcrumbDisplay} </h1>
+                <h1 className="capitalize !mb-0 ">Discover {breadcrumbDisplay} </h1>
               </div>
 
             </div>

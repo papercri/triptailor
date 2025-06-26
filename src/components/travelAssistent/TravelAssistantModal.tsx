@@ -5,7 +5,7 @@ import TravelAssistantSteps from './TravelAssistent';
 import Link from 'next/link';
 import Modal from '@/components/ui/Modal/Modal';
 import Button from '@/components/ui/Button/Button';
-import { MapPin } from 'lucide-react';
+import { MessageCircle } from 'lucide-react';
 
 export default function TravelAssistantModal({ destination }: { destination: string }) {
   const { user } = useUser();
@@ -22,12 +22,10 @@ export default function TravelAssistantModal({ destination }: { destination: str
 
   return (
     <>
-    <div className='flex justify-center'>
-        <Button onClick={handleOpen} variant="accent" size = "lg" icon={<MapPin className="w-4 h-4 mr-2" />}>
-            Plan your trip
-        </Button>
-    </div>
-      
+  
+        <button onClick={handleOpen} className='chatbot-button'>
+          <MessageCircle className="chatbot-icon" /> Plan your trip
+        </button>
 
       {/* Modal if user is logged in */}
       {isOpen && (

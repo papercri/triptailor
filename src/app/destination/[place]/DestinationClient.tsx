@@ -56,46 +56,48 @@ export default function DestinationClient({ place }: Props) {
         />
   
 
-        <section className="destination-content">
-          <div className="container">
-            <div className="content-grid">
-              <div className="content-main">
-                <div className="info-section">
-                  <div className="info-grid">
-                    <Suspense fallback={<Spinner />}>
-                      <Info
-                        countryData={countryData}
-                        countryCommonName={countryCommonName}
-                      />
-                    </Suspense>
-                    <Suspense fallback={<Spinner />}>
-                      <Clima weatherData={weatherData} />
-                    </Suspense>
-                    <Suspense fallback={<Spinner />}>
-                      <CompoMap
-                        lat={coords.lat}
-                        lng={coords.lng}
-                        place={coords.displayName}
-                      />
-                    </Suspense>
-                  </div>
+        <section className="dashboard-container">
+          <div className="container ">
+            
+            <div className="content-main">
+              <div className="info-section">
+                <div className="info-grid">
+                  <Suspense fallback={<Spinner />}>
+                    <Info
+                      countryData={countryData}
+                      countryCommonName={countryCommonName}
+                    />
+                  </Suspense>
+                  <Suspense fallback={<Spinner />}>
+                    <Clima weatherData={weatherData} />
+                  </Suspense>
+                  <Suspense fallback={<Spinner />}>
+                    <CompoMap
+                      lat={coords.lat}
+                      lng={coords.lng}
+                      place={coords.displayName}
+                    />
+                  </Suspense>
                 </div>
-     
-                <div className="info-section">
-                  <div className="info-grid info-grid__2col">
-                    <Suspense fallback={<Spinner />}>
-                      <Cuisine cuisineData={cuisineData} />
-                    </Suspense>
-                    <Suspense fallback={<Spinner />}>
-                      <Culture 
-                      cultureData={cultureData}
-                      countryCommonName={countryCommonName} />
-                    </Suspense>
-                  </div>
+              </div>
+    
+              <div className="info-section">
+                <div className="info-grid info-grid__2col">
+                  <Suspense fallback={<Spinner />}>
+                    <Cuisine cuisineData={cuisineData} />
+                  </Suspense>
+                  <Suspense fallback={<Spinner />}>
+                    <Culture 
+                    cultureData={cultureData}
+                    countryCommonName={countryCommonName} />
+                  </Suspense>
                 </div>
               </div>
             </div>
-            <TravelAssistantModal destination={cityName}/>
+            <div className="chatbot-container">
+              <TravelAssistantModal destination={cityName}/>
+            </div>
+            
           </div>
         </section>
       </main>

@@ -1,5 +1,6 @@
 import React from 'react'
 import {  Currency, WeatherData, CountryData} from '@/types/destinationProps';
+import { Thermometer, Globe, HandCoins, Clock } from "lucide-react"
 
 
 type QuickInfoProps = {
@@ -15,7 +16,7 @@ function QuickInfo({ weatherData, countryData, timeZone }: QuickInfoProps) {
         <div className="container">
             <div className="quick-info__grid">
             <div className="quick-info__item">
-                <div className="icon">🌡️</div>
+                <div className="icon"><Thermometer /></div>
                 <div className="content">
                 <span className="label">Temperature</span>
                 <span className="value">{Math.round(weatherData.main.temp)}°C</span>
@@ -23,7 +24,7 @@ function QuickInfo({ weatherData, countryData, timeZone }: QuickInfoProps) {
             </div>
 
             <div className="quick-info__item">
-                <div className="icon">🌐</div>
+                <div className="icon"><Globe /></div>
                 <div className="content">
                 <span className="label">Language</span>
                 <span className="value">
@@ -35,7 +36,7 @@ function QuickInfo({ weatherData, countryData, timeZone }: QuickInfoProps) {
             </div>
 
             <div className="quick-info__item">
-                <div className="icon">💴</div>
+                <div className="icon"><HandCoins /></div>
                 <div className="content">
                 <span className="label">Currency</span>
                 <span className="value">
@@ -49,7 +50,7 @@ function QuickInfo({ weatherData, countryData, timeZone }: QuickInfoProps) {
             </div>
 
             <div className="quick-info__item">
-                <div className="icon">⏰</div>
+                <div className="icon"><Clock /></div>
                 <div className="content">
                 <span className="label">Time Zone</span>
                 <span className="value">{timeZone}</span>

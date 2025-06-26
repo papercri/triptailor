@@ -11,25 +11,28 @@ function Cuisine({ cuisineData }: CuisineProps) {
   }
 
   return (
-    <div className="gastronomy-section">
-      <h2>{cuisineData.title}</h2>
-      <div className="food-grid">
-        <div className="food-card">
-          <div className="food-image">
+    <div className="content-card">
+      <div className="content-header">
+        <h2 className="content-title">{cuisineData.title}</h2>
+      </div>
+      <div className="content-body">
+
+          <div className="culture-image">
             {cuisineData.image && (
               <img
                 src={cuisineData.image}
                 alt={cuisineData.title}
-                className="rounded mb-4 w-full h-auto object-cover"
+                className="content-image"
               />
             )}
+
           </div>
-          <div className="food-content">
-            <p>{cuisineData.extract}</p>
-          </div>
-        </div>
+          <p className="content-text">
+            {cuisineData.extract}
+          </p>
       </div>
     </div>
+
   )
 }
 

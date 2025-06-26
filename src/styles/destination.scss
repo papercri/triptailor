@@ -1,7 +1,5 @@
 @use "@/styles/variables.scss" as *;
 
-// Destination Detail Page Styles
-
 // Destination Hero
 .destination-hero {
   position: relative;
@@ -14,22 +12,7 @@
     height: 100%;
     background: linear-gradient(135deg, $primary-color 0%, $accent-color 100%);
     position: relative;
-    
-    // In real implementation, this would be a background image
-    &::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-
-      background-size: cover;
-      background-position: center;
-      opacity: 0.3;
-    }
   }
-  
   &__overlay {
     position: absolute;
     top: 0;
@@ -41,10 +24,8 @@
     align-items: flex-end;
     padding-bottom: 3rem;
   }
-  
   &__content {
     color: $white;
-    
     .breadcrumb {
       display: flex;
       align-items: center;
@@ -52,26 +33,21 @@
       margin-bottom: 1rem;
       font-size: 0.875rem;
       opacity: 0.9;
-      
       a {
         color: $white;
         text-decoration: none;
-        
         &:hover {
           text-decoration: underline;
         }
       }
-      
       span {
         opacity: 0.7;
       }
-    }
-    
+    }    
     h1 {
       font-size: 3rem;
       font-weight: 800;
       margin-bottom: 1rem;
-      
       @media (max-width: $mobile) {
         font-size: 2rem;
       }
@@ -84,14 +60,7 @@
       max-width: 600px;
     }
   }
-  
-  &__actions {
-    display: flex;
-    gap: 1rem;
-    flex-wrap: wrap;
-  }
 }
-
 // Quick Info Bar
 .quick-info {
   background: $white;
@@ -100,11 +69,11 @@
   
   &__grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
     gap: 1rem;
     
     @media (min-width: $tablet) {
-      grid-template-columns: repeat(5, 1fr);
+      grid-template-columns: repeat(4, 1fr);
     }
   }
   
@@ -116,6 +85,7 @@
     
     .icon {
       font-size: 1.5rem;
+      color:$secondary-color
     }
     
     .content {
@@ -136,21 +106,309 @@
     }
   }
 }
-
 // Content Grid
-.destination-content {
+.dashboard-container {
   padding: 3rem 0;
+
+
+  .info-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .content-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  @media (min-width: 1024px) {
+    .info-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .content-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  /* Card styles */
+  .card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    border-radius: $radius;
+    padding:0;
+  }
+
+  .card-header {
+    padding: 1rem;
+    color: white;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: linear-gradient(135deg, $primary-color 0%, $primary-color-light 100%);
+  }
+
+  .card-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin: 0;
+    color:white
+  }
+
+  .card-content {
+    padding: 1.5rem;
+  }
+
+  /* Basic info grid */
+  .info-details {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    font-size: 0.875rem;
+  }
+
+  .info-item {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .info-label {
+    font-weight: 600;
+    color: $text-dark;
+    margin-bottom: 0.25rem;
+  }
+
+  .info-value {
+    color: $text-light;
+  }
+
+  /* Weather styles */
+  .weather-main {
+    text-align: center;
+    margin-bottom: 1rem;
+    position:relative;
+    
+  }
+
+  .temperature {
+    font-size: 3rem;
+    font-weight: 700;
+    color: $primary-color;
+    margin-bottom: 0.5rem;
+    position:relative;
+    z-index:2
+  }
+
+  .weather-condition {
+    color: $text-light;
+    margin-bottom: 1rem;
+  }
+
+  .weather-details {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    text-align: center;
+  }
+  .weather-icon-bg{
+    width: 280px;             
+    height: 5rem;            
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: left center;
+    position:relative;
+    z-index:1;
+    margin: 0 auto;
+
+  }
+  .weather-item {
+    padding: 0.75rem;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  .weather-item.temp {
+    background-color: #fff7ed;
+  }
+
+  .weather-item.humidity {
+    background-color: #eff6ff;
+  }
+
+  .weather-item.wind {
+    background-color: #f9fafb;
+  }
+
+  .weather-icon {
+    width: 1.5rem;
+    height: 1.5rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .weather-icon.temp {
+    color: #f97316;
+  }
+
+  .weather-icon.humidity {
+    color: $primary-color;
+  }
+
+  .weather-icon.wind {
+    color: $text-light;
+  }
+
+  .weather-label {
+    font-size: 0.875rem;
+    font-weight: 600;
+  }
+
+  .weather-value {
+    font-size: 0.875rem;
+  }
+
+  .weather-value.temp {
+    color: #ea580c;
+  }
+
+  .weather-value.humidity {
+    color: #2563eb;
+  }
+
+  .weather-value.wind {
+    color: $text-light;
+  }
+
+  /* Map styles */
+  .map-container {
+    height: 20rem;
+    background-color: #e5e7eb;
+    border-radius: 0 0 12px 12px;
+    overflow: hidden;
+  }
+
+  .map-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* Content sections */
+  .content-card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: all 0.3s ease;
+  }
+
+  .content-card:hover {
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+  }
+
+  .content-header {
+    padding: 1.5rem 1.5rem 0;
+  }
+
+  .content-title {
+    font-size: 1.5rem;
+    color: #1f2937;
+    margin: 0;
+  }
+
+  .content-body {
+    padding: 1.5rem;
+  }
+
+  .content-image {
+    width: 100%;
+    height: 12rem;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+  }
+
+  .content-text {
+    color: #6b7280;
+    line-height: 1.7;
+  }
+
+  /* Chatbot styles */
+  .chatbot-container {
+    position: fixed;
+    bottom: 1.5rem;
+    right: 1.5rem;
+    z-index: 1250;
+  }
+
+  .chatbot-button {
+    width: 12rem;
+    height: 4rem;
+    border-radius: 50px!important;
+    background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color:white;
+    font-size: 18px;
+    font-weight: 700;
+  }
+
+  .chatbot-button:hover {
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+    transform: scale(1.05);
+    background: linear-gradient(135deg, #ea580c 0%, #dc2626 100%);
+  }
+
+  .chatbot-icon {
+    width: 2rem;
+    height: 2rem;
+    margin-right: 8px;
+    color: white;
+  }
+
+ 
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .dashboard-container {
+      padding: 0.5rem;
+    }
+
+    .dashboard-title {
+      font-size: 2rem;
+    }
+
+    .chatbot-window {
+      width: calc(100vw - 2rem);
+      max-width: 20rem;
+    }
+
+    .info-details {
+      grid-template-columns: 1fr;
+      gap: 0.75rem;
+    }
+
+    .weather-details {
+      grid-template-columns: 1fr;
+      gap: 0.75rem;
+    }
+  }
+
+ 
 }
 
-.content-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 3rem;
-  
-  @media (min-width: $tablet) {
-    grid-template-columns: 1fr;
-  }
-}
 
 // Info Sections
 .info-section {
@@ -176,619 +434,5 @@
     @media (min-width: $mobile) {
       grid-template-columns: 1fr 1fr;
     }
-}
-}
-
-.info-card {
-  background: $white;
-  border: 1px solid $border-color;
-  border-radius: 0.75rem;
-  padding: 1.5rem;
-  
-  h3 {
-    font-size: 1.125rem;
-    font-weight: 600;
-    margin-bottom: 1rem;
-    color: $text-dark;
-  }
-}
-
-.info-list {
-  list-style: none;
-  
-  li {
-    padding: 0.5rem 0;
-    border-bottom: 1px solid rgba($border-color, 0.5);
-    
-    &:last-child {
-      border-bottom: none;
-    }
-    
-    strong {
-      color: $text-dark;
-      margin-right: 0.5rem;
-    }
-  }
-}
-
-// Map Section
-.map-section {
-  margin-bottom: 3rem;
-  
-  h2 {
-    font-size: 1.75rem;
-    font-weight: 700;
-    margin-bottom: 1.5rem;
-    color: $text-dark;
-  }
-}
-
-.map-container {
-  border-radius: 1rem;
-  overflow: hidden;
-  box-shadow: $shadow;
-}
-
-.map-placeholder {
-  border-radius: 10px;
-  
-  .leaflet-container {
-    border-radius: 10px;
-    
- 
-  }
-}
-
-// Weather Section
-.weather-section {
-  margin-bottom: 3rem;
-  
-  h2 {
-    font-size: 1.75rem;
-    font-weight: 700;
-    margin-bottom: 1.5rem;
-    color: $text-dark;
-  }
-}
-
-.weather-tabs {
-  display: flex;
-  gap: 0.5rem;
-  margin-bottom: 1.5rem;
-  border-bottom: 1px solid $border-color;
-}
-
-.weather-tab {
-  padding: 0.75rem 1.5rem;
-  background: none;
-  border: none;
-  font-weight: 600;
-  color: $text-light;
-  cursor: pointer;
-  border-bottom: 2px solid transparent;
-  transition: all 0.2s ease;
-  
-  &.active {
-    color: $primary-color;
-    border-bottom-color: $primary-color;
-  }
-  
-  &:hover {
-    color: $primary-color;
-  }
-}
-
-.weather-content {
-  background: $white;
-  border-radius: 1rem;
-  padding: 1.5rem;
-  box-shadow: $shadow;
-}
-
-.weather-panel {
-  display: none;
-  
-  &.active {
-    display: block;
-  }
-}
-
-.current-weather {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 2rem;
-  
-  @media (min-width: $mobile) {
-    grid-template-columns: auto 1fr;
-  }
-}
-
-.weather-main {
-  text-align: center;
-  
-  .weather-icon {
-    font-size: 4rem;
-    margin-bottom: 0.5rem;
-  }
-  
-  .weather-temp {
-    font-size: 2.5rem;
-    font-weight: 700;
-    color: $text-dark;
-    margin-bottom: 0.25rem;
-  }
-  
-  .weather-desc {
-    color: $text-light;
-    font-weight: 500;
-  }
-}
-
-.weather-details {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1rem;
-}
-
-.weather-detail {
-  display: flex;
-  flex-direction: column;
-  
-  .label {
-    font-size: 0.875rem;
-    color: $text-light;
-    margin-bottom: 0.25rem;
-  }
-  
-  .value {
-    font-weight: 600;
-    color: $text-dark;
-  }
-}
-
-.forecast-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-  gap: 1rem;
-}
-
-.forecast-day {
-  text-align: center;
-  padding: 1rem 0.5rem;
-  border-radius: 0.5rem;
-  background: rgba($background-light, 0.5);
-  
-  .day {
-    font-size: 0.875rem;
-    color: $text-light;
-    margin-bottom: 0.5rem;
-  }
-  
-  .icon {
-    font-size: 1.5rem;
-    margin-bottom: 0.5rem;
-  }
-  
-  .temps {
-    display: flex;
-    justify-content: center;
-    gap: 0.5rem;
-    
-    .high {
-      font-weight: 600;
-      color: $text-dark;
-    }
-    
-    .low {
-      color: $text-light;
-    }
-  }
-}
-
-.seasonal-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1rem;
-  
-  @media (min-width: $mobile) {
-    grid-template-columns: 1fr 1fr;
-  }
-}
-
-.season-card {
-  padding: 1.5rem;
-  border-radius: 0.75rem;
-  background: rgba($background-light, 0.5);
-  
-  h4 {
-    font-size: 1.125rem;
-    font-weight: 600;
-    margin-bottom: 0.5rem;
-    color: $text-dark;
-  }
-  
-  .season-temp {
-    font-size: 1.25rem;
-    font-weight: 700;
-    color: $primary-color;
-    margin-bottom: 0.75rem;
-  }
-  
-  p {
-    color: $text-light;
-    font-size: 0.875rem;
-  }
-}
-
-// Gastronomy Section
-.gastronomy-section {
-  margin-bottom: 3rem;
-  
-  h2 {
-    font-size: 1.75rem;
-    font-weight: 700;
-    margin-bottom: 1.5rem;
-    color: $text-dark;
-  }
-}
-
-.food-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1.5rem;
-  
-
-}
-
-.food-card, .culture-card {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  background: $white;
-  border-radius: 0.75rem;
-  padding: 1.5rem;
-  box-shadow: $shadow;
-  transition: transform 0.2s ease;
-  
-  &:hover {
-    transform: translateY(-2px);
-  }
-  
-  .food-image, .culture-image {
-    font-size: 2.5rem;
-    flex-shrink: 0;
-  }
-  
-  .food-content, .culture-content {
-    flex: 1;
-    
-    h3 {
-      font-size: 1.125rem;
-      font-weight: 600;
-      margin-bottom: 0.5rem;
-      color: $text-dark;
-    }
-    
-    p {
-      color: $text-light;
-      font-size: 0.875rem;
-      margin-bottom: 0.75rem;
-    }
-    
-    .food-price {
-      font-weight: 600;
-      color: $accent-color;
-    }
-  }
-}
-
-// Culture Section
-.culture-section {
-  margin-bottom: 3rem;
-  
-  h2 {
-    font-size: 1.75rem;
-    font-weight: 700;
-    margin-bottom: 1.5rem;
-    color: $text-dark;
-  }
-}
-
-.culture-cards {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1.5rem;
-
-}
-
-.culture-card {
-  background: $white;
-  border-radius: 0.75rem;
-  padding: 1.5rem;
-  box-shadow: $shadow;
-  transition: transform 0.2s ease;
-  &:hover {
-    transform: translateY(-2px);
-  }
-  
-  .culture-icon {
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
-  }
-  
-  h3 {
-    font-size: 1.125rem;
-    font-weight: 600;
-    margin-bottom: 0.75rem;
-    color: $text-dark;
-  }
-  
-  p {
-    color: $text-light;
-    font-size: 0.875rem;
-  }
-}
-
-// Sidebar Styles
-.content-sidebar {
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-}
-
-.sidebar-section {
-  background: $white;
-  border-radius: 1rem;
-  padding: 1.5rem;
-  box-shadow: $shadow;
-  
-  h3 {
-    font-size: 1.25rem;
-    font-weight: 700;
-    margin-bottom: 1.5rem;
-    color: $text-dark;
-  }
-}
-
-// Budget Form
-.budget-form {
-  .form-group {
-    margin-bottom: 1.5rem;
-    
-    label {
-      display: block;
-      font-weight: 600;
-      margin-bottom: 0.5rem;
-      color: $text-dark;
-    }
-    
-    input,
-    select {
-      width: 100%;
-      padding: 0.75rem;
-      border: 2px solid $border-color;
-      border-radius: 0.5rem;
-      font-size: 1rem;
-      transition: border-color 0.2s ease;
-      
-      &:focus {
-        outline: none;
-        border-color: $primary-color;
-      }
-    }
-  }
-}
-
-.budget-result {
-  margin-top: 1.5rem;
-  padding-top: 1.5rem;
-  border-top: 1px solid $border-color;
-}
-
-.budget-total {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1rem;
-  
-  .label {
-    font-weight: 600;
-    color: $text-dark;
-  }
-  
-  .amount {
-    font-size: 1.25rem;
-    font-weight: 700;
-    color: $primary-color;
-  }
-}
-
-.budget-breakdown {
-  .budget-item {
-    display: flex;
-    justify-content: space-between;
-    padding: 0.5rem 0;
-    border-bottom: 1px solid rgba($border-color, 0.5);
-    font-size: 0.875rem;
-    
-    &:last-child {
-      border-bottom: none;
-    }
-    
-    span:first-child {
-      color: $text-light;
-    }
-    
-    span:last-child {
-      font-weight: 600;
-      color: $text-dark;
-    }
-  }
-}
-
-// Packing Form
-.packing-form {
-  .form-group {
-    margin-bottom: 1.5rem;
-    
-    label {
-      display: block;
-      font-weight: 600;
-      margin-bottom: 0.5rem;
-      color: $text-dark;
-    }
-    
-    select {
-      width: 100%;
-      padding: 0.75rem;
-      border: 2px solid $border-color;
-      border-radius: 0.5rem;
-      font-size: 1rem;
-      transition: border-color 0.2s ease;
-      
-      &:focus {
-        outline: none;
-        border-color: $primary-color;
-      }
-    }
-  }
-}
-
-.checkbox-group {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.checkbox-item {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  cursor: pointer;
-  
-  input[type="checkbox"] {
-    width: 1rem;
-    height: 1rem;
-    accent-color: $primary-color;
-  }
-  
-  span {
-    font-size: 0.875rem;
-    color: $text-dark;
-  }
-}
-
-.packing-result {
-  margin-top: 1.5rem;
-  padding-top: 1.5rem;
-  border-top: 1px solid $border-color;
-}
-
-.packing-category {
-  margin-bottom: 1.5rem;
-  
-  &:last-child {
-    margin-bottom: 0;
-  }
-  
-  h4 {
-    font-size: 1rem;
-    font-weight: 600;
-    margin-bottom: 0.75rem;
-    color: $text-dark;
-  }
-  
-  ul {
-    list-style: none;
-    
-    li {
-      padding: 0.25rem 0;
-      font-size: 0.875rem;
-      color: $text-light;
-      
-      &::before {
-        content: '•';
-        color: $primary-color;
-        margin-right: 0.5rem;
-      }
-    }
-  }
-}
-
-// AI Tips
-.ai-tips {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.ai-tip {
-  display: flex;
-  gap: 0.75rem;
-  padding: 1rem;
-  background: rgba($primary-color, 0.05);
-  border-radius: 0.5rem;
-  border-left: 3px solid $primary-color;
-  
-  .tip-icon {
-    font-size: 1.25rem;
-    flex-shrink: 0;
-  }
-  
-  .tip-content {
-    flex: 1;
-    
-    h4 {
-      font-size: 0.875rem;
-      font-weight: 600;
-      margin-bottom: 0.25rem;
-      color: $text-dark;
-    }
-    
-    p {
-      font-size: 0.75rem;
-      color: $text-light;
-      line-height: 1.4;
-    }
-  }
-}
-
-// Responsive adjustments for destination detail
-@media (max-width: $mobile) {
-  .destination-hero {
-    height: 50vh;
-    min-height: 300px;
-    
-    &__content {
-      h1 {
-        font-size: 2rem;
-      }
-      
-      p {
-        font-size: 1rem;
-      }
-    }
-  }
-  
-  .quick-info__grid {
-    grid-template-columns: 1fr;
-    gap: 0.5rem;
-  }
-  
-  .content-grid {
-    gap: 2rem;
-  }
-  
-  .weather-tabs {
-    flex-wrap: wrap;
-  }
-  
-  .forecast-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-  
-  .food-card {
-    flex-direction: column;
-    text-align: center;
   }
 }

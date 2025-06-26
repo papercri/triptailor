@@ -28,26 +28,27 @@ function Culture({ cultureData, countryCommonName }: CultureProps) {
   }
 
   return (
-    <div className="culture-section">
-      <h2>{cultureData.title}</h2>
-      <div className="culture-cards">
-        <div className="culture-card">
+    <div className="content-card">
+      <div className="content-header">
+        <h2 className="content-title">{cultureData.title}</h2>
+      </div>
+      <div className="content-body">
+
           <div className="culture-image">
             {hasMounted && imageUrl ? (
               <img
                 src={imageUrl}
                 alt={cultureData.title}
-                className="rounded mb-4 w-full h-auto object-cover"
+                className="content-image"
               />
             ) : (
    
-              <div className="w-full h-48 bg-gray-200 rounded mb-4" aria-hidden="true" />
+              <div className="content-image bg-gray-200 " aria-hidden="true" />
             )}
           </div>
-          <div className="culture-content">
-            <p>{cultureData.extract}</p>
-          </div>
-        </div>
+          <p className="content-text">
+            {cultureData.extract}
+          </p>
       </div>
     </div>
   );

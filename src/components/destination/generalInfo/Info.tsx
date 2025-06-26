@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { MapPin } from "lucide-react"
 type InfoProps = {
   countryData: {
     region: string;
@@ -20,20 +20,48 @@ type InfoProps = {
 
 function Info({ countryData, countryCommonName }: InfoProps) {
   return (
-    <div className="info-card">
-      <h3>Basic Information</h3>
-      <ul className="info-list">
-        <li><strong>Continent:</strong> {countryData.region}</li>
-        <li><strong>Country:</strong> {countryCommonName}</li>
-        <li><strong>Capital:</strong> {countryData.capital?.join(', ')}</li>
-        <li><strong>Population:</strong> {countryData.population.toLocaleString()}</li>
-        <li><strong>Area:</strong> {countryData.area.toLocaleString()} km²</li>
-        <li>
-          <strong>Country Code:</strong> {countryData.idd.root}{countryData.idd.suffixes?.join(', ')}
-        </li>
-        <li><strong>Domain:</strong> {countryData.tld?.join(', ')}</li>
-        <li><strong>Driving Side:</strong> {countryData.car.side}</li>
-      </ul>
+    <div className="card">
+      <div className="card-header">
+        <MapPin className="icon" />
+        <h2 className="card-title">Basic Information</h2>
+      </div>
+      <div className="card-content">
+        <div className="info-details">
+          <div className="info-item">
+            <span className="info-label">Continent:</span>
+            <p className="info-value">{countryData.region}</p>
+          </div>
+          <div className="info-item">
+            <span className="info-label">Country:</span>
+            <p className="info-value">{countryCommonName}</p>
+          </div>
+          <div className="info-item">
+            <span className="info-label">Capital:</span>
+            <p className="info-value">{countryData.capital?.join(', ')}</p>
+          </div>
+          <div className="info-item">
+            <span className="info-label">Population:</span>
+            <p className="info-value">{countryData.population.toLocaleString()}</p>
+          </div>
+          <div className="info-item">
+            <span className="info-label">Area:</span>
+            <p className="info-value">{countryData.area.toLocaleString()} km²</p>
+          </div>
+          <div className="info-item">
+            <span className="info-label">Country Code:</span>
+            <p className="info-value">{countryData.idd.root}{countryData.idd.suffixes?.join(', ')}</p>
+          </div>
+          <div className="info-item">
+            <span className="info-label">Domain:</span>
+            <p className="info-value">{countryData.tld?.join(', ')}</p>
+          </div>
+          <div className="info-item">
+            <span className="info-label">Driving Side:</span>
+            <p className="info-value">{countryData.car.side}</p>
+          </div>
+        </div>
+      </div>
+
     </div>
   );
 }
