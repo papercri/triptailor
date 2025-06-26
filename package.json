@@ -22,7 +22,7 @@
     "jspdf": "^3.0.1",
     "leaflet": "^1.9.4",
     "lucide-react": "^0.513.0",
-    "next": "15.3.3",
+    "next": "^15.3.4",
     "node-fetch": "^3.3.2",
     "openai": "^5.1.1",
     "react": "^19.0.0",
@@ -49,6 +49,6 @@
     "eslint-config-next": "15.3.3",
     "postcss": "^8.5.5",
     "tailwindcss": "^4.1.10",
-    "typescript": "^5"
+    "typescript": "^5.8.3"
   }
 }

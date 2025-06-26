@@ -1,14 +1,16 @@
-import { notFound } from 'next/navigation';
-import DestinationClient from './DestinationClient';
+import { notFound } from "next/navigation"
+import DestinationClient from "./DestinationClient"
 
-export default function DestinationPage({
-  params,
-}: {
-  params: { place: string };
-}) {
-  const { place } = params;
+interface PageProps {
+  params: Promise<{ place: string }>
+}
 
-  if (!place) notFound();
+export default async function DestinationPage({ params }: PageProps) {
+  const { place } = await params
 
-  return <DestinationClient place={decodeURIComponent(place)} />;
+  if (!place) {
+    notFound()
+  }
+
+  return <DestinationClient place={decodeURIComponent(place)} />
 }
