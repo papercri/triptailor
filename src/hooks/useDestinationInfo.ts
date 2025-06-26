@@ -36,3 +36,6 @@ export function useDestinationInfo(place: string) {
     isLoading,
   };
 }
+//este código es un hook de React que utiliza SWR para obtener información sobre un destino específico.
+// Utiliza la función fetcher para hacer una solicitud a la API y manejar errores de manera adecuada.
+// El hook devuelve los datos, el error y el estado de carga, que pueden ser utilizados
