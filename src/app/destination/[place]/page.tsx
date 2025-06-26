@@ -1,17 +1,14 @@
 import { notFound } from 'next/navigation';
 import DestinationClient from './DestinationClient';
-import { FC } from "react";
 
-  type Props = {
-    params: { place: string };
-  };
-const DestinationPage: FC<Props> = ({ params }) => {
+export default function DestinationPage({
+  params,
+}: {
+  params: { place: string };
+}) {
   const { place } = params;
 
-   if (!place) notFound();
+  if (!place) notFound();
 
-  return <DestinationClient place={decodeURIComponent(params.place)} />;
-};
-
-export default DestinationPage;
-
+  return <DestinationClient place={decodeURIComponent(place)} />;
+}
