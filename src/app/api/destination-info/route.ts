@@ -4,10 +4,10 @@
 import { NextResponse } from 'next/server';
 import { getCoordinatesWithTranslation } from '@/utils/geoCordTranslatorHelper';
 import { getCountryData } from '@/services/getCountryData';
-import { getTimeZone } from '@/services/getTimeZone';
+//import { getTimeZone } from '@/services/getTimeZone';
 import { getWeather } from '@/services/getWeather';
-import { getCuisineInfo } from '@/services/getCuisineInfo';
-import { getCultureInfo } from '@/services/getCultureInfo';
+//import { getCuisineInfo } from '@/services/getCuisineInfo';
+//import { getCultureInfo } from '@/services/getCultureInfo';
 import placeTranslations from '@/data/placeTranslations.json';
 
 const translations = placeTranslations as Record<string, string>;
