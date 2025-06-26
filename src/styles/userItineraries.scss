@@ -10,6 +10,7 @@
         display: grid;
         gap: 1rem;
          grid-template-columns: 1fr;
+         align-items: start;
         @media (min-width: 768px) {
             grid-template-columns: repeat(2, 1fr);
         }
@@ -21,6 +22,7 @@
             border-radius: $radius; 
             box-shadow: $shadow; 
             padding:0;
+            min-height:420px;
             .title{
                 font-size: 1.25rem;       
                 font-weight: 600;        
