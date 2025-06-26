@@ -42,12 +42,12 @@ export async function GET(req: Request) {
       console.error('Error fetching country data:', error);
     }
 
-    let timeZone = null;
-    try {
-      timeZone = await getTimeZone(coords.lat, coords.lng);
-    } catch (error) {
-      console.error('Error fetching time zone:', error);
-    }
+    // let timeZone = null;
+    // try {
+    //   timeZone = await getTimeZone(coords.lat, coords.lng);
+    // } catch (error) {
+    //   console.error('Error fetching time zone:', error);
+    // }
 
     let weatherData = null;
     try {
@@ -56,19 +56,19 @@ export async function GET(req: Request) {
       console.error('Error fetching weather data:', error);
     }
 
-    let cuisineData = null;
-    try {
-      cuisineData = await getCuisineInfo(countryNameTranslated);
-    } catch (error) {
-      console.error('Error fetching cuisine info:', error);
-    }
+    // let cuisineData = null;
+    // try {
+    //   cuisineData = await getCuisineInfo(countryNameTranslated);
+    // } catch (error) {
+    //   console.error('Error fetching cuisine info:', error);
+    // }
 
-    let cultureData = null;
-    try {
-      cultureData = await getCultureInfo(countryNameTranslated);
-    } catch (error) {
-      console.error('Error fetching culture info:', error);
-    }
+    // let cultureData = null;
+    // try {
+    //   cultureData = await getCultureInfo(countryNameTranslated);
+    // } catch (error) {
+    //   console.error('Error fetching culture info:', error);
+    // }
 
 
     return NextResponse.json({
