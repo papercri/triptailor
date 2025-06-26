@@ -83,7 +83,22 @@ export async function GET(req: Request) {
       cultureData,
     });
   } catch (error) {
-    console.error('Error in destination-info API:', error);
-    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+    // Handle different types of errors
+    console.error("API Route Error:", error)
+
+    if (error instanceof TypeError && error.message.includes("fetch")) {
+      return NextResponse.json({ error: "Failed to connect to external API" }, { status: 503 })
+    }
+
+    if (typeof error === "object" && error !== null && "name" in error && (error as { name: string }).name === "AbortError") {
+      return NextResponse.json({ error: "Request timeout" }, { status: 504 })
+    }
+
+    if (error instanceof SyntaxError) {
+      return NextResponse.json({ error: "Invalid JSON response from external API" }, { status: 502 })
+    }
+
+    // Generic error fallback
+    return NextResponse.json({ error: "Internal server error" }, { status: 500 })
   }
 }
