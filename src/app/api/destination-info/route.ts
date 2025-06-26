@@ -34,11 +34,42 @@ export async function GET(req: Request) {
     const countryNameTranslated = translations[countryName] || countryName;
     const breadcrumbDisplay = `${cityName}, ${countryNameTranslated}`;
 
-    const countryData = await getCountryData(countryNameTranslated);
-    const timeZone = await getTimeZone(coords.lat, coords.lng);
-    const weatherData = await getWeather(coords.lat, coords.lng);
-    const cuisineData = await getCuisineInfo(countryNameTranslated);
-    const cultureData = await getCultureInfo(countryNameTranslated);
+    // Hacemos try/catch individual para cada fetch externo
+    let countryData = null;
+    try {
+      countryData = await getCountryData(countryNameTranslated);
+    } catch (error) {
+      console.error('Error fetching country data:', error);
+    }
+
+    let timeZone = null;
+    try {
+      timeZone = await getTimeZone(coords.lat, coords.lng);
+    } catch (error) {
+      console.error('Error fetching time zone:', error);
+    }
+
+    let weatherData = null;
+    try {
+      weatherData = await getWeather(coords.lat, coords.lng);
+    } catch (error) {
+      console.error('Error fetching weather data:', error);
+    }
+
+    let cuisineData = null;
+    try {
+      cuisineData = await getCuisineInfo(countryNameTranslated);
+    } catch (error) {
+      console.error('Error fetching cuisine info:', error);
+    }
+
+    let cultureData = null;
+    try {
+      cultureData = await getCultureInfo(countryNameTranslated);
+    } catch (error) {
+      console.error('Error fetching culture info:', error);
+    }
+
 
     return NextResponse.json({
       coords,
