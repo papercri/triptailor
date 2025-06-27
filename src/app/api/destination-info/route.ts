@@ -14,7 +14,7 @@ async function safeFetchJson<T>(fn: () => Promise<T>, label: string): Promise<T 
     const result = await fn();
     return result;
   } catch (error) {
-    // Si es un error de JSON, intenta sacar el texto completo para debug
+
     if (error instanceof SyntaxError) {
       console.error(`❌ SyntaxError detected in ${label}:`, error);
     }

@@ -5,7 +5,7 @@ type FetchError = Error & { status?: number; statusText?: string };
 const fetcher = async (url: string) => {
   const res = await fetch(url);
 
-  const text = await res.text(); // Siempre leemos el texto para poder analizarlo
+  const text = await res.text(); 
 
   if (!res.ok) {
     console.log("RESPONSE TEXT:", text);
