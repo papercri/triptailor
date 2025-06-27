@@ -7,6 +7,7 @@ const fetcher = async (url: string) => {
 
   if (!res.ok) {
     const text = await res.text();
+    console.log("RESPONSE TEXT:", text);
     // Intenta parsear JSON para mostrar el mensaje de error
     let errorMessage = `Failed to fetch destination data: ${res.status} ${res.statusText}`;
 

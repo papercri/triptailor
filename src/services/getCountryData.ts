@@ -14,28 +14,29 @@ function normalizeCountryName(name: string): string {
     const latinName = latinMatch[0].trim();
     if (latinName) return latinName;
   }
-
-  // Si no, usa el nombre completo
   return trimmed;
 }
+
 export async function getCountryData(countryName: string) {
   try {
     const cleanedName = normalizeCountryName(countryName);
     const normalizedCountryName = countryNameMap[cleanedName] || cleanedName;
 
-    const res = await fetch(
-      `https://restcountries.com/v3.1/name/${encodeURIComponent(normalizedCountryName)}?fullText=false`
-    );
+    const url = `https://restcountries.com/v3.1/name/${encodeURIComponent(normalizedCountryName)}?fullText=false`;
+    const res = await fetch(url);
+    const contentType = res.headers.get("content-type") || "";
 
-    if (!res.ok) {
-       return { status: res.status, data: null };
+    if (!res.ok || !contentType.includes("application/json")) {
+      const raw = await res.text(); // Evita error de parseo
+      console.error(`❌ Invalid response from getCountryData (${res.status}):`, raw.slice(0, 300));
+      throw new SyntaxError("Invalid JSON response");
     }
 
     const data = await res.json();
-    return data[0];
+    return data[0] ?? null;
+
   } catch (error) {
-    console.error('Error fetching country data:', error);
+    console.error('❌ Error fetching country data:', error);
     return null;
   }
 }
-
