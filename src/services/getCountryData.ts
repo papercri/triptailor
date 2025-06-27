@@ -24,16 +24,24 @@ export async function getCountryData(countryName: string) {
 
     const url = `https://restcountries.com/v3.1/name/${encodeURIComponent(normalizedCountryName)}?fullText=false`;
     const res = await fetch(url);
+    const text = await res.text();
+
     const contentType = res.headers.get("content-type") || "";
 
     if (!res.ok || !contentType.includes("application/json")) {
-      const raw = await res.text(); // Evita error de parseo
-      console.error(`❌ Invalid response from getCountryData (${res.status}):`, raw.slice(0, 300));
-      throw new SyntaxError("Invalid JSON response");
+      console.error(`❌ Invalid response from getCountryData (${res.status}):`, text.slice(0, 300));
+      throw new SyntaxError("Invalid or non-JSON response");
     }
 
-    const data = await res.json();
-    return data[0] ?? null;
+    let data;
+    try {
+      data = JSON.parse(text);
+    } catch (jsonErr) {
+      console.error("❌ Failed to parse JSON in getCountryData:", jsonErr, text.slice(0, 300));
+      throw new SyntaxError("Failed to parse country data JSON");
+    }
+
+    return Array.isArray(data) ? data[0] ?? null : null;
 
   } catch (error) {
     console.error('❌ Error fetching country data:', error);
