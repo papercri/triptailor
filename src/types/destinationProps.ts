@@ -83,8 +83,6 @@ export interface Currency {
   symbol: string;
 }
 
-
-
 export type CuisineData = {
   title: string;
   extract?: string;
