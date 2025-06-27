@@ -5,30 +5,40 @@ type FetchError = Error & { status?: number; statusText?: string };
 const fetcher = async (url: string) => {
   const res = await fetch(url);
 
+  const text = await res.text(); // Siempre leemos el texto para poder analizarlo
+
   if (!res.ok) {
-    const text = await res.text();
     console.log("RESPONSE TEXT:", text);
-    // Intenta parsear JSON para mostrar el mensaje de error
     let errorMessage = `Failed to fetch destination data: ${res.status} ${res.statusText}`;
 
     try {
       const data = JSON.parse(text);
       if (data.error) errorMessage += ` - ${data.error}`;
     } catch {
-      // No es JSON, texto plano o HTML, se puede mostrar raw
-      errorMessage += ` - ${text.substring(0, 100)}`; 
+      errorMessage += ` - ${text.substring(0, 100)}`;
     }
 
     const error: FetchError = new Error(errorMessage);
-    // Agregar información adicional al error
     error.status = res.status;
     error.statusText = res.statusText;
 
     throw error;
   }
 
+
   // Si está OK, parsea y devuelve JSON
-  return res.json();
+  //return res.json();
+  try {
+    const isJson = text.trim().startsWith('{') || text.trim().startsWith('[');
+    if (isJson) {
+      return JSON.parse(text);
+    } else {
+      throw new Error(`Unexpected non-JSON response: ${text.substring(0, 100)}`);
+    }
+  } catch (err) {
+    console.error('❌ Error parsing response as JSON:', err);
+    throw new Error('Invalid JSON in successful response');
+  }
 };
 
 
