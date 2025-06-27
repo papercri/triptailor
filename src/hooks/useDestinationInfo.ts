@@ -6,9 +6,7 @@ const fetcher = async (url: string) => {
   const res = await fetch(url);
 
   if (!res.ok) {
-    // Leer el texto para poder mostrarlo o incluirlo en el error
     const text = await res.text();
-
     // Intenta parsear JSON para mostrar el mensaje de error
     let errorMessage = `Failed to fetch destination data: ${res.status} ${res.statusText}`;
 
@@ -17,7 +15,7 @@ const fetcher = async (url: string) => {
       if (data.error) errorMessage += ` - ${data.error}`;
     } catch {
       // No es JSON, texto plano o HTML, se puede mostrar raw
-      errorMessage += ` - ${text.substring(0, 100)}`; // corta el texto largo
+      errorMessage += ` - ${text.substring(0, 100)}`; 
     }
 
     const error: FetchError = new Error(errorMessage);

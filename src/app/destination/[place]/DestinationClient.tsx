@@ -21,7 +21,7 @@ type Props = {
 };
 
 export default function DestinationClient({ place }: Props) {
-  place="roma"
+
   const { data, error, isLoading } = useDestinationInfo(place);
 
   if (isLoading) return <div className='grid items-center justify-center h-screen'><Spinner /></div>;
