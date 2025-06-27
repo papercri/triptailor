@@ -27,13 +27,13 @@ export type Props = {
       nativeName?: Record<string, { official: string; common: string }>;
     };
   };
- // timeZone: string;
+  timeZone: string;
   weatherData: WeatherData;
   cityName: string;
   countryCommonName: string;
   breadcrumbDisplay: string;
-  cuisineData: CuisineData;
-  cultureData: CultureData;
+  //cuisineData: CuisineData;
+  //cultureData: CultureData;
 };
 
 export interface CountryData {
@@ -85,16 +85,16 @@ export interface Currency {
 
 
 
-export type CuisineData = {
-  title: string;
-  extract?: string;
-  image?: string;
+// export type CuisineData = {
+//   title: string;
+//   extract?: string;
+//   image?: string;
   
-};
+// };
 
-export type CultureData = {
-  title: string;
-  extract?: string;
-  image?: string;
+// export type CultureData = {
+//   title: string;
+//   extract?: string;
+//   image?: string;
   
-};
+// };
