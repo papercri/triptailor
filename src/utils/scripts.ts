@@ -1,10 +1,8 @@
-
-
 export function toTitleCase(str: string) {
   return str
     .toLowerCase()
-    .split(' ')
+    .split(/[\s-]+/)  // divide por espacios o guiones
     .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-    .join(' ');
+    .join('_');  // usar _ para el título de Wikipedia, que usa guiones bajos
 }
   
