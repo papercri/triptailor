@@ -27,38 +27,56 @@ function Info({ countryData, countryCommonName }: InfoProps) {
       </div>
       <div className="card-content">
         <div className="info-details">
-          <div className="info-item">
+          {countryData?.region && (
+            <div className="info-item">
             <span className="info-label">Continent:</span>
             <p className="info-value">{countryData.region}</p>
-          </div>
+            </div>
+          )}
+          
           <div className="info-item">
             <span className="info-label">Country:</span>
             <p className="info-value">{countryCommonName}</p>
           </div>
-          <div className="info-item">
+          {countryData?.capital && (
+            <div className="info-item">
             <span className="info-label">Capital:</span>
             <p className="info-value">{countryData.capital?.join(', ')}</p>
           </div>
-          <div className="info-item">
+          )}
+          {countryData?.population && (
+           <div className="info-item">
             <span className="info-label">Population:</span>
             <p className="info-value">{countryData.population.toLocaleString()}</p>
           </div>
-          <div className="info-item">
+          )}
+          {countryData?.area && (
+           <div className="info-item">
             <span className="info-label">Area:</span>
             <p className="info-value">{countryData.area.toLocaleString()} km²</p>
           </div>
-          <div className="info-item">
+          )}
+          {countryData?.idd && (
+            <div className="info-item">
             <span className="info-label">Country Code:</span>
             <p className="info-value">{countryData.idd.root}{countryData.idd.suffixes?.join(', ')}</p>
           </div>
-          <div className="info-item">
+          )}
+          {countryData?.tld && (
+            <div className="info-item">
             <span className="info-label">Domain:</span>
             <p className="info-value">{countryData.tld?.join(', ')}</p>
           </div>
-          <div className="info-item">
+          )}
+         {countryData && (
+            <div className="info-item">
             <span className="info-label">Driving Side:</span>
-            <p className="info-value">{countryData.car.side}</p>
+            <p className="info-value">{countryData.car?.side}</p>
           </div>
+          )}
+         
+          
+          
         </div>
       </div>
 

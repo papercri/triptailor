@@ -1,6 +1,5 @@
 import CountryBackgroundImage from '@/components/destination/countryBackgroundImage/CountryBackgroundImage'; 
 import React from 'react';
-// import Curiosity from '@/components/curiosity/Curiosity';
 
 type DestinationHeroProps = {
 
@@ -37,11 +36,13 @@ export default function DestinationHero({
               </div>
               <div className='flex gap-5 items-center '>
                 <div className='flag-container w-[50px] h-[50px] rounded-full overflow-hidden shadow-lg mb-5'>
-                  <img
-                    src={countryData.flags.svg}
-                    alt={`Flag of ${countryCommonName}`}
-                    className="flag-image h-full object-cover relatve"
-                  />
+                  {countryData?.flags?.svg && (
+                    <img
+                      src={countryData.flags.svg}
+                      alt={`Flag of ${countryCommonName}`}
+                      className="flag-image h-full object-cover relative"
+                    />
+                  )}
                 </div>
                 <h1 className="capitalize !mb-0 ">Discover {breadcrumbDisplay} </h1>
               </div>

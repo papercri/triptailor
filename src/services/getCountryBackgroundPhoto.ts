@@ -1,5 +1,5 @@
 export async function getCountryBackgroundPhoto(country: string): Promise<string | null> {
-  const accessKey = process.env.UNSPLASH_ACCESS_KEY;
+  const accessKey = process.env.NEXT_PUBLIC_UNSPLASH_ACCESS_KEY;
   const url = `https://api.unsplash.com/search/photos?query=${encodeURIComponent(
     country
   )}&orientation=landscape&per_page=1&client_id=${accessKey}`;
