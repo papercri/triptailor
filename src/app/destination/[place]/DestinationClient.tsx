@@ -5,16 +5,16 @@ import React, { Suspense } from 'react';
 import Header from '@/components/layout/header/Header';
 import Footer from '@/components/layout/footer/Footer';
 import DestinationHero from '@/components/destination/hero/DestinationHero';
-import QuickInfo from '@/components/destination/quickInfo/QuickInfo';
-import Info from '@/components/destination/generalInfo/Info';
-import Clima from '@/components/destination/clima/Clima';
-import CompoMap from '@/components/destination/map/CompoMap';
-import Cuisine from '@/components/destination/cuisine/Cuisine';
-import Culture from '@/components/destination/culture/Culture';
+//import QuickInfo from '@/components/destination/quickInfo/QuickInfo';
+// import Info from '@/components/destination/generalInfo/Info';
+// import Clima from '@/components/destination/clima/Clima';
+// import CompoMap from '@/components/destination/map/CompoMap';
+// import Cuisine from '@/components/destination/cuisine/Cuisine';
+// import Culture from '@/components/destination/culture/Culture';
 import TravelAssistantModal from '@/components/travelAssistent/TravelAssistantModal';
 import { useDestinationInfo } from '@/hooks/useDestinationInfo';
 import Spinner from '@/components/ui/Spinner/Spinner';
-//import { notFound } from 'next/navigation';
+import { notFound } from 'next/navigation';
 
 type Props = {
   place: string;
@@ -23,18 +23,18 @@ export default function DestinationClient({ place }: Props) {
   const { data, error, isLoading } = useDestinationInfo(place);
 
   if (isLoading) return <div className='grid items-center justify-center h-screen'><Spinner /></div>;
- // if (error || !data)  notFound();
+ if (error || !data)  notFound();
 
   const {
-    coords,
+    // coords,
     cityName,
     breadcrumbDisplay,
     countryData,
     countryCommonName,
-    timeZone,
-    weatherData,
-    cuisineData,
-    cultureData,
+    // timeZone,
+    // weatherData,
+    // cuisineData,
+    // cultureData,
   } = data;
 
 
@@ -49,17 +49,17 @@ export default function DestinationClient({ place }: Props) {
           cityName={cityName}
         />
 
-        <QuickInfo
+        {/* <QuickInfo
           weatherData={weatherData}
           countryData={countryData}
           timeZone={timeZone}
-        />
+        /> */}
   
 
         <section className="dashboard-container">
           <div className="container ">
             
-            <div className="content-main">
+            {/* <div className="content-main">
               <div className="info-section">
                 <div className="info-grid">
                   <Suspense fallback={<Spinner />}>
@@ -93,7 +93,7 @@ export default function DestinationClient({ place }: Props) {
                   </Suspense>
                 </div>
               </div>
-            </div>
+            </div> */}
             <div className="chatbot-container">
               <TravelAssistantModal destination={cityName}/>
             </div>
