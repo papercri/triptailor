@@ -9,8 +9,8 @@ import QuickInfo from '@/components/destination/quickInfo/QuickInfo';
 import Info from '@/components/destination/generalInfo/Info';
 import Clima from '@/components/destination/clima/Clima';
 import CompoMap from '@/components/destination/map/CompoMap';
-// import Cuisine from '@/components/destination/cuisine/Cuisine';
-// import Culture from '@/components/destination/culture/Culture';
+import Cuisine from '@/components/destination/cuisine/Cuisine';
+import Culture from '@/components/destination/culture/Culture';
 import TravelAssistantModal from '@/components/travelAssistent/TravelAssistantModal';
 import { useDestinationInfo } from '@/hooks/useDestinationInfo';
 import Spinner from '@/components/ui/Spinner/Spinner';
@@ -33,8 +33,8 @@ export default function DestinationClient({ place }: Props) {
     countryCommonName,
     timeZone,
     weatherData,
-    // cuisineData,
-    // cultureData,
+    cuisineData,
+    cultureData,
   } = data;
 
 
@@ -81,7 +81,7 @@ export default function DestinationClient({ place }: Props) {
                 </div>
               </div>
     
-              {/* <div className="info-section">
+              <div className="info-section">
                 <div className="info-grid info-grid__2col">
                   <Suspense fallback={<Spinner />}>
                     <Cuisine cuisineData={cuisineData} />
@@ -91,8 +91,8 @@ export default function DestinationClient({ place }: Props) {
                     cultureData={cultureData}
                     countryCommonName={countryCommonName} />
                   </Suspense>
-                </div> 
-              </div>*/}
+                </div>
+              </div>
             </div>
             <div className="chatbot-container">
               <TravelAssistantModal destination={cityName}/>
