@@ -1,3 +1,4 @@
+'use client';
 // This File is uset to fetch destination information based on a place parameter.
 // It retrieves coordinates, country data, time zone, weather, cuisine, and culture information.
 
