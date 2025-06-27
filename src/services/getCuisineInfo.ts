@@ -1,4 +1,4 @@
-import { toTitleCase } from '../utils/scripts';
+import { toTitleCase } from '@/utils/scripts';
 
 export async function getCuisineInfo(country: string) {
   try {
