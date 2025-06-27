@@ -20,7 +20,7 @@ type Props = {
   place: string;
 };
 
-export default function DestinationClient({ place }: Props) {
+const DestinationClient = ({ place }: Props) =>{
 
   const { data, error, isLoading } = useDestinationInfo(place);
 
@@ -107,3 +107,4 @@ export default function DestinationClient({ place }: Props) {
     </>
   );
 }
+export default DestinationClient
