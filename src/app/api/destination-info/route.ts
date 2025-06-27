@@ -22,8 +22,9 @@ export async function GET(req: Request) {
 
   try {
     const decodedPlace = decodeURIComponent(place);
+console.log('🔍 Decoded place:', decodedPlace);
     const coords = await getCoordinatesWithTranslation(decodedPlace);
-
+console.log('📍 Coords:', coords);
     if (!coords || !coords.displayName) {
       return NextResponse.json({ error: 'Could not get coordinates' }, { status: 404 });
     }
@@ -31,6 +32,7 @@ export async function GET(req: Request) {
     const parts = coords.displayName.split(', ');
     const cityName = translations[parts[0]] || parts[0];
     const countryName = coords.address?.country || parts[parts.length - 1];
+  console.log('🌍 Country:', countryName);
     const countryNameTranslated = translations[countryName] || countryName;
     const breadcrumbDisplay = `${cityName}, ${countryNameTranslated}`;
 
