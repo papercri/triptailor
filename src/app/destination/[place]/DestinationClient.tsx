@@ -25,7 +25,7 @@ export default function DestinationClient({ place }: Props) {
   const { data, error, isLoading } = useDestinationInfo(place);
 
   if (isLoading) return <div className='grid items-center justify-center h-screen'><Spinner /></div>;
- if (error ) return notFound();
+ if (error || !data) return notFound();
 
   const {
     coords,
