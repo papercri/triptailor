@@ -14,7 +14,7 @@ import Culture from '@/components/destination/culture/Culture';
 import TravelAssistantModal from '@/components/travelAssistent/TravelAssistantModal';
 import { useDestinationInfo } from '@/hooks/useDestinationInfo';
 import Spinner from '@/components/ui/Spinner/Spinner';
-import { notFound } from 'next/navigation';
+//import { notFound } from 'next/navigation';
 
 type Props = {
   place: string;
