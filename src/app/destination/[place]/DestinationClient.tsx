@@ -31,7 +31,7 @@ export default function DestinationClient({ place }: Props) {
     breadcrumbDisplay,
     countryData,
     countryCommonName,
-    timeZone,
+  //  timeZone,
     weatherData,
     cuisineData,
     cultureData,
@@ -52,7 +52,7 @@ export default function DestinationClient({ place }: Props) {
         <QuickInfo
           weatherData={weatherData}
           countryData={countryData}
-          timeZone={timeZone}
+          //timeZone={timeZone}
         />
   
 

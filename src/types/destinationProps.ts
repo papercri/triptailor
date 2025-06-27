@@ -27,7 +27,7 @@ export type Props = {
       nativeName?: Record<string, { official: string; common: string }>;
     };
   };
-  timeZone: string;
+ // timeZone: string;
   weatherData: WeatherData;
   cityName: string;
   countryCommonName: string;

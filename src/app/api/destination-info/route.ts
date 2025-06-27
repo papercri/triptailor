@@ -4,7 +4,7 @@
 import { NextResponse } from 'next/server';
 import { getCoordinatesWithTranslation } from '@/utils/geoCordTranslatorHelper';
 import { getCountryData } from '@/services/getCountryData';
-import { getTimeZone } from '@/services/getTimeZone';
+//import { getTimeZone } from '@/services/getTimeZone';
 import { getWeather } from '@/services/getWeather';
 import { getCuisineInfo } from '@/services/getCuisineInfo';
 import { getCultureInfo } from '@/services/getCultureInfo';
@@ -42,12 +42,12 @@ export async function GET(req: Request) {
       console.error('Error fetching country data:', error);
     }
 
-    let timeZone = null;
-    try {
-      timeZone = await getTimeZone(coords.lat, coords.lng);
-    } catch (error) {
-      console.error('Error fetching time zone:', error);
-    }
+    // let timeZone = null;
+    // try {
+    //   timeZone = await getTimeZone(coords.lat, coords.lng);
+    // } catch (error) {
+    //   console.error('Error fetching time zone:', error);
+    // }
 
     let weatherData = null;
     try {
@@ -77,7 +77,7 @@ export async function GET(req: Request) {
       breadcrumbDisplay,
       countryData,
       countryCommonName: countryData?.name?.common ?? '',
-      timeZone,
+      //timeZone,
       weatherData,
       cuisineData,
       cultureData,
