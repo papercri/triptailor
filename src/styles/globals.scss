@@ -129,7 +129,7 @@ input[type="number"].no-spinner::-webkit-inner-spin-button {
 .hero {
   background: linear-gradient(135deg, $primary-color 0%, $accent-color 100%);
   color: $white;
-  padding: 4rem 0;
+  padding: 2rem 0;
   text-align: center;
   
   @media (min-width: $tablet) {
@@ -141,19 +141,26 @@ input[type="number"].no-spinner::-webkit-inner-spin-button {
     margin: 0 auto;
     
     h1 {
-      font-size: 2.5rem;
+      font-size: 1.8rem;
       font-weight: 800;
-      margin-bottom: 1rem;
-      line-height:5rem;
+      margin-bottom: .5rem;
+      line-height:2.2rem;
       @media (min-width: $tablet) {
         font-size: 3.5rem;
+        margin-bottom: 1rem;
+        line-height:4.5rem;
       }
     }
     
     p {
-      font-size: 1.40rem;
-      margin-bottom: 2rem;
+      font-size: 1.10rem;
+      margin-bottom: 1rem;
       opacity: 0.9;
+      @media (min-width: $tablet) {
+        font-size: 1.5rem;
+        margin-bottom: 1.5rem;
+ 
+      }
     }
   }
   
@@ -360,16 +367,20 @@ section {
   
   .header {
     text-align: center;
-    margin-bottom: 3rem;
+    margin-bottom: 1rem;
+    @media (min-width: $mobile) {
+      margin-bottom: 3rem;
+    }
     
     h2 {
-      font-size: 2.5rem;
+      font-size: 1.5rem;
       font-weight: 800;
-      margin-bottom: 1rem;
+      margin-bottom: .5rem;
       color: $text-dark;
       
       @media (min-width: $tablet) {
         font-size: 3rem;
+        margin-bottom: 1rem;
       }
     }
     
@@ -383,3 +394,6 @@ section {
 }
 
 
+section.Toastify{
+  display: none;
+}

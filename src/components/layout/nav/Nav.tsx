@@ -67,13 +67,10 @@ function Nav() {
             </ul>
           </div>
         </div>
-         
+
+    {/* Mobile Nav     */}
         <div className="mobile-switch gap-4">
-          <SearchNav
-              place={place}
-              onChange={handleChange}
-              onSubmit={handleSubmit}
-          />
+          
           <div className={`nav__hamburger ${isMobileMenuActive ? 'active' : ''}`} onClick={toggleMobileMenu} >
             <span></span>
             <span></span>
@@ -100,6 +97,11 @@ function Nav() {
       </nav>
       <div className={`sticky-header__mobile-menu ${isMobileMenuActive ? 'active' : ''}`}>
         <ul className="nav__menu">
+          <SearchNav
+              place={place}
+              onChange={handleChange}
+              onSubmit={handleSubmit}
+          />
           <li><Link href="#home">Home</Link></li>
           <li><Link href="#destinos">Destinations</Link></li>
           <li><Link href="#sobre-nosotros">About</Link></li>

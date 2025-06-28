@@ -7,9 +7,9 @@ export default function NotFound() {
      <Header />
 
     <main className="flex flex-col items-center justify-center min-h-[60vh] px-6 text-center bg-gray-50">
-      <div className="max-w-md">
-        <h1 className="text-7xl font-black text-black !mb-2">404</h1>
-        <h2 className="text-3xl font-bold !mb-2">Page not found</h2>
+      <div className="max-w-md py-8">
+        <h1 className="text-5xl font-black text-gray-800 !mb-2">404</h1>
+        <h2 className="text-2xl font-bold text-gray-600 !mb-2">Page not found</h2>
         <p className="text-gray-600 text-lg !mb-4">
    
           Sorry, we couldn&lsquo;t find the destination you&lsquo;re looking for.  
