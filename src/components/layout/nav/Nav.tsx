@@ -58,7 +58,9 @@ function Nav() {
               ) :
               (
                 <>
-                  <Link href="/auth/signin"  data-tooltip-id="signin" data-tooltip-content="Sign In"><User /></Link>
+                  <Link href="/auth/signin"  data-tooltip-id="signin" data-tooltip-content="Sign In" className="flex items-center justify-center !w-10 h-10 rounded-full  transition-all duration-200 group border !border-white hover:!border-gray-200 !decoration-none ">
+                  <User />
+                  </Link>
                   <Tooltip id="signin" />
                 </>
               )}
