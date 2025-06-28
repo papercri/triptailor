@@ -8,7 +8,6 @@ const fetcher = async (url: string) => {
   const text = await res.text(); 
 
   if (!res.ok) {
-    console.log("RESPONSE TEXT:", text);
     let errorMessage = `Failed to fetch destination data: ${res.status} ${res.statusText}`;
 
     try {
