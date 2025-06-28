@@ -1,6 +1,6 @@
 
 ## Getting Started
-V2222
+copy
 First, run the development server:
 
 ```bash
