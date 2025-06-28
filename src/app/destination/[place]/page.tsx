@@ -1,7 +1,5 @@
-
 import { notFound } from "next/navigation"
 import DestinationClient from "./DestinationClient"
-
 interface PageProps {
   params: Promise<{ place: string }>
 }

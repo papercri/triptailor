@@ -1,4 +1,5 @@
 import { toTitleCase } from '@/utils/scripts';
+import { getCountryBackgroundPhoto } from '@/services/getCountryBackgroundPhoto';
 
 export async function getCuisineInfo(country: string) {
   try {
@@ -22,11 +23,16 @@ export async function getCuisineInfo(country: string) {
     if (!data.title || !data.extract) {
       throw new Error("Incomplete cuisine data from Wikipedia");
     }
+    let image = data.thumbnail?.source;
 
+    // Si no hay imagen en Wikipedia, buscamos en Unsplash
+    if (!image) {
+      image = await getCountryBackgroundPhoto(`${country} food`);
+    } 
     return {
       title: data.title,
       extract: data.extract,
-      image: data.thumbnail?.source || null,
+      image,
       wikipediaUrl: data.content_urls?.desktop?.page || null,
     };
   } catch (error) {
