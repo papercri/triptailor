@@ -385,7 +385,7 @@
     width: 12rem;
     height: 4rem;
     border-radius: 50px!important;
-    background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+    background: linear-gradient(135deg, $orange 0%, $orange-m 100%);
     border: none;
     cursor: pointer;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
@@ -401,7 +401,7 @@
   .chatbot-button:hover {
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
     transform: scale(1.05);
-    background: linear-gradient(135deg, #ea580c 0%, #dc2626 100%);
+    background: linear-gradient(135deg, $orange-m 0%, $orange-d 100%);
   }
 
   .chatbot-icon {

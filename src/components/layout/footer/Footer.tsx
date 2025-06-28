@@ -1,4 +1,7 @@
 import React from 'react'
+import Link from "next/link";
+import { FaGithub, FaLinkedin } from "react-icons/fa";
+import { MdOutlineEmail } from "react-icons/md";
 
 export default function Footer() {
   return (
@@ -8,30 +11,20 @@ export default function Footer() {
                 <div className="footer__section">
                     <h4>TripTailor</h4>
                     <ul>
-                        <li><a href="#">About Us</a></li>
-                        <li><a href="#">How It Works</a></li>
-                        <li><a href="#">Travel Blog</a></li>
-                        <li><a href="#">Contact</a></li>
+                        <li><Link href="/">Home</Link></li>
+                        <li><Link href="/#destinos">Destinations</Link></li>
+                        <li><Link href="/#sobre-nosotros">About Us </Link></li>
+                        <li><Link href="mailto:papercri@gmail.com">Contact Us </Link></li>
                     </ul>
                 </div>
                 
                 <div className="footer__section">
                     <h4>Destinations</h4>
                     <ul>
-                        <li><a href="#">Europe</a></li>
-                        <li><a href="#">Asia</a></li>
-                        <li><a href="#">America</a></li>
-                        <li><a href="#">Africa</a></li>
-                    </ul>
-                </div>
-                
-                <div className="footer__section">
-                    <h4>Tools</h4>
-                    <ul>
-                        <li><a href="#">AI Planner</a></li>
-                        <li><a href="#">Budget Calculator</a></li>
-                        <li><a href="#">Travel Guides</a></li>
-                        <li><a href="#">Mobile App</a></li>
+                        <li><Link href="#">Europe</Link></li>
+                        <li><Link href="#">Asia</Link></li>
+                        <li><Link href="#">America</Link></li>
+                        <li><Link href="#">Africa</Link></li>
                     </ul>
                 </div>
                 
@@ -42,6 +35,19 @@ export default function Footer() {
                         <li><a href="#">Terms of Use</a></li>
                         <li><a href="#">Privacy Policy</a></li>
                         <li><a href="#">FAQ</a></li>
+                    </ul>
+                </div>
+                <div className="footer__section">
+                    <h4>Credits</h4>
+                    <ul>
+                        <li className='flex gap-4 text-2xl'>
+                            <Link href="https://www.linkedin.com/in/cristianasollini" target='_blank'><FaLinkedin /></Link>
+                            <Link href="https://github.com/papercri" target='_blank'><FaGithub /></Link>
+                            <Link href="mailto:papercri@gmail.com"><MdOutlineEmail /></Link>
+                        </li>
+                            
+                        
+
                     </ul>
                 </div>
             </div>
