@@ -38,7 +38,7 @@ export default function Hero() {
           style={{ backgroundImage: `url(${images[index]})` }}
         />
       </AnimatePresence>
-      <div className="container relative z-100">
+      <div className="container relative z-100 flex flex-col items-center justify-center sm:h-screen h-auto">
         <div className="hero__content">
           <h1>Discover the world with TripTailor</h1>
           <p className="text-xl">

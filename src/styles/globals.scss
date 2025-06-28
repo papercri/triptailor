@@ -123,17 +123,15 @@ input[type="number"].no-spinner::-webkit-inner-spin-button {
   }
 }
 
-
-
 // Hero section
 .hero {
   background: linear-gradient(135deg, $primary-color 0%, $accent-color 100%);
   color: $white;
-  padding: 2rem 0;
+  padding: 1rem 0;
   text-align: center;
-  
+  padding:1rem 0;
   @media (min-width: $tablet) {
-    padding: 6rem 0;
+    padding: 0;
   }
   
   &__content {
@@ -141,25 +139,24 @@ input[type="number"].no-spinner::-webkit-inner-spin-button {
     margin: 0 auto;
     
     h1 {
-      font-size: 1.8rem;
+      font-size: 2rem;
       font-weight: 800;
       margin-bottom: .5rem;
-      line-height:2.2rem;
+      line-height:2.4rem;
       @media (min-width: $tablet) {
-        font-size: 3.5rem;
-        margin-bottom: 1rem;
-        line-height:4.5rem;
+        font-size: 3.8rem;
+        margin-bottom: 2rem;
+        line-height:5rem;
       }
     }
-    
     p {
       font-size: 1.10rem;
       margin-bottom: 1rem;
       opacity: 0.9;
       @media (min-width: $tablet) {
-        font-size: 1.5rem;
-        margin-bottom: 1.5rem;
- 
+        font-size: 1.6rem;
+        margin-bottom: 2.2rem;
+
       }
     }
   }
@@ -264,7 +261,10 @@ input[type="number"].no-spinner::-webkit-inner-spin-button {
   background: $text-dark;
   color: $white;
   padding: 3rem 0 1rem;
-  
+  text-align: center;
+  @media (min-width: $mobile) {
+    text-align: left;
+  }
   &__content {
     display: grid;
     grid-template-columns: 1fr;

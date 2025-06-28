@@ -88,8 +88,8 @@ function Nav() {
               ) :
               (
                 <>
-                  <Link href="/auth/signin"  data-tooltip-id="signin" data-tooltip-content="Sign In"><User /></Link>
-                  <Tooltip id="signin" />
+                  <Link href="/auth/signin" className="text-white mt-2"><User /></Link>
+                  
                 </>
               )}
           </div>
@@ -118,7 +118,7 @@ function Nav() {
               </>
              ) :
             (
-                <Link href="/auth/signin">Sign In</Link>
+                <Link href="/auth/signin" >Sign In</Link>
             )}
           </ul>
         </div>

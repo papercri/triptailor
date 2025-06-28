@@ -40,7 +40,7 @@ export default function Footer() {
                 <div className="footer__section">
                     <h4>Credits</h4>
                     <ul>
-                        <li className='flex gap-4 text-2xl'>
+                        <li className='flex gap-4 text-2xl justify-center sm:justify-start'>
                             <Link href="https://www.linkedin.com/in/cristianasollini" target='_blank'><FaLinkedin /></Link>
                             <Link href="https://github.com/papercri" target='_blank'><FaGithub /></Link>
                             <Link href="mailto:papercri@gmail.com"><MdOutlineEmail /></Link>
