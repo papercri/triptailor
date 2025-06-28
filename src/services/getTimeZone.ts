@@ -1,5 +1,5 @@
 export const getTimeZone = async (lat: number, lng: number) => {
-  const apiKey = process.env.TIMEZONEDB_API_KEY;
+  const apiKey = process.env.NEXT_PUBLIC_TIMEZONEDB_API_KEY;
 
   if (!apiKey) {
     throw new Error('Missing TIMEZONEDB_API_KEY environment variable');

@@ -1,5 +1,5 @@
 export async function getWeather(lat: number, lon: number) {
-  const apiKey = process.env.OPENWEATHER_API_KEY;
+  const apiKey = process.env.NEXT_PUBLIC_OPENWEATHER_API_KEY;
 
   if (!apiKey) {
     throw new Error('Missing OPENWEATHER_API_KEY environment variable');
