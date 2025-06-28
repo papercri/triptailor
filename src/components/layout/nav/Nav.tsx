@@ -2,21 +2,19 @@
 import Link from "next/link";
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { Search } from 'lucide-react';
 import { useDestinationSearch } from '@/hooks/useDestinationSearch';
 import { useUser } from '@/context/UserContext';
-import { CircleUser } from 'lucide-react';
+import { User } from 'lucide-react';
 import { Tooltip } from 'react-tooltip'
+import SearchHeader from "./Search"
+import UserDropdown from './UserDropdown';
+
 function Nav() {
-    const {
-      place,
-      handleChange,
-      handleSubmit,
-    } = useDestinationSearch();
+  const { place, handleChange, handleSubmit } = useDestinationSearch();
   const [isMobileMenuActive, setMobileMenuActive] = useState(false);
   const router = useRouter();
   const { user,  logout } = useUser();
-  console.log(user?.displayName);
+
   const toggleMobileMenu = () => {
     setMobileMenuActive(prev => !prev);
   };
@@ -40,42 +38,22 @@ function Nav() {
           <li><Link href="/">Home</Link></li>
           <li><Link href="/#destinos">Destinations</Link></li>
           <li><Link href="/#sobre-nosotros">About Us </Link></li>
-          <li><Link href="mailto:papercri@gmail.com">Contact Us </Link></li>
         </ul>
-         <form onSubmit={handleSubmit} className="hero__search">
-            <input
-              type="text"
-              value={place}
-              onChange={handleChange}
-              placeholder="Where do you want to travel?"
-              className="border rounded p-2 w-full"
-            />
-            <button type="submit" className="btn btn--primary">
-              <Search />
-            </button>
-          </form>
+         <SearchHeader
+          place={place}
+          onChange={handleChange}
+          onSubmit={handleSubmit}
+        />
         <div className="nav__auth">
           <ul className="nav__menu items-center">
             {user ? (
              <>
-                <li > 
-                  <a onClick={handleLogout}  data-tooltip-id="logout" data-tooltip-content="Log Out" className="uppercase text-xs font-bold">
-                  Log Out
-                </a></li>
-                <li >
-                  <Link href="/user" data-tooltip-id="myaccount" data-tooltip-content="My Account" className="user-icon">
-                  <span className="flex flex-col uppercase text-xs items-center ">
-                    <CircleUser /><span className="name">{user?.displayName}</span>
-                  </span>
-                  </Link>
-                </li>
-                <Tooltip id="myaccount" />
-                <Tooltip id="logout" />
+                <UserDropdown />
               </>
              ) :
             (
                <>
-                <Link href="/auth/signin"  data-tooltip-id="signin" data-tooltip-content="Sign In"><CircleUser /></Link>
+                <Link href="/auth/signin"  data-tooltip-id="signin" data-tooltip-content="Sign In"><User /></Link>
                 <Tooltip id="signin" />
               </>
             )}
@@ -92,14 +70,14 @@ function Nav() {
               <>
                 <Link href="/user" className="user-icon">
                 <span className="flex flex-col gap uppercase text-xs items-center ">
-                  <CircleUser /><span className="name">{user?.displayName}</span>
+                  <User /><span className="name">{user?.displayName}</span>
                 </span>
                 </Link>
               </>
               ) :
               (
                 <>
-                  <Link href="/auth/signin"  data-tooltip-id="signin" data-tooltip-content="Sign In"><CircleUser /></Link>
+                  <Link href="/auth/signin"  data-tooltip-id="signin" data-tooltip-content="Sign In"><User /></Link>
                   <Tooltip id="signin" />
                 </>
               )}
@@ -119,7 +97,8 @@ function Nav() {
             {user ? (
              <>
                 <li><Link href="/user">My Account</Link></li>
-                <li>  <a onClick={handleLogout} className="font-semibold">
+                <li>  
+                  <a onClick={handleLogout} className="font-semibold">
                   Logout
                 </a></li>
               </>

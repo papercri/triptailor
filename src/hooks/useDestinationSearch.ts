@@ -18,7 +18,6 @@ export function useDestinationSearch() {
 
   return {
     place,
-    setPlace,
     handleChange,
     handleSubmit,
   };
