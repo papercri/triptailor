@@ -30,8 +30,9 @@ function Nav() {
   return (
     <>
       <nav className="nav">
-        <Link href="/" className="nav__logo shadow-2xl">
-          ✈️ TripTailor
+        <Link href="/" className=" ">
+        <img src="/images/tripTailorWhite.png" alt="TripTailor Logo" className="logo-img sm:w-[200px] w-[130px]" />
+         
         </Link>
 
         <ul className="nav__menu">

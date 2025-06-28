@@ -38,6 +38,7 @@ export default function Footer() {
                     </ul>
                 </div>
                 <div className="footer__section">
+                    
                     <h4>Credits</h4>
                     <ul>
                         <li className='flex gap-4 text-2xl justify-center sm:justify-start'>
@@ -45,10 +46,10 @@ export default function Footer() {
                             <Link href="https://github.com/papercri" target='_blank'><FaGithub /></Link>
                             <Link href="mailto:papercri@gmail.com"><MdOutlineEmail /></Link>
                         </li>
-                            
-                        
-
                     </ul>
+                    <Link href="/">
+                    <img src="/images/tripTailorBlue.png" alt="TripTailor Logo" className="logo-img sm:w-[120px] w-[120px] md:mt-20 mt-8 md:mx-0 mx-auto" />
+                    </Link>
                 </div>
             </div>
             
