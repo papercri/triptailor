@@ -13,8 +13,8 @@ export default function Footer() {
                     <ul>
                         <li><Link href="/">Home</Link></li>
                         <li><Link href="/#destinos">Destinations</Link></li>
-                        <li><Link href="/#sobre-nosotros">About Us </Link></li>
-                        <li><Link href="mailto:papercri@gmail.com">Contact Us </Link></li>
+                        <li><Link href="/#sobre-nosotros">About </Link></li>
+                        <li><Link href="mailto:papercri@gmail.com">Contact </Link></li>
                     </ul>
                 </div>
                 

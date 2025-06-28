@@ -31,25 +31,20 @@ export default function UserDropdown() {
     console.log('Logging out...');
     setOpen(false);
   };
-
   return (
     <div className="relative" ref={dropdownRef}>
-      <button
-        onClick={toggleDropdown}
-
-      >
+      <button onClick={toggleDropdown} >
         <span className="flex flex-col gap uppercase text-xs items-center ">
-                  <User /><span className="name">{user?.displayName}</span>
-                </span>
+            <User /><span className="name">{user?.displayName}</span>
+        </span>
       </button>
-
       {open && (
-        <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded shadow-md z-50">
-          <ul className="py-1 text-sm text-gray-700">
+        <div className="absolute right-0 mt-2 w-auto bg-white border border-gray-200 rounded shadow-md z-50">
+          <ul className="py-1 text-sm text-gray-700 w-full">
             <li>
               <Link
                 href="/user"
-                className="block px-4 py-2 hover:bg-gray-100 transition"
+                className="block !w-full px-4 py-2 hover:bg-gray-100 transition whitespace-nowrap"
                 onClick={() => setOpen(false)}
               >
                 My Account
@@ -58,7 +53,7 @@ export default function UserDropdown() {
             <li>
               <button
                 onClick={handleLogout}
-                className="block w-full text-left px-4 py-2 hover:bg-gray-100 transition"
+                className="block !w-full text-left px-4 py-2 hover:bg-gray-100 transition whitespace-nowrap"
               >
                 Logout
               </button>

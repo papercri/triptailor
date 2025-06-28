@@ -43,6 +43,18 @@ input[type="number"].no-spinner::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
+ .mobile-switch{
+    display:flex;
+    @media (min-width: $mobile) {
+      display: none;
+    }
+  }
+  .mobile-switch-reverse{
+    display:none;
+    @media (min-width: $mobile) {
+      display: flex;
+    }
+  }
 // Layout
 .container {
   max-width: 1200px;

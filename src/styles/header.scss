@@ -20,8 +20,11 @@
     &__logo {
       font-size: 1.5rem;
       font-weight: 800;
-      color: $primary-color;
+      color: $logo-color;
       text-decoration: none;
+       @media (max-width: $mobile) {
+        font-size: 1.1rem;
+    }
       
       .icon {
         margin-right: 0.5rem;
@@ -63,9 +66,10 @@
       display: flex;
       flex-direction: column;
       gap: 4px;
+      margin-top: 3px;
       cursor: pointer;
       padding: 0.5rem;
-      
+      position:relative;
       @media (min-width: $mobile) {
         display: none;
       }
@@ -120,16 +124,10 @@
       margin-bottom: 1rem;
 
     }
-    
     .nav__auth {
       display: flex;
       gap: 1rem;
     }
   }
-  .auth-mobile{
-    display:flex;
-    @media (min-width: $mobile) {
-      display: none;
-    }
-  }
+ 
 }

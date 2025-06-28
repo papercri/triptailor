@@ -6,7 +6,7 @@ import { useDestinationSearch } from '@/hooks/useDestinationSearch';
 import { useUser } from '@/context/UserContext';
 import { User } from 'lucide-react';
 import { Tooltip } from 'react-tooltip'
-import SearchHeader from "./Search"
+import SearchNav from "./SearchNav"
 import UserDropdown from './UserDropdown';
 
 function Nav() {
@@ -37,35 +37,46 @@ function Nav() {
         <ul className="nav__menu">
           <li><Link href="/">Home</Link></li>
           <li><Link href="/#destinos">Destinations</Link></li>
-          <li><Link href="/#sobre-nosotros">About Us </Link></li>
+          <li><Link href="/#sobre-nosotros">About</Link></li>
         </ul>
-         <SearchHeader
-          place={place}
-          onChange={handleChange}
-          onSubmit={handleSubmit}
-        />
-        <div className="nav__auth">
-          <ul className="nav__menu items-center">
-            {user ? (
-             <>
-                <UserDropdown />
-              </>
-             ) :
-            (
-               <>
-                <Link href="/auth/signin"  data-tooltip-id="signin" data-tooltip-content="Sign In"><User /></Link>
-                <Tooltip id="signin" />
-              </>
-            )}
-          </ul>
+        <div className="flex gap-4 relative">
+          <span className="mobile-switch-reverse absolute right-14 z-30 ">
+            <SearchNav
+              place={place}
+              onChange={handleChange}
+              onSubmit={handleSubmit}
+          />
+          </span>
+          
+          <div className="nav__auth relative">
+            <ul className="nav__menu items-center">
+              {user ? (
+              <>
+                  <UserDropdown />
+                </>
+              ) :
+              (
+                <>
+                  <Link href="/auth/signin"  data-tooltip-id="signin" data-tooltip-content="Sign In"><User /></Link>
+                  <Tooltip id="signin" />
+                </>
+              )}
+            </ul>
+          </div>
         </div>
-        <div className="flex items-center gap-4">
+         
+        <div className="mobile-switch gap-4">
+          <SearchNav
+              place={place}
+              onChange={handleChange}
+              onSubmit={handleSubmit}
+          />
           <div className={`nav__hamburger ${isMobileMenuActive ? 'active' : ''}`} onClick={toggleMobileMenu} >
             <span></span>
             <span></span>
             <span></span>
           </div>
-          <div className={`auth-mobile ${isMobileMenuActive ? 'active' : ''}`}>
+          <div className={`mobile-switch ${isMobileMenuActive ? 'active' : ''}`}>
             {user ? (
               <>
                 <Link href="/user" className="user-icon">
@@ -88,9 +99,7 @@ function Nav() {
         <ul className="nav__menu">
           <li><Link href="#home">Home</Link></li>
           <li><Link href="#destinos">Destinations</Link></li>
-          <li><Link href="#planificador">Planner</Link></li>
-          <li><Link href="#sobre-nosotros">About Us</Link></li>
-          <li><Link href="/">Contact Us </Link></li>
+          <li><Link href="#sobre-nosotros">About</Link></li>
         </ul>
         <div className="nav__auth">
           <ul className="nav__menu">
