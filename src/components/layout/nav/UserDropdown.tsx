@@ -34,17 +34,17 @@ export default function UserDropdown() {
   return (
     <div className="relative" ref={dropdownRef}>
       <button onClick={toggleDropdown} >
-        <span className="flex flex-col gap uppercase text-xs items-center ">
+        <span className="flex flex-col gap uppercase text-xs items-center text-white">
             <User /><span className="name">{user?.displayName}</span>
         </span>
       </button>
       {open && (
-        <div className="absolute right-0 mt-2 w-auto bg-white border border-gray-200 rounded shadow-md z-50">
-          <ul className="py-1 text-sm text-gray-700 w-full">
+        <div className="absolute right-0 mt-2 w-auto bg-white border border-gray-200 rounded shadow-md z-50 ">
+          <ul className=" text-sm text-gray-700 w-full">
             <li>
               <Link
                 href="/user"
-                className="block !w-full px-4 py-2 hover:bg-gray-100 transition whitespace-nowrap"
+                className="block !w-full !p-4 hover:bg-gray-100 transition whitespace-nowrap !text-gray-700"
                 onClick={() => setOpen(false)}
               >
                 My Account
@@ -53,7 +53,7 @@ export default function UserDropdown() {
             <li>
               <button
                 onClick={handleLogout}
-                className="block !w-full text-left px-4 py-2 hover:bg-gray-100 transition whitespace-nowrap"
+                className="block !w-full text-left !p-4 hover:bg-gray-100 transition whitespace-nowrap !text-gray-700"
               >
                 Logout
               </button>

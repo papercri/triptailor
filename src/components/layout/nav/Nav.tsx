@@ -30,7 +30,7 @@ function Nav() {
   return (
     <>
       <nav className="nav">
-        <Link href="/" className="nav__logo ">
+        <Link href="/" className="nav__logo shadow-2xl">
           ✈️ TripTailor
         </Link>
 
@@ -40,7 +40,7 @@ function Nav() {
           <li><Link href="/#sobre-nosotros">About</Link></li>
         </ul>
         <div className="flex gap-4 relative">
-          <span className="mobile-switch-reverse absolute right-14 z-30 ">
+          <span className="mobile-switch-reverse absolute right-14 z-2 ">
             <SearchNav
               place={place}
               onChange={handleChange}
@@ -80,7 +80,7 @@ function Nav() {
             {user ? (
               <>
                 <Link href="/user" className="user-icon">
-                <span className="flex flex-col gap uppercase text-xs items-center ">
+                <span className="flex flex-col gap uppercase text-xs items-center text-white">
                   <User /><span className="name">{user?.displayName}</span>
                 </span>
                 </Link>
