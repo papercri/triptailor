@@ -82,7 +82,7 @@ function Nav() {
               <>
                 <Link href="/user" className="user-icon">
                 <span className="flex flex-col gap uppercase text-xs items-center text-white">
-                  <User /><span className="name">{user?.displayName}</span>
+                  <User /><span className="user-icon-name">{user?.displayName}</span>
                 </span>
                 </Link>
               </>
