@@ -3,10 +3,26 @@
 
 export async function getCoordinates(place: string) {
   const res = await fetch(
-    `https://nominatim.openstreetmap.org/search?format=json&addressdetails=1&q=${encodeURIComponent(place)}`,{
+    `https://nominatim.openstreetmap.org/search?format=json&addressdetails=1&q=${encodeURIComponent(place)}`,
+    {
+      headers: {
+        'User-Agent': 'TripTailor/1.0 (papercri@gmail.com)', 
+      },
       next: { revalidate: 86400 } // 1 día
     }
   );
+
+  if (!res.ok) {
+    console.error(`🌐 Error HTTP ${res.status} from Nominatim`);
+    return null;
+  }
+
+  const contentType = res.headers.get("content-type");
+  if (!contentType || !contentType.includes("application/json")) {
+    console.error("⚠️ Nominatim did not return JSON. Response was likely HTML");
+    return null;
+  }
+
   const data = await res.json();
 
   if (!data || data.length === 0) return null;
@@ -36,3 +52,4 @@ export async function getCoordinates(place: string) {
     address,
   };
 }
+
