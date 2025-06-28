@@ -38,6 +38,7 @@ function Nav() {
           <li><Link href="/">Home</Link></li>
           <li><Link href="/#destinos">Destinations</Link></li>
           <li><Link href="/#sobre-nosotros">About</Link></li>
+          {user ? (<li><Link href="/user">My Trips</Link></li>):(<></>)}
         </ul>
         <div className="flex gap-4 relative">
           <span className="mobile-switch-reverse absolute right-14 z-2 ">
