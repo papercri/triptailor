@@ -39,7 +39,6 @@ const DestinationClient = ({ place }: Props) =>{
     cultureData,
   } = data;
 
-
   return (
     <>
       <Header />
@@ -56,11 +55,9 @@ const DestinationClient = ({ place }: Props) =>{
           countryData={countryData}
           timeZone={timeZone}
         />
-  
 
         <section className="dashboard-container">
-          <div className="container ">
-            
+          <div className="container ">      
             <div className="content-main">
               <div className="info-section">
                 <div className="info-grid">
@@ -99,7 +96,6 @@ const DestinationClient = ({ place }: Props) =>{
             <div className="chatbot-container">
               <TravelAssistantModal destination={cityName}/>
             </div>
-            
           </div>
         </section>
       </main>

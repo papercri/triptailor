@@ -23,12 +23,11 @@ export async function getCuisineInfo(country: string) {
     if (!data.title || !data.extract) {
       throw new Error("Incomplete cuisine data from Wikipedia");
     }
-    let image = data.thumbnail?.source;
-
-    // Si no hay imagen en Wikipedia, buscamos en Unsplash
-    if (!image) {
-      image = await getCountryBackgroundPhoto(`${country} food`);
-    } 
+    const image = await getCountryBackgroundPhoto(`${country} food`);
+    
+    // if (!image) {
+    //   image = data.thumbnail?.source;
+    // } 
     return {
       title: data.title,
       extract: data.extract,

@@ -5,7 +5,6 @@ import { CircleEllipsis, CircleChevronUp} from 'lucide-react';
 type CuisineProps = {
   cuisineData?: CuisineData;
 };
-
 function Cuisine({ cuisineData }: CuisineProps) {
   const [expanded, setExpanded] = useState(false);  
   if (!cuisineData) {
@@ -28,8 +27,6 @@ function Cuisine({ cuisineData }: CuisineProps) {
             )}
 
           </div>
-
-
           <p className={`content-text ${expanded ? 'expanded' : ''}`}>
             {cuisineData.extract}
           </p>

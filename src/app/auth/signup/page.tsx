@@ -3,11 +3,10 @@ import Header from "@/components/layout/header/Header"
 import Footer from "@/components/layout/footer/Footer"
 import { useRouter } from 'next/navigation';
 import Link from "next/link";
-import '../auth.scss'
+import '@/styles/auth.scss'
 import { useState } from 'react';
 import { useUser } from '@/context/UserContext';
 import { toast } from 'react-toastify';
-
 
 export default function RegisterPage() {
   const [email, setEmail] = useState('');
@@ -18,29 +17,22 @@ export default function RegisterPage() {
   const { signUp } = useUser();
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
-    
     try {
       const user = await signUp(email, password, username);
       console.log('User registered:', user.uid, user.displayName);
       toast.success("Registration successful!");
       router.push('/');
-     
     } catch (err: unknown) {
       if (err instanceof Error) {
         toast.error(err.message);
-        
       } else {
         toast.error('An unknown error occurred.');
-        
       }
     }
   };
-
- 
   return (
     <>
       <Header />
-      
       <main className="auth-section">
         <div className="container">
           <div className="auth-container">

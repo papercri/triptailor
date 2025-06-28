@@ -344,12 +344,14 @@
     text-align: justify;
     display: -webkit-box;
     -webkit-line-clamp: 3; 
+    line-clamp: 3; 
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
     transition: all 0.3s ease;
      &.expanded {
       -webkit-line-clamp: unset;
+      line-clamp: unset;
       overflow: visible;
     }
   }

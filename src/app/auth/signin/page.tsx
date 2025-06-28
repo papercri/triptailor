@@ -2,7 +2,7 @@
 import Header from "@/components/layout/header/Header"
 import Footer from "@/components/layout/footer/Footer"
 import { useRouter } from 'next/navigation';
-import '../auth.scss'
+import '@/styles/auth.scss'
 import Link from "next/link";
 import { useState } from 'react';
 import { useUser } from '@/context/UserContext';
