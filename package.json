@@ -32,9 +32,11 @@
     "react-leaflet": "^5.0.0",
     "react-modal": "^3.16.3",
     "react-responsive": "^10.0.1",
+    "react-slick": "^0.30.3",
     "react-toastify": "^11.0.5",
     "react-tooltip": "^5.29.0",
     "sass": "^1.89.1",
+    "slick-carousel": "^1.8.1",
     "swr": "^2.3.3"
   },
   "devDependencies": {
@@ -45,6 +47,7 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@types/react-slick": "^0.23.13",
     "autoprefixer": "^10.4.21",
     "eslint": "^9",
     "eslint-config-next": "15.3.3",
