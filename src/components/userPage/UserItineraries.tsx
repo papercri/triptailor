@@ -1,5 +1,4 @@
 "use client"
-
 import React, { useState, useEffect, useRef  } from 'react'
 import { doc, deleteDoc } from "firebase/firestore";
 import { auth, db } from '@/services/firebaseConfig'
@@ -13,6 +12,7 @@ import ItineraryCard from '@/components/userPage/ItineraryCard';
 import ItineraryFilters from '@/components/userPage/ItineraryFilters';
 import { Funnel } from "lucide-react"
 import Button from '@/components/ui/Button/Button';
+import Link from "next/link";
 
 export default function UserItinerariesPage() {
   const { itineraries, loading, error } = useUserItineraries()
@@ -77,7 +77,10 @@ export default function UserItinerariesPage() {
 
   if (loading) return <div className='grid items-center justify-center h-screen'><Spinner /></div>
   if (error) return <p>Error loading itineraries: {error.message}</p>
-  if (itineraries.length === 0) return <p>No itineraries saved yet.</p>
+  if (itineraries.length === 0) return <div className='h-[40vh] flex flex-col items-center mt-10 '><p className='font-bold text-xl mb-6'>No itineraries saved yet.</p>
+  <Link href="/" className="btn btn--primary">
+    Back to Home Page
+  </Link></div>
 
 
   //Buscador Y filtros

@@ -12,7 +12,6 @@ import type { LatLngTuple } from 'leaflet';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas-pro';
 import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import Button from '@/components/ui/Button/Button';
 
 const MapContainer = dynamic(() => import('react-leaflet').then(m => m.MapContainer), { ssr: false });
@@ -88,14 +87,10 @@ export default function MapaConItinerario({ itinerary }: { itinerary: Place[] })
     const textWidth = pdf.getTextWidth(pdfTitle);
     const x = (pdfWidth - textWidth) / 2; 
     const y = fontSize + 10; 
-
- 
     pdf.text(pdfTitle, x, y);
-
 
     const imageY = y + 10; 
     pdf.addImage(imgData, 'PNG', 0, imageY, pdfWidth, pdfHeight);
-
     pdf.save(`TripTailor_itinerary.pdf`);
     } catch (error) {
       console.error("Error generating PDF:", error);
