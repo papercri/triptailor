@@ -1,3 +1,5 @@
+import Button from '@/components/ui/Button/Button';
+import { CircleChevronLeft, CircleChevronRight} from 'lucide-react';
 type StepNavigationProps = {
   stepIndex: number;
   steps: string[];
@@ -12,24 +14,30 @@ export default function StepNavigation({ stepIndex, steps, isStepValid, goBack, 
   return (
     <div className="flex justify-between mt-4">
       {stepIndex > 0 ? (
-        <button onClick={goBack} className="px-4 py-2 bg-gray-300 text-gray-800 rounded hover:bg-gray-400">← Back</button>
+        <button onClick={goBack} className="px-4 py-2">
+          <CircleChevronLeft size={36} strokeWidth={0.5}/>
+        </button>
+
       ) : <div />}
       {stepIndex < steps.length - 1 ? (
         <button
           onClick={goNext}
           disabled={!isStepValid()}
-          className="px-4 py-2 bg-blue-600 text-white rounded disabled:opacity-50"
+          className="px-4 py-2 disabled:opacity-50"
         >
-          Next →
+          <CircleChevronRight size={36} strokeWidth={0.5} />
         </button>
       ) : (
-        <button
+      
+
+        <Button
           onClick={generateItinerary}
           disabled={!isStepValid() || loading}
-          className="px-4 py-2 bg-blue-600 text-white rounded disabled:opacity-50"
+          variant="primary"
+          size="sm"
         >
           {loading ? 'Generating...' : 'Generate Itinerary'}
-        </button>
+        </Button>
       )}
     </div>
   );

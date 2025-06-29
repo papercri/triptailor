@@ -8,6 +8,7 @@ import {
   
 } from 'react-icons/fa';
 import { GiThreeFriends, GiLovers } from "react-icons/gi";
+import { HandPlatter } from 'lucide-react';
 import { MdOutlineFamilyRestroom, MdBusinessCenter } from "react-icons/md";
  const stepAnimation = {
     initial: { opacity: 0, x: 40 },
@@ -36,8 +37,8 @@ export default function StepContent({ stepIndex, form, handleSelect, toggleInter
         <motion.div key={stepIndex} {...stepAnimation} className="space-y-4">
           {stepIndex === 0 && (
             <div>
-              <h3 className="mb-2 font-bold text-xl text-center">What kind of traveler are you?</h3>
-              <div className="grid grid-cols-3 gap-2 w-[300px] mx-auto max-w-full">
+              <h3 className="mb-4 font-bold text-xl text-center">What kind of traveler are you?</h3>
+              <div className="step-content !grid grid-cols-3 gap-2 w-[300px] mx-auto max-w-full">
                 {[
                   { label: 'Adventure', icon: <FaHiking /> },
                   { label: 'Relax', icon: <FaSpa /> },
@@ -47,6 +48,7 @@ export default function StepContent({ stepIndex, form, handleSelect, toggleInter
                   { label: 'Friends', icon: <GiThreeFriends /> },
                   { label: 'Solo', icon: <FaUser /> },
                   { label: 'Business', icon: <MdBusinessCenter />},
+                  { label: 'Luxury', icon: <HandPlatter />},
                 ].map(({ label, icon }) => (
                   <StepButton
                     key={label}
@@ -62,8 +64,8 @@ export default function StepContent({ stepIndex, form, handleSelect, toggleInter
 
           {stepIndex === 1 && (
             <div>
-              <p className="mb-2 font-medium">Select your budget per day:</p>
-              <div className="flex gap-2">
+              <p className="mb-4 font-medium">Select your budget per day:</p>
+              <div className="step-content">
                 {['Low', 'Medium', 'High'].map((level) => (
                   <button
                     key={level}
@@ -83,8 +85,8 @@ export default function StepContent({ stepIndex, form, handleSelect, toggleInter
 
           {stepIndex === 2 && (
             <div>
-              <p className="mb-2 font-medium">How many days will you stay?</p>
-              <div className="flex gap-2 flex-wrap">
+              <p className="mb-4 font-medium">How many days will you stay?</p>
+              <div className="step-content">
                 {['1', '2','3','4','5', '7', 'More than 7'].map((day) => (
                   <button
                     key={day}
@@ -105,7 +107,7 @@ export default function StepContent({ stepIndex, form, handleSelect, toggleInter
           {stepIndex === 3 && (
             <div>
               <p className="mb-2 font-medium">Choose the season of your trip:</p>
-              <div className="flex gap-2 flex-wrap">
+              <div className="step-content">
                 {['Spring', 'Summer', 'Autumn', 'Winter'].map((season) => (
                   <button
                     key={season}
@@ -126,7 +128,7 @@ export default function StepContent({ stepIndex, form, handleSelect, toggleInter
           {stepIndex === 4 && (
             <div>
               <p className="mb-2 font-medium">Select your interests:</p>
-              <div className="flex flex-wrap gap-3">
+              <div className="step-content">
                 {['Museums', 'History', 'Nature', 'Beaches', 'Wellness & Spa', 'Gastronomy', 'Shopping', 'Nightlife','Festivals' ].map(
                   (interest) => (
                     <button
