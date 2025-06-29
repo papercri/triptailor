@@ -30,8 +30,9 @@ function Nav() {
   return (
     <>
       <nav className="nav">
-        <Link href="/" className="nav__logo shadow-2xl">
-          ✈️ TripTailor
+        <Link href="/" className=" ">
+        <img src="/images/tripTailorWhite.png" alt="TripTailor Logo" className="logo-img sm:w-[200px] w-[130px]" />
+         
         </Link>
 
         <ul className="nav__menu">
@@ -81,7 +82,7 @@ function Nav() {
               <>
                 <Link href="/user" className="user-icon">
                 <span className="flex flex-col gap uppercase text-xs items-center text-white">
-                  <User /><span className="name">{user?.displayName}</span>
+                  <User /><span className="user-icon-name">{user?.displayName}</span>
                 </span>
                 </Link>
               </>

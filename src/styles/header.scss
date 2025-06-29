@@ -105,11 +105,10 @@
       }
     }
   }
-  .user-icon .name{
+  .user-icon-name{
     white-space: nowrap;
     overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 100px;
+    max-width: 60px;
   }
   &__mobile-menu {
     display: none;

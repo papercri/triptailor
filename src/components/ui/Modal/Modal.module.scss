@@ -1,3 +1,4 @@
+@use "@/styles/variables.scss"  as *;
 .backdrop {
   position: fixed;
   inset: 0;
@@ -6,7 +7,7 @@
   align-items: center;
   justify-content: center;
   background-color: rgba(0, 0, 0, 0.6);
-  padding: 1rem;
+  padding: .4rem;
 }
 
 .modal {
@@ -16,8 +17,8 @@
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
   height: auto;
   width: auto;
-  max-width: 95%;
-  max-height: 95%;
+  max-width: 99%;
+  max-height: 99%;
   padding: 1rem;
   overflow-y: auto;
 }
@@ -30,8 +31,12 @@
   height:auto;
 }
 .large {
-  width: 95%;
-  height: 95%;
+  width: 100%;
+  height: 100%;
+   @media (min-width: $mobile) {
+       width: 95%;
+      height: 95%;
+    }
 }
 .closeButton {
   position: absolute;

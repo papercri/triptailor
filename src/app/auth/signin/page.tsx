@@ -6,6 +6,7 @@ import '@/styles/auth.scss'
 import Link from "next/link";
 import { useState } from 'react';
 import { useUser } from '@/context/UserContext';
+import { useSearchParams } from 'next/navigation';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
@@ -13,12 +14,13 @@ export default function LoginPage() {
   const [error, setError] = useState('');
   const router = useRouter();
   const { signIn } = useUser();
-
+  const searchParams = useSearchParams();
+  const callbackUrl = searchParams.get('callbackUrl'); 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
       await signIn(email, password);
-      router.push('/');
+      router.push(callbackUrl ? callbackUrl : '/');
     } catch (error) {
       setError('Failed to sign in' + error);
     }
@@ -73,7 +75,12 @@ export default function LoginPage() {
                 )}
               </form>
               <div className="auth-footer">
-                <p>Don&apos;t have an account? <Link href="/auth/signup">Sign up</Link></p>
+                <p>
+                Don&apos;t have an account?{' '}
+                <Link href={`/auth/signup${callbackUrl ? `?callbackUrl=${encodeURIComponent(callbackUrl)}` : ''}`}>
+                Sign up
+                </Link>
+                </p>
               </div>
             </div>
           </div>

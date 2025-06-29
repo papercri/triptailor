@@ -40,7 +40,7 @@ export default function TravelAssistantModal({ destination }: { destination: str
           <div className="space-y-4 text-center p-6">
             <h2 className="text-xl font-bold">Login Required</h2>
             <p>You need to be logged in to plan your trip.</p>
-            <Link href="/auth/signin" className="inline-block">
+            <Link href={`/auth/signin?callbackUrl=/destination/${encodeURIComponent(destination)}`} className="inline-block">
               <Button variant="primary">Go to Login</Button>
             </Link>
           </div>
