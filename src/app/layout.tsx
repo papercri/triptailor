@@ -3,6 +3,8 @@ import "@/styles/globals.scss";
 import { Inter } from 'next/font/google';
 import type { Metadata } from "next";
 import { UserProvider } from '@/context/UserContext';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -27,8 +29,15 @@ export default function RootLayout({
     <html lang="en" className={inter.variable}>
       <body  className="font-sans">
         <UserProvider>
+          <ToastContainer 
+              position="top-center" 
+              autoClose={1000} 
+              hideProgressBar={true}
+              newestOnTop
+              closeOnClick
+              draggable
+              theme="light"/>
             {children}
-              
         </UserProvider>
       </body>
     </html>

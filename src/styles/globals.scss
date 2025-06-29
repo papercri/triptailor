@@ -310,5 +310,6 @@ section {
 
 
 section.Toastify{
-  display: none;
+  position:absolute;
+  z-index:4000;
 }

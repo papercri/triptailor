@@ -26,9 +26,9 @@ export default function RegisterForm() {
     e.preventDefault()
     try {
       const user = await signUp(email, password, username)
-      console.log("User registered:", user.uid, user.displayName)
+      console.log("User registered:", user.displayName)
       toast.success("Registration successful!")
-      router.push(callbackUrl ?? "/")
+      router.push(callbackUrl ?? "")
     } catch (err: unknown) {
       if (err instanceof Error) {
         toast.error(err.message)
