@@ -2,41 +2,52 @@ import useSWR from 'swr';
 
 type FetchError = Error & { status?: number; statusText?: string };
 
-const fetcher = async (url: string) => {
-  const res = await fetch(url);
+ const fetcher = async (url: string) => {
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 30000); // 30 segundos timeout
 
-  const text = await res.text(); 
+  try {
+    const res = await fetch(url, { signal: controller.signal });
 
-  if (!res.ok) {
-    let errorMessage = `Failed to fetch destination data: ${res.status} ${res.statusText}`;
+    clearTimeout(timeoutId);
+
+    const text = await res.text();
+
+    if (!res.ok) {
+      let errorMessage = `Failed to fetch destination data: ${res.status} ${res.statusText}`;
+
+      try {
+        const data = JSON.parse(text);
+        if (data.error) errorMessage += ` - ${data.error}`;
+      } catch {
+        errorMessage += ` - ${text.substring(0, 100)}`;
+      }
+
+      const error: FetchError = new Error(errorMessage);
+      error.status = res.status;
+      error.statusText = res.statusText;
+
+      throw error;
+    }
 
     try {
-      const data = JSON.parse(text);
-      if (data.error) errorMessage += ` - ${data.error}`;
-    } catch {
-      errorMessage += ` - ${text.substring(0, 100)}`;
+      const isJson = text.trim().startsWith('{') || text.trim().startsWith('[');
+      if (isJson) {
+        return JSON.parse(text);
+      } else {
+        throw new Error(`Unexpected non-JSON response: ${text.substring(0, 100)}`);
+      }
+    } catch (err) {
+      console.error('Error parsing response as JSON:', err);
+      throw new Error('Invalid JSON in successful response');
     }
-
-    const error: FetchError = new Error(errorMessage);
-    error.status = res.status;
-    error.statusText = res.statusText;
-
+  } catch (error) {
+    clearTimeout(timeoutId);
+    // Si la petición fue abortada por timeout, lanzamos un error personalizado
+    if (typeof error === 'object' && error !== null && 'name' in error && (error as { name?: string }).name === 'AbortError') {
+      throw new Error('Request timed out after 30 seconds');
+    }
     throw error;
-  }
-
-
-  // Si está OK, parsea y devuelve JSON
-  //return res.json();
-  try {
-    const isJson = text.trim().startsWith('{') || text.trim().startsWith('[');
-    if (isJson) {
-      return JSON.parse(text);
-    } else {
-      throw new Error(`Unexpected non-JSON response: ${text.substring(0, 100)}`);
-    }
-  } catch (err) {
-    console.error('❌ Error parsing response as JSON:', err);
-    throw new Error('Invalid JSON in successful response');
   }
 };
 

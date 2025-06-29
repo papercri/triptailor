@@ -14,10 +14,8 @@ export default function LoginForm() {
   const searchParams = useSearchParams()
   const callbackUrl = searchParams.get("callbackUrl")
   const { getErrorMessage } = useAuthErrorMessage()
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-
 
     if (!email.includes("@")) {
       toast.error("Please enter a valid email address.")
