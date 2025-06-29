@@ -4,9 +4,9 @@ import Footer from "@/components/layout/footer/Footer"
 import { useRouter } from 'next/navigation';
 import '@/styles/auth.scss'
 import Link from "next/link";
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useUser } from '@/context/UserContext';
-import { useSearchParams } from 'next/navigation';
+
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
@@ -14,8 +14,14 @@ export default function LoginPage() {
   const [error, setError] = useState('');
   const router = useRouter();
   const { signIn } = useUser();
-  const searchParams = useSearchParams();
-  const callbackUrl = searchParams.get('callbackUrl'); 
+  const [callbackUrl, setCallbackUrl] = useState<string | null>(null);
+
+useEffect(() => {
+  if (typeof window !== 'undefined') {
+    const params = new URLSearchParams(window.location.search);
+    setCallbackUrl(params.get('callbackUrl'));
+  }
+}, []);
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
