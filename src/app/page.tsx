@@ -4,7 +4,7 @@ import Footer from '@/components/layout/footer/Footer';
 import Hero from '@/components/homePage/hero/Hero';
 
 import About from '@/components/homePage/about/About';
-// import Destinos from '@/components/homePage/destinos/Destinos';
+import Destinos from '@/components/homePage/destinos/Destinos';
 
 export default function Home() {
   
@@ -18,8 +18,8 @@ export default function Home() {
       <div id="sobre-nosotros"></div>
       <About />
 
-      {/*<div id="destinos"></div>
-      <Destinos />*/}
+      <div id="destinos"></div>
+      <Destinos />
     </main>
     
     <Footer />

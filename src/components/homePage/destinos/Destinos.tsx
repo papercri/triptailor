@@ -1,5 +1,5 @@
-import styles from './Destinos.module.scss'
-
+//import styles from './Destinos.module.scss'
+import CityCarousel from './Carousel'; 
 function Destinos() {
   return (
     <>
@@ -9,8 +9,8 @@ function Destinos() {
             <h2>Popular Destinations</h2>
             <p>Explore some of the most searched destinations by our travelers</p>
             </div>
-            
-            <div className={styles.destination__grid}>
+            <CityCarousel />
+            {/* <div className={styles.destination__grid}>
                 <div className={`${styles.destination__card} card`}>
                     <div className={styles["destination__card-image"]}>
                     <div className={styles.badge}>Popular</div>
@@ -70,7 +70,7 @@ function Destinos() {
                     <p>Discover the fascinating blend of tradition and modernity in Japan’s capital.</p>
                     </div>
                 </div>
-            </div>
+            </div> */}
         </div>
     </section>
 
