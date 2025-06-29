@@ -1,36 +1,12 @@
-'use client';
+import { Suspense } from "react"
 import Header from "@/components/layout/header/Header"
 import Footer from "@/components/layout/footer/Footer"
-import { useRouter } from 'next/navigation';
-import '@/styles/auth.scss'
-import Link from "next/link";
-import { useState, useEffect } from 'react';
-import { useUser } from '@/context/UserContext';
+import LoginForm from "@/components/auth/LoginForm"
+import "@/styles/auth.scss"
 
+//import { useAuthErrorMessage } from "@/hooks/useAuthErrorMessage";
 
 export default function LoginPage() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
-  const router = useRouter();
-  const { signIn } = useUser();
-  const [callbackUrl, setCallbackUrl] = useState<string | null>(null);
-
-useEffect(() => {
-  if (typeof window !== 'undefined') {
-    const params = new URLSearchParams(window.location.search);
-    setCallbackUrl(params.get('callbackUrl'));
-  }
-}, []);
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    try {
-      await signIn(email, password);
-      router.push(callbackUrl ? callbackUrl : '/');
-    } catch (error) {
-      setError('Failed to sign in' + error);
-    }
-  };
   return (
     <>
       <Header />
@@ -42,52 +18,9 @@ useEffect(() => {
                 <h2>Sign In</h2>
                 <p>Welcome back, keep exploring the world</p>
               </div>
-
-               <form onSubmit={handleSubmit} className="auth-form">
-                <div className="form-group">
-                  <label htmlFor="email">Email</label>
-                  <input
-                    type="email"
-                    placeholder="Email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    className=""
-                    id="email"
-                    required
-                  />
-                </div>
-
-                <div className="form-group">
-                  <label htmlFor="password">Password</label>
-                  <div className="password-input">
-                    <input
-                      type="password"
-                      placeholder="Password"
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                      className=""
-                      id="password"
-                      required
-                    />
-                   
-                  </div>
-                </div>
-
-                <button type="submit" className="btn btn--primary btn--full">Sign In</button>
-                {error && (
-                  <div className="auth-error" style={{ color: 'red', marginTop: '1rem' }}>
-                    {error}
-                  </div>
-                )}
-              </form>
-              <div className="auth-footer">
-                <p>
-                Don&apos;t have an account?{' '}
-                <Link href={`/auth/signup${callbackUrl ? `?callbackUrl=${encodeURIComponent(callbackUrl)}` : ''}`}>
-                Sign up
-                </Link>
-                </p>
-              </div>
+              <Suspense fallback={<div>Loading...</div>}>
+                <LoginForm />
+              </Suspense>
             </div>
           </div>
         </div>
