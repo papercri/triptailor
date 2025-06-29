@@ -36,8 +36,8 @@ export default function StepContent({ stepIndex, form, handleSelect, toggleInter
         <motion.div key={stepIndex} {...stepAnimation} className="space-y-4">
           {stepIndex === 0 && (
             <div>
-              <h3 className="mb-4 font-bold text-xl text-center">What kind of traveler are you?</h3>
-              <div className="grid grid-cols-3 gap-4 w-[300px] mx-auto">
+              <h3 className="mb-2 font-bold text-xl text-center">What kind of traveler are you?</h3>
+              <div className="grid grid-cols-3 gap-2 w-[300px] mx-auto max-w-full">
                 {[
                   { label: 'Adventure', icon: <FaHiking /> },
                   { label: 'Relax', icon: <FaSpa /> },
