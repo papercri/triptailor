@@ -68,10 +68,13 @@
     
     .step-content{
         min-height: 40vh;
-         display: flex;
-        gap: 0.5rem; 
-        align-items: center;
-        justify-content: center;
+          display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0.5rem; /* gap-2 = 8px = 0.5rem */
+        width: 300px;
+        max-width: 100%;
+        margin-left: auto;
+        margin-right: auto;
     }
 }
 .itinerary-view{

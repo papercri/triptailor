@@ -135,7 +135,7 @@ export default function TravelResult({ itinerary, destination, userId, userEmail
   return (
     <div className="mt-4 bg-white p-4 rounded shadow">
       <h3 className="text-4xl text-center font-bold text-gray-800 mb-2">Your Itinerary to {destination}</h3>
-      <div className="block text-right mr-[20px]">
+      <div className="step-content text-right mr-[20px]">
         <Button
           onClick={saveItinerary}
           variant="secondary"
