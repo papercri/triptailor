@@ -11,22 +11,19 @@ export const dynamicParams = true
 export default async function DestinationPage({ params }: PageProps) {
   const { place } = await params
 
-  // Debug logging para Vercel
-  console.log("🔍 Destination page accessed:", place)
-
   if (!place) {
-    console.log("❌ No place parameter found")
+    console.error("No place parameter found")
     notFound()
   }
 
   let decodedPlace: string
   try {
     decodedPlace = decodeURIComponent(place)
-    console.log("✅ Decoded place:", decodedPlace)
   } catch (error) {
-    console.log("❌ Error decoding place:", error)
+    console.error("Error decoding place:", error)
     decodedPlace = place
   }
+  
 
   return <DestinationClient place={decodedPlace} />
 }

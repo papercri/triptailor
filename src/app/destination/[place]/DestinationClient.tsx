@@ -25,7 +25,9 @@ const DestinationClient = ({ place }: Props) =>{
   const { data, error, isLoading } = useDestinationInfo(place);
 
   if (isLoading) return <div className='grid items-center justify-center h-screen'><Spinner /></div>;
- if (error || !data) return notFound();
+  if (error || !data) return notFound();
+
+   
 
   const {
     coords,
@@ -38,7 +40,9 @@ const DestinationClient = ({ place }: Props) =>{
     cuisineData,
     cultureData,
   } = data;
-
+  if (!countryData || !countryData.languages) {
+      return notFound();
+    }
   return (
     <>
       <Header />

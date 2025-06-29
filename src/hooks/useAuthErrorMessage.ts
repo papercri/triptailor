@@ -1,6 +1,4 @@
-
 import { useCallback } from "react";
-
 export const useAuthErrorMessage = () => {
   const getErrorMessage = useCallback((code: string): string => {
     switch (code) {

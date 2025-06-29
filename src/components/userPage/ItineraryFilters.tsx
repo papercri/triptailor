@@ -47,6 +47,7 @@ export default function ItineraryFilters({
     { value: "Friends", label: "Friends" },
     { value: "Solo", label: "Solo" },
     { value: "Business", label: "Business" },
+    { value: "Luxury", label: "Luxury" },
   ]
 
   const seasons = [
