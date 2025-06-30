@@ -163,6 +163,7 @@ GET https://api.unsplash.com/search/photos?query=<Country>&orientation=landscape
 ## ✅ To Do / Future Improvements
 
 - Add bookmarking & history
+- Add admin user and dashboard
 - Accessibility tweaks (a11y)
 - Internationalization (content translations)
 
