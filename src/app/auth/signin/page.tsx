@@ -4,8 +4,6 @@ import Footer from "@/components/layout/footer/Footer"
 import LoginForm from "@/components/auth/LoginForm"
 import "@/styles/auth.scss"
 
-//import { useAuthErrorMessage } from "@/hooks/useAuthErrorMessage";
-
 export default function LoginPage() {
   return (
     <>

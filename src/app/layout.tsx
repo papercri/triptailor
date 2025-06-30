@@ -18,6 +18,7 @@ export const metadata: Metadata = {
   icons: {
     icon: "/images/favicon.ico?v=2",
   },
+  themeColor: '#1483B4'
 };
 
 export default function RootLayout({
@@ -27,6 +28,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={inter.variable}>
+   
       <body  className="font-sans">
         <UserProvider>
           <ToastContainer 
