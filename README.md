@@ -1,18 +1,33 @@
 # TripTailor 🌍
 
-[Live Demo](https://triptailor-gamma.vercel.app/) • [Source Code](https://github.com/papercri/triptailor.git)
+[Live Demo](https://triptailor-ai.vercel.app/) • [Source Code](https://github.com/papercri/triptailor.git)
 
 ---
 
-## 🚀 Overview
+## Overview
 
 TripTailor is an AI-powered travel planning web app built with modern technologies. It helps users discover destinations, view essential information, and get personalized trip advice via an interactive assistant. The app supports search, browsing key data for cities, and offers an intelligent “Plan Your Trip” assistant.
 
 ---
 
-## 🔍 Features
+## Features
 
-### 1. Destination Pages
+### 1. Home Page 
+
+The **Home Page** of TripTailor serves as the main entry point to the app and includes:
+
+- **Smart Search Bar**:  
+  Users can search for a destination using natural language. The app supports spaces, special characters, and fallback translations via `placeTranslations.json`.
+
+- **AI-generated summary and recommendations**:  
+  After completing the assistant, the app uses the **OpenAI API** to generate a custom trip summary and suggestions tailored to the input provided.
+
+- **City Carousel**:  
+  A responsive React Slick carousel displays a random selection of featured cities for quick discovery, with swipe support on mobile and arrow controls on desktop.
+
+The design is responsive and animated with Framer Motion for smooth transitions and engaging user experience.
+
+### 2. Destination Pages
 
 - **Search by city**: Free-text search with support for special characters and spaces.
 - **Geolocation & language fallback**:
@@ -26,7 +41,7 @@ TripTailor is an AI-powered travel planning web app built with modern technologi
 - **Map Embedding**: Leaflet map centered on city.
 - **Responsive UI**: Layout supports desktop and mobile; skeleton/fallback spinners during load.
 
-### 2. Travel Assistant
+### 3. Travel Assistant
 
 - Interactive modal that opens only when user is authenticated.
 - Guided multi-step form capturing traveler preferences:
@@ -36,27 +51,49 @@ TripTailor is an AI-powered travel planning web app built with modern technologi
   - Preferred season
   - Interests (e.g., Museums, Nature, Gastronomy)
 - Feeds into AI assistant to generate tailored trip advice.
+- Generated itineraries can be **saved as PDF** for offline use and easy sharing.
 
-### 3. Authentication
+### 4. Authentication
 
-- Email/password signup & login using Firebase Auth.
-- Persistent sessions with `UserContext`.
-- Route protection: planning modal redirects to `/auth/signin?callbackUrl=<current-destination>` if user not logged in.
-- After login/signup, user is returned to the destination page they came from.
+- **Email/password signup & login** using Firebase Authentication.
+- **Persistent user sessions** managed through a global `UserContext`.
+- **Route protection**:
+  - If a user clicks "Plan your trip" without being logged in, they are redirected to `/auth/signin?callbackUrl=<current-destination>`.
+  - After login/signup, the user is returned to the page they were on.
+- **Form validation & error handling**:
+  - Inputs for email and password are validated (e.g., required, valid email format, minimum length).
+  - Real-time feedback is shown for invalid credentials, registration errors (e.g., email already in use), and empty fields.
+  - All error states are handled gracefully with informative messages using `Toastify` or inline hints.
 
-### 4. Saved Itineraries 
+### 5. Saved Itineraries
 
-- Itineraries are saved per user in Firestore DB.
-- If a user creates a new itinerary for the same destination, it overwrites the existing one.
+Saved itineraries are stored per user in **Firebase Firestore**. This feature is only accessible to **authenticated users**.
+
+- If a user creates a new itinerary for the same destination, they can choose to overwrite the existing one or keep both.
 - Each itinerary includes:
-  - Travel preferences
-  - AI-generated summary
-  - List of locations to visit
-  - Each location includes coordinates via `enrichItineraryWithCoords` (calls OpenStreetMap)
-- Pins are displayed on a Leaflet map, with popovers showing each location’s name and description.
+  - Travel preferences (traveler type, season, budget, etc.)
+  - AI-generated summary and recommendations
+  - A list of suggested locations to visit
+  - Each location is enriched with **geographic coordinates** using the `enrichItineraryWithCoords` function (calls OpenStreetMap)
+  - Locations are displayed as **interactive pins on a Leaflet map**, each with a **popover** showing the name and a short description
 
+#### Filtering & Sorting
 
-### 5. UI & Components
+The Saved Itineraries page includes a dynamic client-side **filter and sort panel** to help users find trips easily:
+
+- **Search**: Free-text search across destination names
+- **Traveler Type**: Filter by profile (e.g., Adventure, Culture)
+- **Season**: Filter by preferred travel time (e.g., Summer, Winter)
+- **Budget**: Filter by daily spending range
+- **Interests**: Multi-select by category (e.g., Museums, Nature)
+- **Duration**: Filter by trip length
+
+**Sort options**:
+- Date Created (default)
+- Budget (ascending/descending)
+- Duration (short to long / long to short)
+
+### 6. UI & Components
 
 - **React + Next.js 15 (App Router)**: Full SSR/SSG and client interactions.
 - **Sass + Tailwind CSS** for styling.
@@ -67,7 +104,7 @@ TripTailor is an AI-powered travel planning web app built with modern technologi
 
 ---
 
-## 🛠 Tech Stack
+## Tech Stack
 
 - **Frontend**: Next.js 15, React 19
 - **Styling**: Tailwind CSS, Sass
@@ -88,7 +125,7 @@ TripTailor is an AI-powered travel planning web app built with modern technologi
 
 ---
 
-## 📦 Installation & Running Locally
+## Installation & Running Locally
 
 ```bash
 git clone https://github.com/papercri/triptailor.git
@@ -120,35 +157,7 @@ npm start
 
 ---
 
-## ⚙️ API Overview
-
-### `/api/destination-info?place=...`
-SSR route collates:
-1. Coordinates (Nominatim)
-2. Country data
-3. Timezone
-4. Weather
-5. Cuisine & Culture
-Returns aggregated JSON with meta debug info.
-
-### Wikipedia Summary Endpoints:
-- `getCuisineInfo(country)`
-- `getCultureInfo(country)`
-
-Both call:
-```
-https://en.wikipedia.org/api/rest_v1/page/summary/Cuisine_of_<Country>
-https://en.wikipedia.org/api/rest_v1/page/summary/Culture_of_<Country>
-```
-
-### Unsplash Background:
-```ts
-GET https://api.unsplash.com/search/photos?query=<Country>&orientation=landscape&per_page=1&client_id=<API_KEY>
-```
-
----
-
-## 🧠 How It Works
+## How It Works
 
 1. **Search a destination** – triggers dynamic route `/destination/[place]`
 2. Server-side fetch builds metadata via chained calls to APIs
@@ -160,7 +169,7 @@ GET https://api.unsplash.com/search/photos?query=<Country>&orientation=landscape
 
 ---
 
-## ✅ To Do / Future Improvements
+## To Do / Future Improvements
 
 - Add bookmarking & history
 - Add admin user and dashboard
@@ -169,6 +178,19 @@ GET https://api.unsplash.com/search/photos?query=<Country>&orientation=landscape
 
 ---
 
-## ℹ️ Got Questions? Missing Info?
+## Got Questions? Missing Info?
 
 Let me know if any API details or features above are incomplete or need more depth!
+
+---
+
+## Screenshots
+
+![Home Page](images/readme/hp-screenshot.png)
+![Home Page Mobile](images/readme/home-mobile.png)
+![Destination Page](images/readme/destination.png)
+![AI Planner](images/readme/ai-planner.png)
+![Saved Itineraries Page](images/readme/user-page-screenshot.png)
+![Saved Itineraries Page Mobile](images/readme/user-page-mobile.png)
+![Saved Itineraries Filters Mobile](images/readme/filters-mobile.png)
+![Itinerary Modal](images/readme/itinerary-modal.png)
