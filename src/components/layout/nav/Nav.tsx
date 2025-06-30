@@ -37,8 +37,8 @@ function Nav() {
 
         <ul className="nav__menu">
           <li><Link href="/">Home</Link></li>
-          <li><Link href="/#destinos">Destinations</Link></li>
-          <li><Link href="/#sobre-nosotros">About</Link></li>
+          <li><Link href="/#about">About</Link></li>
+          <li><Link href="/#cities">Destinations</Link></li>
           {user ? (<li><Link href="/user">My Trips</Link></li>):(<></>)}
         </ul>
         <div className="flex gap-4 relative">
@@ -103,9 +103,10 @@ function Nav() {
               onChange={handleChange}
               onSubmit={handleSubmit}
           />
-          <li><Link href="#home">Home</Link></li>
-          <li><Link href="#destinos">Destinations</Link></li>
-          <li><Link href="#sobre-nosotros">About</Link></li>
+          <li><Link href="/">Home</Link></li>
+          <li><Link href="/#about">About</Link></li>
+          <li><Link href="/#cities">Destinations</Link></li>
+          
         </ul>
         <div className="nav__auth">
           <ul className="nav__menu">

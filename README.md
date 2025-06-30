@@ -44,10 +44,12 @@ TripTailor is an AI-powered travel planning web app built with modern technologi
 - Route protection: planning modal redirects to `/auth/signin?callbackUrl=<current-destination>` if user not logged in.
 - After login/signup, user is returned to the destination page they came from.
 
-### 4. Saved Itineraries (Future)
+### 4. Saved Itineraries 
 
-- Placeholder for “My Itineraries” page.
-- Placeholder link in header when logged in.
+- Itineraries are saved per user in Firestore DB.
+- If a user creates a new itinerary for the same destination, it can overwrite the existing one.
+- Each itinerary includes the chosen trip parameters and assistant's response.
+- Accessible from a “My Itineraries” page (under development).
 
 ### 5. UI & Components
 
@@ -73,7 +75,9 @@ TripTailor is an AI-powered travel planning web app built with modern technologi
   - Timezone: [TimeZoneDB](https://timezonedb.com/)
   - Wikipedia summaries
   - Unsplash: photo search
+  - Personalized trip suggestions: [OpenAI API](https://platform.openai.com/) — GPT-based prompts tailored to user input (budget, travel style, season, interests)
 - **Auth**: Firebase Authentication
+- **Database**: Firebase Firestore
 - **Maps**: Leaflet
 - **Deployment**: Vercel, standalone build config in `next.config.js`
 
@@ -87,11 +91,17 @@ cd triptailor
 
 npm install
 
-# set up environment variables:
-#   OPENWEATHER_API_KEY
-#   TIMEZONEDB_API_KEY
-#   NEXT_PUBLIC_UNSPLASH_ACCESS_KEY
-#   FIREBASE_API_KEY, etc.
+set up environment variables:
+OPENAI_API_KEY
+NEXT_PUBLIC_UNSPLASH_ACCESS_KEY
+NEXT_PUBLIC_TIMEZONEDB_API_KEY
+NEXT_PUBLIC_OPENWEATHER_API_KEY
+NEXT_PUBLIC_FIREBASE_API_KEY
+NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN
+NEXT_PUBLIC_FIREBASE_DATABASE_URL
+NEXT_PUBLIC_FIREBASE_PROJECT_ID
+NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET
+NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID
 
 npm run dev
 ```
@@ -147,7 +157,7 @@ GET https://api.unsplash.com/search/photos?query=<Country>&orientation=landscape
 
 ## ✅ To Do / Future Improvements
 
-- Save trip itineraries to user profile
+- Save trip itineraries to user profile (Done)
 - Add bookmarking & history
 - Deploy user profile & saved trips pages
 - Accessibility tweaks (a11y)
@@ -159,7 +169,3 @@ GET https://api.unsplash.com/search/photos?query=<Country>&orientation=landscape
 ## ℹ️ Got Questions? Missing Info?
 
 Let me know if any API details or features above are incomplete or need more depth!
-
----
-
-**Enjoy TripTailor!** ✈️
