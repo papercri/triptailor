@@ -23,7 +23,7 @@ function Info({ countryData, countryCommonName }: InfoProps) {
     <div className="card">
       <div className="card-header">
         <MapPin className="icon" />
-        <h2 className="card-title">Basic Information</h2>
+        <h2 className="card-title">Basic Info</h2>
       </div>
       <div className="card-content">
         <div className="info-details">

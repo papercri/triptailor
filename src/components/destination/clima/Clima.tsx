@@ -17,7 +17,7 @@ function Clima({ weatherData }: ClimaProps) {
     <div className="card">
       <div className="card-header ">
         <Thermometer className="icon" />
-        <h2 className="card-title">Weather and Meteorology</h2>
+        <h2 className="card-title">Weather</h2>
       </div>
       <div className="card-content">
         <div className="weather-main">

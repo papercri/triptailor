@@ -35,16 +35,16 @@ export default function DestinationHero({
                 <span>{breadcrumbDisplay}</span>
               </div>
               <div className='flex gap-5 items-center '>
-                <div className='flag-container w-[50px] h-[50px] rounded-full overflow-hidden shadow-lg mb-5'>
+                <div className='flag-container w-[50px] min-w-[50px] h-[50px] rounded-full overflow-hidden shadow-lg mb-5'>
                   {countryData?.flags?.svg && (
                     <img
                       src={countryData.flags.svg}
                       alt={`Flag of ${countryCommonName}`}
-                      className="flag-image h-full object-cover relative"
+                      className="flag-image h-full object-cover relative "
                     />
                   )}
                 </div>
-                <h1 className="capitalize !mb-0 ">Discover {breadcrumbDisplay} </h1>
+                <h1 className="capitalize !mb-0 leading-8 sm:leading-normal">Discover {breadcrumbDisplay} </h1>
               </div>
 
             </div>
