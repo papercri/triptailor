@@ -56,7 +56,7 @@
   { "id": 55, "name": "Montreal", "slug": "montreal" },
   { "id": 56, "name": "Jakarta", "slug": "jakarta" },
   { "id": 57, "name": "Manila", "slug": "manila" },
-  { "id": 58, "name": "Tel Aviv", "slug": "tel-aviv" },
+  { "id": 58, "name": "Seoul", "slug": "seoul" },
   { "id": 59, "name": "Brussels", "slug": "brussels" },
   { "id": 60, "name": "Munich", "slug": "munich" },
   { "id": 61, "name": "Cologne", "slug": "cologne" },
@@ -88,5 +88,19 @@
   { "id": 87, "name": "Stirling", "slug": "stirling" },
   { "id": 88, "name": "Belfast", "slug": "belfast" },
   { "id": 89, "name": "Dublin", "slug": "dublin" },
-  { "id": 90, "name": "Cork", "slug": "cork" }
+  { "id": 90, "name": "Cork", "slug": "cork" },
+  { "id": 91, "name": "Auckland", "slug": "auckland" },
+  { "id": 92, "name": "Havana", "slug": "havana" },
+  { "id": 93, "name": "Lagos", "slug": "lagos" },
+  { "id": 94, "name": "Nairobi", "slug": "nairobi" },
+  { "id": 99, "name": "Casablanca", "slug": "casablanca" },
+  { "id": 100, "name": "Accra", "slug": "accra" },
+  { "id": 101, "name": "Addis Ababa", "slug": "addis-ababa" },
+  { "id": 102, "name": "Managua", "slug": "managua" },
+  { "id": 103, "name": "Quito", "slug": "quito" },
+  { "id": 104, "name": "Suva", "slug": "suva" },
+  { "id": 105, "name": "Kathmandu", "slug": "kathmandu" },
+  { "id": 108, "name": "Bogotá", "slug": "bogota" },
+  { "id": 110, "name": "Castries", "slug": "castries" }
+  
 ]
