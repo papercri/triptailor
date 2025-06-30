@@ -25,8 +25,7 @@ export default function TravelAssistantSteps({ destination }: { destination: str
   if (stepIndex === 5 && itinerary) {
     return (
       <div className="travel-assistent itinerary-view">
-        {/* <h2 className='title'>Your Itinerary for {destination}</h2> */}
-
+   
         <TravelResult
           itinerary={itinerary}
           destination={destination}

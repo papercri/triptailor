@@ -63,8 +63,11 @@ const daysOptions = [
   { label: '3', icon: <FaCalendarAlt /> },
   { label: '4', icon: <FaCalendarAlt /> },
   { label: '5', icon: <FaCalendarAlt /> },
+  { label: '6', icon: <FaCalendarAlt /> },
   { label: '7', icon: <FaCalendarAlt /> },
-  { label: 'More than 7', icon: <FaCalendarAlt /> },
+  { label: '9', icon: <FaCalendarAlt /> },
+  { label: '10', icon: <FaCalendarAlt /> },
+
 ];
 
 const seasonOptions = [
@@ -79,7 +82,7 @@ const interestOptions = [
   { label: 'History', icon: <FaLandmark /> },
   { label: 'Nature', icon: <FaHiking /> },
   { label: 'Beaches', icon: <GiBeachBall /> },
-  { label: 'Wellness & Spa', icon: <FaSpa /> },
+  { label: 'Wellness', icon: <FaSpa /> },
   { label: 'Gastronomy', icon: <GiForkKnifeSpoon /> },
   { label: 'Shopping', icon: <GiShoppingBag /> },
   { label: 'Nightlife', icon: <FaRegSmile /> },
@@ -92,8 +95,8 @@ export default function StepContent({ stepIndex, form, handleSelect, toggleInter
       <motion.div key={stepIndex} {...stepAnimation} className="space-y-4">
         {stepIndex === 0 && (
           <div>
-            <h3 className="mb-4 font-bold text-xl text-center">What kind of traveler are you?</h3>
-            <div className="step-content !grid grid-cols-3 gap-2 w-[300px] mx-auto max-w-full">
+            <h3 className="subtitle">What kind of traveler are you?</h3>
+            <div className="step-content">
               {travelerTypes.map(({ label, icon }) => (
                 <StepButton
                   key={label}
@@ -109,8 +112,8 @@ export default function StepContent({ stepIndex, form, handleSelect, toggleInter
 
         {stepIndex === 1 && (
           <div>
-            <p className="mb-4 font-medium text-center">Select your budget per day:</p>
-            <div className="step-content !grid grid-cols-3 gap-2 w-[300px] mx-auto max-w-full">
+            <p className="subtitle">Select your budget per day:</p>
+            <div className="step-content">
               {budgetOptions.map(({ label, icon }) => (
                 <StepButton
                   key={label}
@@ -126,8 +129,8 @@ export default function StepContent({ stepIndex, form, handleSelect, toggleInter
 
         {stepIndex === 2 && (
           <div>
-            <p className="mb-4 font-medium text-center">How many days will you stay?</p>
-            <div className="step-content !grid grid-cols-3 gap-2 w-[300px] mx-auto max-w-full">
+            <p className="subtitle">How many days will you stay?</p>
+            <div className="step-content">
               {daysOptions.map(({ label, icon }) => (
                 <StepButton
                   key={label}
@@ -143,8 +146,8 @@ export default function StepContent({ stepIndex, form, handleSelect, toggleInter
 
         {stepIndex === 3 && (
           <div>
-            <p className="mb-2 font-medium text-center">Choose the season of your trip:</p>
-            <div className="step-content !grid grid-cols-4 gap-2 w-[300px] mx-auto max-w-full">
+            <p className="subtitle">Choose the season of your trip:</p>
+            <div className="step-content !grid-cols-2">
               {seasonOptions.map(({ label, icon }) => (
                 <StepButton
                   key={label}
@@ -160,8 +163,8 @@ export default function StepContent({ stepIndex, form, handleSelect, toggleInter
 
         {stepIndex === 4 && (
           <div>
-            <p className="mb-2 font-medium text-center">Select your interests:</p>
-            <div className="step-content !grid grid-cols-3 gap-2 w-[300px] mx-auto max-w-full">
+            <p className="subtitle">Select your interests:</p>
+            <div className="step-content">
               {interestOptions.map(({ label, icon }) => (
                 <StepButton
                   key={label}

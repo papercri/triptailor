@@ -19,26 +19,31 @@ export default function StepNavigation({ stepIndex, steps, isStepValid, goBack, 
         </button>
 
       ) : <div />}
+     
       {stepIndex < steps.length - 1 ? (
+        
         <button
           onClick={goNext}
           disabled={!isStepValid()}
-          className="px-4 py-2 disabled:opacity-50"
+          className="px-4 py-2 disabled:opacity-50 "
         >
           <CircleChevronRight size={36} strokeWidth={0.5} />
         </button>
       ) : (
       
-
-        <Button
+         <div className="h-[20vh] flex items-center justify-center">
+          <Button
           onClick={generateItinerary}
           disabled={!isStepValid() || loading}
-          variant="primary"
-          size="sm"
+          variant="accent"
+          size="xl"
         >
           {loading ? 'Generating...' : 'Generate Itinerary'}
         </Button>
+        </div>
+        
       )}
+      
     </div>
   );
 }
