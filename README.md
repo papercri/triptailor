@@ -47,9 +47,14 @@ TripTailor is an AI-powered travel planning web app built with modern technologi
 ### 4. Saved Itineraries 
 
 - Itineraries are saved per user in Firestore DB.
-- If a user creates a new itinerary for the same destination, it can overwrite the existing one.
-- Each itinerary includes the chosen trip parameters and assistant's response.
-- Accessible from a “My Itineraries” page (under development).
+- If a user creates a new itinerary for the same destination, it overwrites the existing one.
+- Each itinerary includes:
+  - Travel preferences
+  - AI-generated summary
+  - List of locations to visit
+  - Each location includes coordinates via `enrichItineraryWithCoords` (calls OpenStreetMap)
+- Pins are displayed on a Leaflet map, with popovers showing each location’s name and description.
+
 
 ### 5. UI & Components
 
@@ -73,8 +78,8 @@ TripTailor is an AI-powered travel planning web app built with modern technologi
   - Country Info: [REST Countries](https://restcountries.com/)
   - Weather: [OpenWeatherMap](https://openweathermap.org/api)
   - Timezone: [TimeZoneDB](https://timezonedb.com/)
-  - Wikipedia summaries
-  - Unsplash: photo search
+  - Wikimedia REST API [Wikimedia REST API](https://en.wikipedia.org/api/rest_v1/)
+  - Unsplash: photo search [Unsplash](hhttps://unsplash.com/)
   - Personalized trip suggestions: [OpenAI API](https://platform.openai.com/) — GPT-based prompts tailored to user input (budget, travel style, season, interests)
 - **Auth**: Firebase Authentication
 - **Database**: Firebase Firestore
@@ -157,12 +162,10 @@ GET https://api.unsplash.com/search/photos?query=<Country>&orientation=landscape
 
 ## ✅ To Do / Future Improvements
 
-- Save trip itineraries to user profile (Done)
 - Add bookmarking & history
-- Deploy user profile & saved trips pages
+- Add admin user and dashboard
 - Accessibility tweaks (a11y)
 - Internationalization (content translations)
-- Add map markers for POIs & itinerary
 
 ---
 

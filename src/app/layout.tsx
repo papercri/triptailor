@@ -5,6 +5,7 @@ import type { Metadata } from "next";
 import { UserProvider } from '@/context/UserContext';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { Analytics } from "@vercel/analytics/next"
 
 const inter = Inter({
   subsets: ['latin'],
@@ -40,6 +41,7 @@ export default function RootLayout({
               draggable
               theme="light"/>
             {children}
+            <Analytics />
         </UserProvider>
       </body>
     </html>
