@@ -18,18 +18,20 @@ function normalizeCountryName(name: string): string {
 }
 
 export async function getCountryData(countryName: string) {
+
   try {
     const cleanedName = normalizeCountryName(countryName);
     const normalizedCountryName = countryNameMap[cleanedName] || cleanedName;
 
     const url = `https://restcountries.com/v3.1/name/${encodeURIComponent(normalizedCountryName)}?fullText=false`;
+    console.log("Normalized Country Name:", normalizedCountryName);
     const res = await fetch(url);
     const text = await res.text();
 
     const contentType = res.headers.get("content-type") || "";
 
     if (!res.ok || !contentType.includes("application/json")) {
-      console.error(`❌ Invalid response from getCountryData (${res.status}):`, text.slice(0, 300));
+      console.error(`Invalid response from getCountryData (${res.status}):`, text.slice(0, 300));
       throw new SyntaxError("Invalid or non-JSON response");
     }
 
