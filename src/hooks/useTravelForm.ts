@@ -54,7 +54,7 @@ export default function useTravelForm(destination: string) {
     - Use HTML-friendly formatting (e.g., <strong> instead of **).
     - Keep each day's plan short and clear.
     - Include real place names (museums, landmarks, restaurants, parks, etc.).
-    - Limit to a maximum of 3 activities per day.
+    - Limit to a maximum of 4 activities per day.
     - Format the output as a JSON array, like:
     [
       {

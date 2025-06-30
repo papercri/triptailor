@@ -20,11 +20,8 @@ interface UserContextType {
   signUp: (email: string, password: string, displayName: string) => Promise<User>;
 }
 
-
 const UserContext = createContext<UserContextType>({} as UserContextType);
-
 export const useUser = () => useContext(UserContext);
-
 export const UserProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);

@@ -23,7 +23,6 @@ export default function CountryBackgroundImage({ cityName }: Props) {
     });
   }, [cityName, hasMounted]);
 
-  // Mientras estamos en SSR o antes del mount, no renderizamos la imagen para evitar mismatch
   if (!hasMounted) {
     return <div className="absolute inset-0 w-full h-full bg-gray-200" aria-hidden="true" />;
   }

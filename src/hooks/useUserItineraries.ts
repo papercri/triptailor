@@ -5,7 +5,6 @@ import { useAuthState } from 'react-firebase-hooks/auth'
 import { auth, db } from '@/services/firebaseConfig'
 import { Itinerary } from '@/types/itineraryItem'
 
-
 export const useUserItineraries = () => {
   const [user] = useAuthState(auth)
   const [itineraries, setItineraries] = useState<Itinerary[]>([])

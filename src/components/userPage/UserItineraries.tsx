@@ -133,14 +133,7 @@ export default function UserItinerariesPage() {
     <div className="user-itineraries">
       <h1 className='capitalize'>{userName ? `${userName}'s saved Itineraries` : 'Your Saved Itineraries'}</h1>
         {/* BOTÓN FILTROS SOLO MÓVIL */}
-      {/* <button 
-        className="filters-button-mobile"
-        onClick={toggleFilters}
-        aria-expanded={showFilters}
-        aria-controls="itinerary-filters-panel"
-      >
-        Filters
-      </button> */}
+
       <div className="filters-button-mobile flex justify-end">
         <Button onClick={toggleFilters} variant="secondary" size = "md" icon={<Funnel />} aria-controls="itinerary-filters-panel" aria-expanded={showFilters} >
             Filters
@@ -148,7 +141,7 @@ export default function UserItinerariesPage() {
       </div>
       
     <div className=' grid grid-cols-4 gap-6'>
-              {/* En escritorio se muestra siempre el filtro, en móvil es el panel desplegable */}
+
         {/* Desktop */}
          <div className="filters-desktop">
           <ItineraryFilters

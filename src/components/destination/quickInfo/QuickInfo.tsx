@@ -2,13 +2,11 @@ import React from 'react'
 import {  Currency, WeatherData, CountryData} from '@/types/destinationProps';
 import { Thermometer, Globe, HandCoins, Clock } from "lucide-react"
 
-
 type QuickInfoProps = {
   countryData: CountryData;
   weatherData: WeatherData;
   timeZone: string;
 };
-
 
 function QuickInfo({ 
     weatherData, 

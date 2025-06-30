@@ -12,8 +12,8 @@ export default function Footer() {
                     <h4>TripTailor</h4>
                     <ul>
                         <li><Link href="/">Home</Link></li>
-                        <li><Link href="/#destinos">Destinations</Link></li>
-                        <li><Link href="/#sobre-nosotros">About </Link></li>
+                        <li><Link href="/#cities">Destinations</Link></li>
+                        <li><Link href="/#about">About </Link></li>
                         <li><Link href="mailto:papercri@gmail.com">Contact </Link></li>
                     </ul>
                 </div>

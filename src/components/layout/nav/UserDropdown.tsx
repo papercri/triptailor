@@ -28,7 +28,6 @@ export default function UserDropdown() {
     } catch (error) {
       console.error('Failed to log out:', error);
     }
-    console.log('Logging out...');
     setOpen(false);
   };
   return (

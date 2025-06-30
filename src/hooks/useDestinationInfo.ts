@@ -26,7 +26,6 @@ type FetchError = Error & { status?: number; statusText?: string };
       const error: FetchError = new Error(errorMessage);
       error.status = res.status;
       error.statusText = res.statusText;
-
       throw error;
     }
 
@@ -50,7 +49,6 @@ type FetchError = Error & { status?: number; statusText?: string };
     throw error;
   }
 };
-
 
 export function useDestinationInfo(place: string) {
   const encoded = encodeURIComponent(place)
