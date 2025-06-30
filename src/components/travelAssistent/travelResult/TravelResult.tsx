@@ -135,7 +135,7 @@ export default function TravelResult({ itinerary, destination, userId, userEmail
   return (
     <div className="mt-4 bg-white p-4 rounded shadow">
       <h3 className="text-4xl text-center font-bold text-gray-800 mb-2">Your Itinerary to {destination}</h3>
-      <div className="step-content text-right mr-[20px]">
+      <div className="text-right mr-[20px]">
         <Button
           onClick={saveItinerary}
           variant="secondary"
@@ -151,7 +151,7 @@ export default function TravelResult({ itinerary, destination, userId, userEmail
 
       {showConfirm && (
         <Modal onClose={() => setShowConfirm(false)} variant="med">
-          <div className="max-w-[600px] p-4 flex justify-center">
+          <div className="w-[600px] max-w-full p-4 flex justify-center">
             <div>
               <h4 className="text-lg font-bold mb-2">Overwrite Itinerary?</h4>
               <p className="mb-4">

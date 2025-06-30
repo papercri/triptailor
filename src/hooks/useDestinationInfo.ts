@@ -8,11 +8,8 @@ type FetchError = Error & { status?: number; statusText?: string };
 
   try {
     const res = await fetch(url, { signal: controller.signal });
-
     clearTimeout(timeoutId);
-
     const text = await res.text();
-
     if (!res.ok) {
       let errorMessage = `Failed to fetch destination data: ${res.status} ${res.statusText}`;
 

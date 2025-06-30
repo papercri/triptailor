@@ -186,11 +186,11 @@ Let me know if any API details or features above are incomplete or need more dep
 
 ## Screenshots
 
-![Home Page](images/readme/hp-screenshot.png)
-![Home Page Mobile](images/readme/home-mobile.png)
-![Destination Page](images/readme/destination.png)
-![AI Planner](images/readme/ai-planner.png)
-![Saved Itineraries Page](images/readme/user-page-screenshot.png)
-![Saved Itineraries Page Mobile](images/readme/user-page-mobile.png)
-![Saved Itineraries Filters Mobile](images/readme/filters-mobile.png)
-![Itinerary Modal](images/readme/itinerary-modal.png)
+![Home Page](/images/readme/hp-screenshot.png)
+![Home Page Mobile](/images/readme/home-mobile.png)
+![Destination Page](/images/readme/destination.png)
+![AI Planner](/images/readme/ai-planner.png)
+![Saved Itineraries Page](/images/readme/user-page-screenshot.png)
+![Saved Itineraries Page Mobile](/images/readme/user-page-mobile.png)
+![Saved Itineraries Filters Mobile](/images/readme/filters-mobile.png)
+![Itinerary Modal](/images/readme/itinerary-modal.png)

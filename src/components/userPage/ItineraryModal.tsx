@@ -2,7 +2,6 @@
 
 import { useRef } from 'react';
 import Modal from '@/components/ui/Modal/Modal';
-
 import { Itinerary } from '@/types/itineraryItem';
 import { Clock, Luggage, PiggyBank, SunSnow, Smile } from 'lucide-react';
 import dynamic from 'next/dynamic';

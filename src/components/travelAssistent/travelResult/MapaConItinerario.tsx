@@ -102,7 +102,7 @@ export default function MapaConItinerario({ itinerary }: { itinerary: Place[] })
   }
   return (
     <div ref={printRef}  className="grid grid-cols-1 md:grid-cols-2 gap-4 p-4">
-      <div className="h-[500px] w-full mapaConItinerario" >
+      <div className="sm:h-[500px] h-[300px] w-full mapaConItinerario order-last sm:order-first" >
         <MapContainer
           center={defaultPosition}
           zoom={5}
