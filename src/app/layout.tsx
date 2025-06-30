@@ -28,7 +28,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={inter.variable}>
-   
+    <head />
       <body  className="font-sans">
         <UserProvider>
           <ToastContainer 

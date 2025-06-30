@@ -13,13 +13,13 @@ export async function getCoordinates(place: string) {
   );
 
   if (!res.ok) {
-    console.error(`🌐 Error HTTP ${res.status} from Nominatim`);
+    console.error(`Error HTTP ${res.status} from Nominatim`);
     return null;
   }
 
   const contentType = res.headers.get("content-type");
   if (!contentType || !contentType.includes("application/json")) {
-    console.error("⚠️ Nominatim did not return JSON. Response was likely HTML");
+    console.error("Nominatim did not return JSON. Response was likely HTML");
     return null;
   }
 

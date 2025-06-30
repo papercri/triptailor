@@ -5,7 +5,6 @@ import { auth, db } from '@/services/firebaseConfig'
 
 export const useSaveItinerary = () => {
   const [user] = useAuthState(auth)
-
   const saveItinerary = async (itineraryData: {
     city: string
     prompt: {
