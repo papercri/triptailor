@@ -2,15 +2,23 @@
 
 import Slider from 'react-slick';
 import CityCard from './CityCard';
-import cities from '@/data/cities.json';
+import { useCities } from '@/hooks/useCities';
 import { PrevArrow, NextArrow } from './Arrows';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-
-const shuffled = cities.sort(() => 0.5 - Math.random());
-const selected = shuffled.slice(0, 5);
+import Spinner from '@/components/ui/Spinner/Spinner';
 
 export default function CityCarousel() {
+  const { cities, loading } = useCities();
+
+  if (loading) {
+    return <p className="text-center"><Spinner /></p>;
+  }
+
+  // Mezclar y seleccionar 5 aleatorias solo si hay datos
+  const shuffled = [...cities].sort(() => 0.5 - Math.random());
+  const selected = shuffled.slice(0, 5);
+
   const settings = {
     dots: true,
     infinite: true,
@@ -35,14 +43,10 @@ export default function CityCarousel() {
       <h2 className="text-2xl font-bold mb-4 text-center">Explore Top Cities</h2>
       <Slider {...settings}>
         {selected.map((city) => (
-            <div key={city.slug} className="px-2">
-                <CityCard
-                name={city.name}
-                slug={city.slug}
-             
-                />
-            </div>
-            ))}
+          <div key={city.slug} className="px-2">
+            <CityCard name={city.name} slug={city.slug} />
+          </div>
+        ))}
       </Slider>
     </div>
   );
