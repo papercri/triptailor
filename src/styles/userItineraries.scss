@@ -1,17 +1,23 @@
 @use "@/styles/variables.scss"  as *;
 .user-itineraries{
     h1{
-        font-size: 1.875rem; 
+        font-size: 1.7rem; 
         font-weight: 700;    
         margin-bottom: 1.5rem; 
+        line-height: 2rem;
         text-align: center;
+        @media (min-width: $mobile) {
+          font-size: 2rem; 
+          font-weight: 700;    
+          margin-bottom: 2.8rem; 
+        }
     }
     .itineraries-grid{
         display: grid;
         gap: 1rem;
          grid-template-columns: 1fr;
          align-items: start;
-        @media (min-width: 768px) {
+        @media (min-width: $mobile) {
             grid-template-columns: repeat(2, 1fr);
         }
         @media (min-width: 1024px) {
@@ -88,7 +94,7 @@
 }
 
 /* Media queries */
-@media (max-width: 768px) {
+@media (max-width: $mobile) {
   .filters-button-mobile {
     display: flex;
   }
@@ -99,5 +105,12 @@
   
   .itineraries-grid {
     grid-column: span 4;
+  }
+}
+.modal-pill{
+  text-align:center;
+  .icon{
+    width: 100%;
+    text-align: center;
   }
 }

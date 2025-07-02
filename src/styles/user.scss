@@ -1,74 +1,15 @@
 @use "@/styles/variables.scss" as *;
 .user-area {
-  padding: 4rem 0;
-  
-  &__tabs {
-    display: flex;
-    gap: 1rem;
-    margin-bottom: 2rem;
-    border-bottom: 2px solid $border-color;
-    
-    .tab {
-      padding: 1rem 1.5rem;
-      background: none;
-      border: none;
-      font-size: 1rem;
-      font-weight: 600;
-      color: $text-light;
-      cursor: pointer;
-      border-bottom: 2px solid transparent;
-      transition: all 0.2s ease;
-      
-      &.active {
-        color: $primary-color;
-        border-bottom-color: $primary-color;
-      }
-      
-      &:hover {
-        color: $primary-color;
-      }
-    }
+  padding: 2rem 0;
+  @media (min-width: $mobile) {
+    padding: 3rem 0;
   }
-  
   &__content {
     .trip-list {
       display: grid;
       grid-template-columns: 1fr;
       gap: 1.5rem;
       
-    }
-    
-    .trip-card {
-      position: relative;
-      
-      &__actions {
-        position: absolute;
-        top: 1rem;
-        right: 1rem;
-        display: flex;
-        gap: 0.5rem;
-        
-        .btn {
-          padding: 0.5rem;
-          min-width: auto;
-          
-          &--edit {
-            background: $accent-color;
-            
-            &:hover {
-              background: darken($accent-color, 10%);
-            }
-          }
-          
-          &--delete {
-            background: #ef4444;
-            
-            &:hover {
-              background: darken(#ef4444, 10%);
-            }
-          }
-        }
-      }
     }
   }
 }

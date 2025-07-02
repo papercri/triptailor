@@ -134,7 +134,7 @@ export default function UserItinerariesPage() {
       <h1 className='capitalize'>{userName ? `${userName}'s saved Itineraries` : 'Your Saved Itineraries'}</h1>
         {/* BOTÓN FILTROS SOLO MÓVIL */}
 
-      <div className="filters-button-mobile flex justify-end">
+      <div className="filters-button-mobile flex justify-start">
         <Button onClick={toggleFilters} variant="secondary" size = "md" icon={<Funnel />} aria-controls="itinerary-filters-panel" aria-expanded={showFilters} >
             Filters
         </Button>

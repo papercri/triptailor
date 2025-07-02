@@ -15,7 +15,7 @@ export default function StepNavigation({ stepIndex, steps, isStepValid, goBack, 
     <div className="flex justify-between mt-4">
       {stepIndex > 0 ? (
         <button onClick={goBack} className="px-4 py-2">
-          <CircleChevronLeft size={36} strokeWidth={0.5}/>
+          <CircleChevronLeft size={46} strokeWidth={1.5} className='text-[#1483B4]'/>
         </button>
 
       ) : <div />}
@@ -27,7 +27,7 @@ export default function StepNavigation({ stepIndex, steps, isStepValid, goBack, 
           disabled={!isStepValid()}
           className="px-4 py-2 disabled:opacity-50 "
         >
-          <CircleChevronRight size={36} strokeWidth={0.5} />
+          <CircleChevronRight size={46} strokeWidth={1.5} className='text-[#1483B4]'/>
         </button>
       ) : (
       
