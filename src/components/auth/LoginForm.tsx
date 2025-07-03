@@ -27,7 +27,7 @@ export default function LoginForm() {
     }
     try {
       await signIn(email, password)
-      toast.success("Welcome back!")
+      toast.success("Welcome back !")
       setTimeout(() => {
         router.push((callbackUrl ?? "/") as string)
       }, 2000)
