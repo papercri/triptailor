@@ -75,14 +75,17 @@ export default function ItineraryCard({ itinerary, onView, onDelete }: Itinerary
         </p>
         <div className="text-sm text-gray-700 space-y-1">
           <div className="travel-details">
-            <Clock className='inline' color="grey" size={18} />
+            <span>
+              <Clock className='inline' color="grey" size={18} />
             {promptObj.days ?? '—'}
-            <span>|</span>
-            <PiggyBank className='inline' color="grey" size={18} /> {promptObj.budget ?? '—'}
-            <span>|</span>
-            <SunSnow className='inline' color="grey" size={18} /> {promptObj.season ?? '—'}
-            <span>|</span>
-            <Smile className='inline' color="grey" size={18} /> {Array.isArray(promptObj.interests) ? promptObj.interests.join(', ') : '—'}
+            </span>
+            
+            <span><PiggyBank className='inline' color="grey" size={18} /> {promptObj.budget ?? '—'}</span>
+            
+            <span><SunSnow className='inline' color="grey" size={18} /> {promptObj.season ?? '—'}</span>
+            
+            <span><Smile className='inline' color="grey" size={18} /> {Array.isArray(promptObj.interests) ? promptObj.interests.join(', ') : '—'}</span>
+            
           </div>
           <div className="flex gap-2 mt-4 justify-end">
             <button  onClick={() => onView(itinerary)}

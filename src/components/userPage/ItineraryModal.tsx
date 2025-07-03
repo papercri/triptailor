@@ -58,7 +58,7 @@ export default function ItineraryModal({ itinerary, onClose }: ItineraryModalPro
               <SunSnow className="icon" /> <span>{selectedPromptObj.season ?? '—'}</span>
             </div>
             <div className="modal-pill">
-              <Smile className="icon" /> <span>{selectedPromptObj.interests ?? '—'}</span>
+              <Smile className="icon" /> <span>{selectedPromptObj.interests?.join(', ') ?? '—'}</span>
             </div>
           </div>
         </div>
