@@ -112,7 +112,7 @@ function Nav() {
           <ul className="nav__menu">
             {user ? (
              <>
-                <li><Link href="/user">My Account</Link></li>
+                <li><Link href="/user">My Trips</Link></li>
                 <li>  
                   <a onClick={handleLogout} className="font-semibold">
                   Logout
