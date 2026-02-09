@@ -16,6 +16,9 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "TripTailor",
   description: "Your AI-powered personal travel companion. Plan, discover, and live unique experiences tailored to your style.",
+  verification: {
+    google: 'aiF9Cr1ByjRFYDgzVVx7pkQx4qtk6EPCbSwDIGByR8M',
+  },
   icons: {
     icon: "/images/favicon.ico?v=2",
   },
