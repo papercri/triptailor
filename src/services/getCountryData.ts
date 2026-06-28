@@ -1,7 +1,3 @@
-// This file contains a mapping of country names to their common names in various languages
-// The data is used to normalize country names for API requests and display purposes
-// The translations are in the format: { "originalName": "translatedName" }
-// The translations are used to ensure consistent naming across different languages and scripts
 
 import placeTranslations from '@/data/placeTranslations.json';
 
@@ -17,36 +13,89 @@ function normalizeCountryName(name: string): string {
   return trimmed;
 }
 
-export async function getCountryData(countryName: string) {
+const RESPONSE_FIELDS = [
+  'names.common',
+  'names.official',
+  'flag.emoji',
+  'flag.url_svg',
+  'region',
+  'capitals',
+  'population',
+  'area.kilometers',
+  'calling_codes',
+  'tlds',
+  'cars.driving_side',
+  'currencies',
+  'languages',
+].join(',');
 
+export async function getCountryData(countryName: string) {
   try {
     const cleanedName = normalizeCountryName(countryName);
     const normalizedCountryName = countryNameMap[cleanedName] || cleanedName;
 
-    const url = `https://restcountries.com/v3.1/name/${encodeURIComponent(normalizedCountryName)}?fullText=false`;
-    console.log("Normalized Country Name:", normalizedCountryName);
-    const res = await fetch(url);
+    const url = `https://api.restcountries.com/countries/v5/name?q=${encodeURIComponent(
+      normalizedCountryName
+    )}&response_fields=${RESPONSE_FIELDS}`;
+
+    //console.log('Normalized Country Name:', normalizedCountryName);
+
+    //console.log('DEBUG url:', url);
+
+    const res = await fetch(url, {
+      headers: {
+        Authorization: `Bearer ${process.env.NEXT_PUBLIC_RESTCOUNTRIES_API_KEY}`,
+      },
+    });
+
+   // console.log('DEBUG status:', res.status);
+
     const text = await res.text();
+    // console.log('DEBUG body:', text.slice(0, 500));
 
-    const contentType = res.headers.get("content-type") || "";
+    const contentType = res.headers.get('content-type') || '';
 
-    if (!res.ok || !contentType.includes("application/json")) {
+    if (!res.ok || !contentType.includes('application/json')) {
       console.error(`Invalid response from getCountryData (${res.status}):`, text.slice(0, 300));
-      throw new SyntaxError("Invalid or non-JSON response");
+      throw new SyntaxError('Invalid or non-JSON response');
     }
 
-    let data;
+    let json;
     try {
-      data = JSON.parse(text);
+      json = JSON.parse(text);
     } catch (jsonErr) {
-      console.error("❌ Failed to parse JSON in getCountryData:", jsonErr, text.slice(0, 300));
-      throw new SyntaxError("Failed to parse country data JSON");
+      console.error('Failed to parse JSON in getCountryData:', jsonErr, text.slice(0, 300));
+      throw new SyntaxError('Failed to parse country data JSON');
     }
 
-    return Array.isArray(data) ? data[0] ?? null : null;
+    if (json.errors) {
+      console.error('REST Countries API error:', json.errors[0]?.message);
+      return null;
+    }
 
+    const objects = json?.data?.objects;
+    const raw = Array.isArray(objects) ? objects[0] ?? null : null;
+    if (!raw) return null;
+
+    // v5 devuelve keys planas con punto literal (ej: "names.common")
+    // cuando se usa response_fields. Lo normalizamos a un shape simple
+    // para no tocar los componentes que ya consumen estos datos.
+    return {
+      region: raw['region'] ?? null,
+      capital: Array.isArray(raw['capitals'])
+        ? raw['capitals'].map((c: { name: string }) => c.name)
+        : [],
+      population: raw['population'] ?? null,
+      area: raw['area.kilometers'] ?? null,
+      callingCodes: raw['calling_codes'] ?? [],
+      tld: raw['tlds'] ?? [],
+      car: { side: raw['cars.driving_side'] ?? null },
+      flagSvg: raw['flag.url_svg'] ?? null,
+      flagEmoji: raw['flag.emoji'] ?? null,
+      currencies: raw['currencies'] ?? null,
+    };
   } catch (error) {
-    console.error('❌ Error fetching country data:', error);
+    console.error('Error fetching country data:', error);
     return null;
   }
 }

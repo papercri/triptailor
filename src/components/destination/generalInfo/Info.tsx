@@ -1,15 +1,13 @@
 import React from 'react';
 import { MapPin } from "lucide-react"
+
 type InfoProps = {
   countryData: {
     region: string;
     capital: string[];
     population: number;
     area: number;
-    idd: {
-      root: string;
-      suffixes: string[];
-    };
+    callingCodes: string[];
     tld: string[];
     car: {
       side: string;
@@ -33,15 +31,15 @@ function Info({ countryData, countryCommonName }: InfoProps) {
             <p className="info-value">{countryData.region}</p>
             </div>
           )}
-          
+
           <div className="info-item">
             <span className="info-label">Country:</span>
             <p className="info-value">{countryCommonName}</p>
           </div>
-          {countryData?.capital && (
+          {countryData?.capital?.length > 0 && (
             <div className="info-item">
             <span className="info-label">Capital:</span>
-            <p className="info-value">{countryData.capital?.join(', ')}</p>
+            <p className="info-value">{countryData.capital.join(', ')}</p>
           </div>
           )}
           {countryData?.population && (
@@ -56,27 +54,24 @@ function Info({ countryData, countryCommonName }: InfoProps) {
             <p className="info-value">{countryData.area.toLocaleString()} km²</p>
           </div>
           )}
-          {countryData?.idd && (
+          {countryData?.callingCodes?.length > 0 && (
             <div className="info-item">
             <span className="info-label">Country Code:</span>
-            <p className="info-value">{countryData.idd.root}{countryData.idd.suffixes?.join(', ')}</p>
+            <p className="info-value">{countryData.callingCodes.join(', ')}</p>
           </div>
           )}
-          {countryData?.tld && (
+          {countryData?.tld?.length > 0 && (
             <div className="info-item">
             <span className="info-label">Domain:</span>
-            <p className="info-value">{countryData.tld?.join(', ')}</p>
+            <p className="info-value">{countryData.tld.join(', ')}</p>
           </div>
           )}
-         {countryData && (
+         {countryData?.car?.side && (
             <div className="info-item">
             <span className="info-label">Driving Side:</span>
-            <p className="info-value">{countryData.car?.side}</p>
+            <p className="info-value">{countryData.car.side}</p>
           </div>
           )}
-         
-          
-          
         </div>
       </div>
 
