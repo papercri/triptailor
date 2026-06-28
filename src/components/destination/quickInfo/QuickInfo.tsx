@@ -1,7 +1,7 @@
 import React from 'react'
 import {  Currency, WeatherData, CountryData} from '@/types/destinationProps';
 import { Thermometer, Globe, HandCoins, Clock } from "lucide-react"
-
+import LanguagesValue from '@/components/ui/LanguagesValue/LanguagesValue';
 type QuickInfoProps = {
   countryData: CountryData | null;
   weatherData: WeatherData;
@@ -28,10 +28,8 @@ function QuickInfo({
                 <div className="icon"><Globe /></div>
                 <div className="content">
                 <span className="label">Language</span>
-                <span className="value">
-                    {(countryData?.languages?.length ?? 0) > 0
-                    ? countryData!.languages.map((lang) => lang.native_name).join(', ')
-                    : 'No data'}
+                <span className="value capitalize">
+                    <LanguagesValue languages={countryData?.languages ?? []} />
                 </span>
                 </div>
             </div>
