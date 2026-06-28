@@ -93,6 +93,7 @@ export async function getCountryData(countryName: string) {
       flagSvg: raw['flag.url_svg'] ?? null,
       flagEmoji: raw['flag.emoji'] ?? null,
       currencies: raw['currencies'] ?? null,
+      languages: Array.isArray(raw['languages']) ? raw['languages'] : [],
     };
   } catch (error) {
     console.error('Error fetching country data:', error);

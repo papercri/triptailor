@@ -29,8 +29,8 @@ function QuickInfo({
                 <div className="content">
                 <span className="label">Language</span>
                 <span className="value">
-                    {countryData?.languages
-                    ? Object.values(countryData.languages).join(', ')
+                    {(countryData?.languages?.length ?? 0) > 0
+                    ? countryData!.languages.map((lang) => lang.native_name).join(', ')
                     : 'No data'}
                 </span>
                 </div>
