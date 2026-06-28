@@ -3,7 +3,7 @@ import {  Currency, WeatherData, CountryData} from '@/types/destinationProps';
 import { Thermometer, Globe, HandCoins, Clock } from "lucide-react"
 
 type QuickInfoProps = {
-  countryData: CountryData;
+  countryData: CountryData | null;
   weatherData: WeatherData;
   timeZone: string;
 };
@@ -29,7 +29,7 @@ function QuickInfo({
                 <div className="content">
                 <span className="label">Language</span>
                 <span className="value">
-                    {countryData.languages
+                    {countryData?.languages
                     ? Object.values(countryData.languages).join(', ')
                     : 'No data'}
                 </span>
@@ -41,7 +41,7 @@ function QuickInfo({
                 <div className="content">
                 <span className="label">Currency</span>
                 <span className="value">
-                    {countryData.currencies
+                    {countryData?.currencies
                     ? (Object.values(countryData.currencies) as Currency[])
                         .map((c) => `${c.name} (${c.symbol})`)
                         .join(', ')

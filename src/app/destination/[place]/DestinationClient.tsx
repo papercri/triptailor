@@ -40,9 +40,9 @@ const DestinationClient = ({ place }: Props) =>{
     cuisineData,
     cultureData,
   } = data;
-  if (!countryData || !countryData.languages) {
+  /* if (!countryData ) {
       return notFound();
-    }
+    }  */
   return (
     <>
       <Header />
