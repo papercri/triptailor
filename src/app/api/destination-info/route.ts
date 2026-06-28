@@ -88,12 +88,7 @@ export async function GET(req: Request) {
     const cultureResult = cultureData.status === "fulfilled" ? cultureData.value : null
 
     const processingTime = Date.now() - startTime
-    console.log(`⏱️ Total processing time: ${processingTime}ms`)
 
-    console.log('🔍 countryNameTranslated:', countryNameTranslated);
-console.log('🔎 countryResult raw:', countryResult ? JSON.stringify(countryResult, null, 2) : 'null');
-console.log('🔎 countryResult keys:', countryResult ? Object.keys(countryResult) : 'null');
-console.log('🔎 meta.dataAvailability.country =', !!countryResult);
 
     // Devolver respuesta con datos disponibles
     const response = {
@@ -101,7 +96,7 @@ console.log('🔎 meta.dataAvailability.country =', !!countryResult);
       cityName,
       breadcrumbDisplay,
       countryData: countryResult,
-      countryCommonName: countryResult?.name?.common ?? countryNameTranslated,
+      countryCommonName: countryNameTranslated,
       timeZone: timeZoneResult,
       weatherData: weatherResult,
       cuisineData: cuisineResult,

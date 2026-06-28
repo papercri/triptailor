@@ -12,7 +12,6 @@ function QuickInfo({
     weatherData, 
     countryData, 
     timeZone }: QuickInfoProps) {
-        console.log(countryData)
   return (
     <section className="quick-info">
         <div className="container">
@@ -30,9 +29,9 @@ function QuickInfo({
                 <div className="content">
                 <span className="label">Language</span>
                 <span className="value">
-                    {(countryData?.languages?.length ?? 0) > 0
-                        ? countryData!.languages.map((lang) => lang.native_name).join(', ')
-                        : 'No data'}
+                    {countryData?.languages
+                    ? Object.values(countryData.languages).join(', ')
+                    : 'No data'}
                 </span>
                 </div>
             </div>
@@ -42,8 +41,10 @@ function QuickInfo({
                 <div className="content">
                 <span className="label">Currency</span>
                 <span className="value">
-                    {(countryData?.currencies?.length ?? 0) > 0
-                    ? countryData!.currencies.map((c: Currency) => `${c.name} (${c.symbol})`).join(', ')
+                    {countryData?.currencies
+                    ? (Object.values(countryData.currencies) as Currency[])
+                        .map((c) => `${c.name} (${c.symbol})`)
+                        .join(', ')
                     : 'No data'}
                 </span>
                 </div>

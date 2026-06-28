@@ -4,7 +4,29 @@ export type Props = {
     lng: number;
     displayName: string;
   };
-  countryData: CountryData | null;
+  countryData: {
+    region: string;
+    capital: string[];
+    population: number;
+    area: number;
+    idd: {
+      root: string;
+      suffixes: string[];
+    };
+    tld: string[];
+    car: {
+      side: string;
+    };
+    flags: {
+      svg: string;
+      png?: string;
+    };
+    name: {
+      common: string;
+      official?: string;
+      nativeName?: Record<string, { official: string; common: string }>;
+    };
+  };
   timeZone: string;
   weatherData: WeatherData;
   cityName: string;
@@ -15,36 +37,31 @@ export type Props = {
 };
 
 export interface CountryData {
-  region: string | null;
+  region: string;
   capital: string[];
-  population: number | null;
-  area: number | null;
-  callingCodes: string[];
+  population: number;
+  area: number;
+  idd: {
+    root: string;
+    suffixes: string[];
+  };
   tld: string[];
   car: {
-    side: string | null;
+    side: string;
   };
-  flagSvg: string | null;
-  flagEmoji: string | null;
-  currencies: Currency[];
-  languages: Language[];
+  flags: {
+    svg: string;
+    png?: string;
+  };
+  name: {
+    common: string;
+    official?: string;
+    nativeName?: Record<string, { official: string; common: string }>;
+  };
+  languages?: Record<string, string>;
+  currencies?: Record<string, Currency>;
 }
 
-export interface Language {
-  bcp47: string;
-  iso639_1: string;
-  iso639_2b: string;
-  iso639_2t: string;
-  iso639_3: string;
-  name: string;
-  native_name: string;
-}
-
-export interface Currency {
-  code: string;
-  name: string;
-  symbol: string;
-}
 
 export interface WeatherData {
   weather: {
@@ -61,16 +78,21 @@ export interface WeatherData {
   };
 }
 
+export interface Currency {
+  name: string;
+  symbol: string;
+}
+
 export type CuisineData = {
   title: string;
   extract?: string;
   image?: string;
-
+  
 };
 
 export type CultureData = {
   title: string;
   extract?: string;
   image?: string;
-
+  
 };
