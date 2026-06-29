@@ -4,6 +4,15 @@
 
 ---
 
+## Test User
+
+To try the app without signing up, use these credentials on the demo:
+
+- **Email**: `t@test.com`
+- **Password**: `test1234`
+
+---
+
 ## Overview
 
 TripTailor is an AI-powered travel planning web app built with modern technologies. It helps users discover destinations, view essential information, and get personalized trip advice via an interactive assistant. The app supports search, browsing key data for cities, and offers an intelligent “Plan Your Trip” assistant.
@@ -122,39 +131,6 @@ The Saved Itineraries page includes a dynamic client-side **filter and sort pane
 - **Database**: Firebase Firestore
 - **Maps**: Leaflet
 - **Deployment**: Vercel, standalone build config in `next.config.js`
-
----
-
-## Installation & Running Locally
-
-```bash
-git clone https://github.com/papercri/triptailor.git
-cd triptailor
-
-npm install
-
-set up environment variables:
-OPENAI_API_KEY
-NEXT_PUBLIC_UNSPLASH_ACCESS_KEY
-NEXT_PUBLIC_TIMEZONEDB_API_KEY
-NEXT_PUBLIC_OPENWEATHER_API_KEY
-NEXT_PUBLIC_FIREBASE_API_KEY
-NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN
-NEXT_PUBLIC_FIREBASE_DATABASE_URL
-NEXT_PUBLIC_FIREBASE_PROJECT_ID
-NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET
-NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID
-NEXT_PUBLIC_RESTCOUNTRIES_API_KEY
-
-npm run dev
-```
-
-Build for production:
-
-```bash
-npm run build
-npm start
-```
 
 ---
 
