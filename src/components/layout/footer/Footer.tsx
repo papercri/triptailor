@@ -2,6 +2,7 @@ import React from 'react'
 import Link from "next/link";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 import { MdOutlineEmail } from "react-icons/md";
+import { TbWorldWww } from "react-icons/tb";
 
 export default function Footer() {
   return (
@@ -45,6 +46,7 @@ export default function Footer() {
                             <Link href="https://www.linkedin.com/in/cristianasollini" target='_blank'><FaLinkedin /></Link>
                             <Link href="https://github.com/papercri" target='_blank'><FaGithub /></Link>
                             <Link href="mailto:papercri@gmail.com"><MdOutlineEmail /></Link>
+                            <Link href="https://frontend-ux.website/" target='_blank'><TbWorldWww /></Link>
                         </li>
                     </ul>
                     <Link href="/">
@@ -54,7 +56,9 @@ export default function Footer() {
             </div>
             
             <div className="footer__bottom">
-                <p>&copy; 2025 TripTailor. All rights reserved.</p>
+   
+                <p>&copy; {new Date().getFullYear()} TripTailor. All rights reserved.</p>
+
             </div>
         </div>
     </footer>
