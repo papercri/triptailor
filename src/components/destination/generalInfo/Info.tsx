@@ -76,7 +76,7 @@ function Info({ countryData, countryCommonName }: InfoProps) {
           {countryData?.government_type?.length > 0 && (
             <div className="info-item">
             <span className="info-label">Government Type:</span>
-            <p className="info-value">{countryData.government_type}</p>
+            <p className="info-value capitalize">{countryData.government_type}</p>
           </div>
           )}
         </div>

@@ -27,7 +27,7 @@ function Clima({ weatherData }: ClimaProps) {
             aria-label={weatherData.weather[0].description}
             role="img">{Math.round(weatherData.main.temp)}°C</div>
         
-          <p className="weather-condition">{weatherData.weather[0].description}</p>
+          <p className="weather-condition capitalize">{weatherData.weather[0].description}</p>
            
         </div>
         <div className="weather-details">
