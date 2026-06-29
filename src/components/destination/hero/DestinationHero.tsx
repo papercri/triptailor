@@ -5,9 +5,7 @@ type DestinationHeroProps = {
 
   breadcrumbDisplay: string;
   countryData: {
-    flags: {
-      svg: string;
-    };
+    flagSvg: string;
   };
   countryCommonName: string;
   cityName: string;
@@ -20,9 +18,11 @@ export default function DestinationHero({
   countryCommonName,
   cityName,
 }: DestinationHeroProps) {
+ 
+    
   return (
     <section className="destination-hero">
-      <div className="destination-hero__image !bg-transparent z-10 absolute">
+      <div className="destination-hero__image bg-transparent! z-10 absolute">
         <CountryBackgroundImage cityName={cityName} />
         <div className="destination-hero__overlay">
           <div className="container">
@@ -35,16 +35,16 @@ export default function DestinationHero({
                 <span>{breadcrumbDisplay}</span>
               </div>
               <div className='flex gap-5 items-center '>
-                <div className='flag-container w-[50px] min-w-[50px] h-[50px] rounded-full overflow-hidden shadow-lg mb-5'>
-                  {countryData?.flags?.svg && (
+                <div className='flag-container w-[50px] min-w-[50px] h-[50px] rounded-full overflow-hidden shadow-lg'>
+                  {countryData?.flagSvg && (
                     <img
-                      src={countryData.flags.svg}
+                      src={countryData.flagSvg}
                       alt={`Flag of ${countryCommonName}`}
-                      className="flag-image h-full object-cover relative "
+                      className="flag-image h-full object-cover relative"
                     />
                   )}
                 </div>
-                <h1 className="capitalize !mb-0 leading-8 sm:leading-normal">Discover {breadcrumbDisplay} </h1>
+                <h1 className="capitalize mb-0! leading-8 sm:leading-normal">Discover {breadcrumbDisplay} </h1>
               </div>
 
             </div>

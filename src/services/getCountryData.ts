@@ -12,7 +12,7 @@ function normalizeCountryName(name: string): string {
   }
   return trimmed;
 }
-
+/* 
 const RESPONSE_FIELDS = [
   'names.common',
   'names.official',
@@ -27,7 +27,7 @@ const RESPONSE_FIELDS = [
   'cars.driving_side',
   'currencies',
   'languages',
-].join(',');
+].join(','); */
 
 export async function getCountryData(countryName: string) {
   try {
@@ -38,9 +38,8 @@ export async function getCountryData(countryName: string) {
       normalizedCountryName
     )}`;
 
-   console.log('Normalized Country Name:', normalizedCountryName);
-
-    console.log('DEBUG url:', url);
+    /* console.log('Normalized Country Name:', normalizedCountryName);
+    console.log('DEBUG url:', url); */
   
 
     const res = await fetch(url, {
@@ -87,10 +86,10 @@ export async function getCountryData(countryName: string) {
       area: raw['area.kilometers'] ?? null,
       callingCodes: raw['calling_codes'] ?? [],
       tld: raw['tlds'] ?? [],
-      car: { side: raw['cars.driving_side'] ?? null },
-      flagSvg: raw['flag.url_svg'] ?? null,
-      flagEmoji: raw['flag.emoji'] ?? null,
-      currencies: raw['currencies'] ?? null,
+      car: { side: raw?.cars?.driving_side ?? null },
+      flagSvg: raw?.flag?.url_svg ?? null,
+      flagEmoji: raw?.flag?.emoji ?? null,
+      currencies: Array.isArray(raw?.currencies) ? raw.currencies : [],
       languages: Array.isArray(raw['languages']) ? raw['languages'] : [],
     };
   } catch (error) {
