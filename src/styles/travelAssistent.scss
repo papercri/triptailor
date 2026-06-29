@@ -63,14 +63,12 @@
             color: $text-light;             
         }
         .step-label {
-            font-size: 0.75rem;      
+            font-size: 1.2rem;      
             font-weight: 500;     
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
-            @media (min-width: 640px) {
-            font-size: 0.8
-            }
+
         }
     }
     
