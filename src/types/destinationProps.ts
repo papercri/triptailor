@@ -29,6 +29,7 @@ export interface CountryData {
   currencies: Currency[];
   languages: Language[];
   timezones: string[];
+  government_type: string[];
 }
 
 export interface Language {

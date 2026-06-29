@@ -24,6 +24,7 @@ src/app/_playground
 # misc
 .DS_Store
 *.pem
+OLD*
 
 # debug
 npm-debug.log*

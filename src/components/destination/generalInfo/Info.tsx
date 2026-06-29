@@ -12,6 +12,7 @@ type InfoProps = {
     car: {
       side: string;
     };
+    government_type: string[];
   };
   countryCommonName: string;
 };
@@ -69,7 +70,13 @@ function Info({ countryData, countryCommonName }: InfoProps) {
          {countryData?.car?.side && (
             <div className="info-item">
             <span className="info-label">Driving Side:</span>
-            <p className="info-value">{countryData.car.side}</p>
+            <p className="info-value capitalize">{countryData.car.side}</p>
+          </div>
+          )}
+          {countryData?.government_type?.length > 0 && (
+            <div className="info-item">
+            <span className="info-label">Government Type:</span>
+            <p className="info-value">{countryData.government_type}</p>
           </div>
           )}
         </div>

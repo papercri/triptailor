@@ -1,0 +1,49 @@
+@use "@/styles/variables.scss" as *;
+.expandable-value {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  max-width: 220px;
+  min-width: 0;
+}
+.expandable-value .expandable-text {
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
+}
+.expandable-value.is-expanded {
+  max-width: 100%;
+}
+.expandable-value.is-expanded .expandable-text {
+  white-space: normal;
+  overflow: visible;
+  text-overflow: unset;
+  display:flex;
+
+}
+.expandable-toggle {
+  background: none;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+  margin-bottom:5px;
+  align-self: flex-end;
+}
+.expandable-toggle svg {
+  width: 18px;
+  height: 18px;
+  color: $primary-color-light;
+  background-color: transparent;
+  transition: all 0.3s ease;
+  margin-left:15px;
+
+  &:hover{
+      color: $primary-color;
+    }
+}

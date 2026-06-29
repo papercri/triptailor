@@ -65,12 +65,13 @@
 .quick-info {
   background: $white;
   border-bottom: 1px solid $border-color;
-  padding: 1.5rem 0;
+  padding: 1.2rem 0;
   
   &__grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
     gap: 1rem;
+    align-items: flex-start;
     
     @media (min-width: $tablet) {
       grid-template-columns: repeat(4, 1fr);
@@ -82,10 +83,12 @@
     align-items: center;
     gap: 0.75rem;
     padding: 0.5rem;
+    align-items: flex-start;
     
     .icon {
       font-size: 1.5rem;
-      color:$secondary-color
+      color:$secondary-color;
+      margin-top:10px;
     }
     
     .content {
@@ -102,6 +105,7 @@
       .value {
         font-weight: 600;
         color: $text-dark;
+        font-size: 0.85rem;
       }
     }
   }
@@ -177,7 +181,7 @@
   .info-details {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 1rem;
+    gap: .9rem;
     font-size: 0.875rem;
   }
 
@@ -189,11 +193,11 @@
   .info-label {
     font-weight: 600;
     color: $text-dark;
-    margin-bottom: 0.25rem;
   }
 
   .info-value {
     color: $text-light;
+    font-size: 0.78rem;
   }
 
   /* Weather styles */

@@ -26,7 +26,6 @@ export async function getCountryData(countryName: string) {
     /* console.log('Normalized Country Name:', normalizedCountryName);
     console.log('DEBUG url:', url); */
   
-
     const res = await fetch(url, {
       headers: {
         Authorization: `Bearer ${process.env.NEXT_PUBLIC_RESTCOUNTRIES_API_KEY}`,
@@ -77,6 +76,7 @@ export async function getCountryData(countryName: string) {
       currencies: Array.isArray(raw?.currencies) ? raw.currencies : [],
       languages: Array.isArray(raw['languages']) ? raw['languages'] : [],
       timezones: Array.isArray(raw?.timezones) ? raw.timezones : [],
+      government_type: raw['government_type'] ?? null,
     };
   } catch (error) {
     console.error('Error fetching country data:', error);

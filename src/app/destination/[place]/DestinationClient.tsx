@@ -34,7 +34,6 @@ const DestinationClient = ({ place }: Props) =>{
     breadcrumbDisplay,
     countryData,
     countryCommonName,
-    timeZone,
     weatherData,
     cuisineData,
     cultureData,
@@ -56,7 +55,7 @@ const DestinationClient = ({ place }: Props) =>{
         <QuickInfo
           weatherData={weatherData}
           countryData={countryData}
-          timeZone={timeZone}
+
         />
 
         <section className="dashboard-container">

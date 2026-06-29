@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server"
 import { getCoordinatesWithTranslation } from "@/utils/geoCordTranslatorHelper"
 import { getCountryData } from "@/services/getCountryData"
-import { getTimeZone } from "@/services/getTimeZone"
 import { getWeather } from "@/services/getWeather"
 import { getCuisineInfo } from "@/services/getCuisineInfo"
 import { getCultureInfo } from "@/services/getCultureInfo"
@@ -69,9 +68,8 @@ export async function GET(req: Request) {
     console.log(`Processing: ${breadcrumbDisplay}`)
 
     // Step 2: Fetch all data in parallel with individual timeouts
-    const [countryData, timeZone, weatherData, cuisineData, cultureData] = await Promise.allSettled([
+    const [countryData, weatherData, cuisineData, cultureData] = await Promise.allSettled([
       safeFetchJson(() => getCountryData(countryNameTranslated), "countryData", 6000),
-      safeFetchJson(() => getTimeZone(coords.lat, coords.lng), "timeZone", 4000),
       safeFetchJson(() => getWeather(coords.lat, coords.lng), "weatherData", 6000),
       safeFetchJson(() => getCuisineInfo(countryNameTranslated), "cuisineData", 8000),
       safeFetchJson(() => getCultureInfo(countryNameTranslated), "cultureData", 8000),
@@ -79,7 +77,6 @@ export async function GET(req: Request) {
 
     // Extract results from Promise.allSettled
     const countryResult = countryData.status === "fulfilled" ? countryData.value : null
-    const timeZoneResult = timeZone.status === "fulfilled" ? timeZone.value : null
     const weatherResult = weatherData.status === "fulfilled" ? weatherData.value : null
     const cuisineResult = cuisineData.status === "fulfilled" ? cuisineData.value : null
     const cultureResult = cultureData.status === "fulfilled" ? cultureData.value : null
@@ -94,7 +91,6 @@ export async function GET(req: Request) {
       breadcrumbDisplay,
       countryData: countryResult,
       countryCommonName: countryNameTranslated,
-      timeZone: timeZoneResult,
       weatherData: weatherResult,
       cuisineData: cuisineResult,
       cultureData: cultureResult,
@@ -103,7 +99,6 @@ export async function GET(req: Request) {
         dataAvailability: {
           coordinates: !!coords,
           country: !!countryResult,
-          timezone: !!timeZoneResult,
           weather: !!weatherResult,
           cuisine: !!cuisineResult,
           culture: !!cultureResult,

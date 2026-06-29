@@ -1,7 +1,7 @@
 import React from 'react'
 import {  Currency, WeatherData, CountryData} from '@/types/destinationProps';
 import { Thermometer, Globe, HandCoins, Clock } from "lucide-react"
-import LanguagesValue from '@/components/ui/LanguagesValue/LanguagesValue';
+import ExpandableValue from '@/components/ui/LanguagesValue/ExpandableValue';
 type QuickInfoProps = {
   countryData: CountryData | null;
   weatherData: WeatherData;
@@ -28,7 +28,7 @@ function QuickInfo({
                 <div className="content">
                 <span className="label">Language</span>
                 <span className="value capitalize">
-                    <LanguagesValue languages={countryData?.languages ?? []} />
+                    <ExpandableValue items={(countryData?.languages ?? []).map((lang) => lang.native_name)} />
                 </span>
                 </div>
             </div>
@@ -51,7 +51,7 @@ function QuickInfo({
                 <div className="icon"><Clock /></div>
                 <div className="content">
                 <span className="label">Time Zone</span>
-                <span className="value">{countryData?.timezones?.join(', ') ?? 'No data'}</span>
+                <span className="value"><ExpandableValue items={countryData?.timezones ?? []} /></span>
                 </div>
             </div>
             </div>

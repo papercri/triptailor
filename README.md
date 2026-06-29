@@ -122,7 +122,6 @@ The Saved Itineraries page includes a dynamic client-side **filter and sort pane
   - Geocoding: [Nominatim OpenStreetMap](https://nominatim.openstreetmap.org/)
   - Country Info: [REST Countries](https://restcountries.com/)
   - Weather: [OpenWeatherMap](https://openweathermap.org/api)
-  - Timezone: [TimeZoneDB](https://timezonedb.com/)
   - Wikimedia REST API [Wikimedia REST API](https://en.wikipedia.org/api/rest_v1/)
   - Unsplash: photo search [Unsplash](hhttps://unsplash.com/)
   - Personalized trip suggestions: [OpenAI API](https://platform.openai.com/) — GPT-based prompts tailored to user input (budget, travel style, season, interests)
