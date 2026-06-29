@@ -35,7 +35,7 @@ export async function getCuisineInfo(country: string) {
       wikipediaUrl: data.content_urls?.desktop?.page || null,
     };
   } catch (error) {
-    console.error('🍽️ Error fetching cuisine info:', error);
+    console.error('❌ Error fetching cuisine info:', error);
     return null;
   }
 }

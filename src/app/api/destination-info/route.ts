@@ -20,13 +20,10 @@ async function withTimeout<T>(promise: Promise<T>, timeoutMs = 10000, label = "o
 
 async function safeFetchJson<T>(fn: () => Promise<T>, label: string, timeoutMs = 8000): Promise<T | null> {
   try {
-    console.log(`🔄 Starting ${label}...`)
     const result = await withTimeout(fn(), timeoutMs, label)
-    console.log(`✅ ${label} completed successfully`)
     return result
   } catch (error) {
     if (error instanceof Error && error.message.includes("Timeout")) {
-      console.error(`⏰ ${label} timed out:`, error.message)
     } else if (error instanceof SyntaxError) {
       console.error(`❌ SyntaxError in ${label}:`, error.message)
     } else {
@@ -48,9 +45,9 @@ export async function GET(req: Request) {
     }
 
     const decodedPlace = decodeURIComponent(place)
-    console.log("🔍 Processing place:", decodedPlace)
+    console.log("decodedPlace:", decodedPlace)
 
-    // Step 1: Get coordinates (crítico - sin esto no podemos continuar)
+    // Step 1: Get coordinates 
     const coords = await safeFetchJson(() => getCoordinatesWithTranslation(decodedPlace), "coordinates", 5000)
 
     if (!coords || !coords.displayName) {
@@ -69,7 +66,7 @@ export async function GET(req: Request) {
     const countryNameTranslated = translations[countryName] || countryName
     const breadcrumbDisplay = `${cityName}, ${countryNameTranslated}`
 
-    console.log(`🌍 Processing: ${breadcrumbDisplay}`)
+    console.log(`Processing: ${breadcrumbDisplay}`)
 
     // Step 2: Fetch all data in parallel with individual timeouts
     const [countryData, timeZone, weatherData, cuisineData, cultureData] = await Promise.allSettled([
@@ -117,7 +114,7 @@ export async function GET(req: Request) {
     return NextResponse.json(response)
   } catch (error) {
     const processingTime = Date.now() - startTime
-    console.error(`💥 API Route Error after ${processingTime}ms:`, error)
+    console.error(`❌ API Route Error after ${processingTime}ms:`, error)
 
     // Manejo específico de errores
     if (error instanceof TypeError && error.message.includes("fetch")) {

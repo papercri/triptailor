@@ -27,14 +27,14 @@ export default function TravelAssistantModal({ destination }: { destination: str
           <MessageCircle className="chatbot-icon" /> Plan your trip
         </button>
 
-      {/* Modal if user is logged in */}
+      {/* if logged in */}
       {isOpen && (
         <Modal onClose={() => setIsOpen(false)} variant="large">
           <TravelAssistantSteps destination={destination} />
         </Modal>
       )}
 
-      {/* Modal if not logged in */}
+      {/* if not logged in */}
       {showLoginModal && (
         <Modal onClose={() => setShowLoginModal(false)} variant="small">
           <div className="space-y-4 text-center p-6">

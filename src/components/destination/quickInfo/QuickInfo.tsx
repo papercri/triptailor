@@ -5,13 +5,12 @@ import LanguagesValue from '@/components/ui/LanguagesValue/LanguagesValue';
 type QuickInfoProps = {
   countryData: CountryData | null;
   weatherData: WeatherData;
-  timeZone: string;
 };
 
 function QuickInfo({ 
     weatherData, 
-    countryData, 
-    timeZone }: QuickInfoProps) {
+    countryData }: QuickInfoProps) {
+        console.log(countryData)
   return (
     <section className="quick-info">
         <div className="container">
@@ -52,7 +51,7 @@ function QuickInfo({
                 <div className="icon"><Clock /></div>
                 <div className="content">
                 <span className="label">Time Zone</span>
-                <span className="value">{timeZone}</span>
+                <span className="value">{countryData?.timezones?.join(', ') ?? 'No data'}</span>
                 </div>
             </div>
             </div>

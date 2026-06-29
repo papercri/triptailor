@@ -28,6 +28,7 @@ export interface CountryData {
   flagEmoji: string | null;
   currencies: Currency[];
   languages: Language[];
+  timezones: string[];
 }
 
 export interface Language {

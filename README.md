@@ -43,7 +43,6 @@ The design is responsive and animated with Framer Motion for smooth transitions 
   - Using translations from `placeTranslations.json` for multilingual input.
   - Fetch coordinates via OpenStreetMap’s Nominatim API (`getCoordinatesWithTranslation`).
 - **Country info**: Interfacing with Rest Countries API (`getCountryData`) for data like languages, population, currencies.
-- **Timezone**: Fetched using [TimeZoneDB API](https://timezonedb.com) (`getTimeZone`).
 - **Weather**: Current weather via [OpenWeatherMap API](https://openweathermap.org/api) (`getWeather`).
 - **Cuisine + Culture**: Summaries fetched from Wikipedia’s `/page/summary/` (`getCuisineInfo`, `getCultureInfo`).
 - **Background Image**: Country visuals via Unsplash API (`getCountryBackgroundPhoto`).

@@ -28,7 +28,6 @@ const DestinationClient = ({ place }: Props) =>{
   if (error || !data) return notFound();
 
    
-
   const {
     coords,
     cityName,

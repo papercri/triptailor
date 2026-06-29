@@ -30,7 +30,7 @@ export async function getCultureInfo(country: string) {
       wikipediaUrl: data.content_urls?.desktop?.page || null,
     };
   } catch (error) {
-    console.error('🎭 Error fetching culture info:', error);
+    console.error('❌ Error fetching culture info:', error);
     return null;
   }
 }

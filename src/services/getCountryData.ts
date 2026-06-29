@@ -12,22 +12,7 @@ function normalizeCountryName(name: string): string {
   }
   return trimmed;
 }
-/* 
-const RESPONSE_FIELDS = [
-  'names.common',
-  'names.official',
-  'flag.emoji',
-  'flag.url_svg',
-  'region',
-  'capitals',
-  'population',
-  'area.kilometers',
-  'calling_codes',
-  'tlds',
-  'cars.driving_side',
-  'currencies',
-  'languages',
-].join(','); */
+
 
 export async function getCountryData(countryName: string) {
   try {
@@ -91,6 +76,7 @@ export async function getCountryData(countryName: string) {
       flagEmoji: raw?.flag?.emoji ?? null,
       currencies: Array.isArray(raw?.currencies) ? raw.currencies : [],
       languages: Array.isArray(raw['languages']) ? raw['languages'] : [],
+      timezones: Array.isArray(raw?.timezones) ? raw.timezones : [],
     };
   } catch (error) {
     console.error('Error fetching country data:', error);
