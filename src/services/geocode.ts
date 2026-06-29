@@ -34,7 +34,7 @@ export async function getCoordinates(place: string) {
     address.city,
     address.town,
     address.village,
-    address.county,
+    address.country,
     address.state,
     place,
   ].filter(Boolean);

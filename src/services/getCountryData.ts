@@ -34,13 +34,14 @@ export async function getCountryData(countryName: string) {
     const cleanedName = normalizeCountryName(countryName);
     const normalizedCountryName = countryNameMap[cleanedName] || cleanedName;
 
-    const url = `https://api.restcountries.com/countries/v5/name?q=${encodeURIComponent(
+    const url = `https://api.restcountries.com/countries/v5/names.common/${encodeURIComponent(
       normalizedCountryName
-    )}&response_fields=${RESPONSE_FIELDS}`;
+    )}`;
 
-    //console.log('Normalized Country Name:', normalizedCountryName);
+   console.log('Normalized Country Name:', normalizedCountryName);
 
-    //console.log('DEBUG url:', url);
+    console.log('DEBUG url:', url);
+  
 
     const res = await fetch(url, {
       headers: {
@@ -77,9 +78,6 @@ export async function getCountryData(countryName: string) {
     const raw = Array.isArray(objects) ? objects[0] ?? null : null;
     if (!raw) return null;
 
-    // v5 devuelve keys planas con punto literal (ej: "names.common")
-    // cuando se usa response_fields. Lo normalizamos a un shape simple
-    // para no tocar los componentes que ya consumen estos datos.
     return {
       region: raw['region'] ?? null,
       capital: Array.isArray(raw['capitals'])
