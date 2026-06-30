@@ -77,6 +77,7 @@ export async function getCountryData(countryName: string) {
       languages: Array.isArray(raw['languages']) ? raw['languages'] : [],
       timezones: Array.isArray(raw?.timezones) ? raw.timezones : [],
       government_type: raw['government_type'] ?? null,
+      links: { official: raw?.links?.official ?? null },
     };
   } catch (error) {
     console.error('Error fetching country data:', error);

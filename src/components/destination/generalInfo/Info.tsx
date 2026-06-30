@@ -1,6 +1,7 @@
 import React from 'react';
 import { MapPin } from "lucide-react"
 
+
 type InfoProps = {
   countryData: {
     region: string;
@@ -11,6 +12,9 @@ type InfoProps = {
     tld: string[];
     car: {
       side: string;
+    };
+    links: {
+      official: string;
     };
     government_type: string[];
   };
@@ -26,13 +30,13 @@ function Info({ countryData, countryCommonName }: InfoProps) {
       </div>
       <div className="card-content">
         <div className="info-details">
-          {countryData?.region && (
+          {/* {countryData?.region && (
             <div className="info-item">
             <span className="info-label">Continent:</span>
             <p className="info-value">{countryData.region}</p>
             </div>
           )}
-
+ */}
           <div className="info-item">
             <span className="info-label">Country:</span>
             <p className="info-value">{countryCommonName}</p>
@@ -74,9 +78,17 @@ function Info({ countryData, countryCommonName }: InfoProps) {
           </div>
           )}
           {countryData?.government_type?.length > 0 && (
-            <div className="info-item">
-            <span className="info-label">Government Type:</span>
+            <div className="info-item col-span-2">
+            <span className="info-label ">Government Type:</span>
             <p className="info-value capitalize">{countryData.government_type}</p>
+          </div>
+          )}
+           {countryData?.links?.official  && (
+            <div className="info-item col-span-2">
+            <span className="info-label">Official Website:</span>
+            <p className="info-value hover:underline"><a href={countryData.links.official} target="_blank" rel="noopener noreferrer">
+              {countryData.links.official}
+            </a></p>
           </div>
           )}
         </div>

@@ -30,6 +30,9 @@ export interface CountryData {
   languages: Language[];
   timezones: string[];
   government_type: string[];
+  links: {
+    official: string | null;
+  };
 }
 
 export interface Language {
