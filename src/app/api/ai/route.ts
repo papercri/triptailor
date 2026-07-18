@@ -1,10 +1,8 @@
-// This file handles the AI API route for generating responses using OpenAI's GPT-4.1-nano model.
-
 import { NextResponse } from 'next/server';
-import OpenAI from 'openai';
+import Groq from 'groq-sdk';
 
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
+const groq = new Groq({
+  apiKey: process.env.GROQ_API_KEY,
 });
 
 export async function POST(req: Request) {
@@ -14,16 +12,16 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'No prompt provided' }, { status: 400 });
     }
 
-    const completion = await openai.chat.completions.create({
-      model: 'gpt-4.1-nano',
+    const completion = await groq.chat.completions.create({
+      model: 'llama-3.3-70b-versatile',
       messages: [{ role: 'system', content: prompt }],
+      "temperature": 0.5,
     });
 
     const message = completion.choices[0]?.message?.content;
     return NextResponse.json({ message });
   } catch (error: unknown) {
     console.error('FULL API ERROR:', error);
-
 
     const errorMessage =
       error instanceof Error
