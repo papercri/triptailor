@@ -32,7 +32,7 @@ const extractCityAndCountry = (place: string): string => {
 type Place = ItineraryItem;
 
 export default function MapaConItinerario({ itinerary }: { itinerary: Place[] }) {
-  const [itineraryWithCoords, setItineraryWithCoords] = useState<Place[]>([]);
+  const [itineraryWithCoords, setItineraryWithCoords] = useState<Place[]>(itinerary);
   const [loading, setLoading] = useState(true); 
   const printRef = useRef<HTMLDivElement>(null);
 
@@ -43,26 +43,55 @@ export default function MapaConItinerario({ itinerary }: { itinerary: Place[] })
     });
 
   useEffect(() => {
+    let cancelled = false;
+
     const fetchCoords = async () => {
       setLoading(true);
-      const enriched = await Promise.all(
-        itinerary.map(async (item) => {
-          const coords = await getCoordinates(item.place);
-          return coords
-            ? { ...item, lat: coords.lat, lng: coords.lng }
-            : item;
-        })
-      );
-      setItineraryWithCoords(enriched.filter((item) => item.lat && item.lng));
-      setLoading(false);
+
+      try {
+        const enriched = await Promise.all(
+          itinerary.map(async (item) => {
+            try {
+              const coords = await getCoordinates(item.place);
+              return coords
+                ? { ...item, lat: coords.lat, lng: coords.lng }
+                : item;
+            } catch {
+              return item;
+            }
+          })
+        );
+
+        if (!cancelled) {
+          setItineraryWithCoords(enriched);
+        }
+      } catch (error) {
+        console.error('Error loading itinerary map coordinates:', error);
+        if (!cancelled) {
+          setItineraryWithCoords([]);
+        }
+      } finally {
+        if (!cancelled) {
+          setLoading(false);
+        }
+      }
     };
 
     fetchCoords();
+
+    return () => {
+      cancelled = true;
+    };
   }, [itinerary]);
 
   if (loading) {
-    return <div className='grid items-center justify-center h-screen'><Spinner /></div>;
+    return (
+      <div className='grid items-center justify-center h-screen'>
+        <div className='text-center text-gray-600'>Loading itinerary map...</div>
+      </div>
+    );
   }
+
   const handleDownloadPDF = async () => {
     if (!printRef.current || !itinerary) return;
     const pdfTitle = `Your itinerary to ${extractCityAndCountry(itinerary[0]?.place ?? '')}`;
@@ -97,9 +126,6 @@ export default function MapaConItinerario({ itinerary }: { itinerary: Place[] })
       toast.error("Failed to generate PDF");
     }
   };
-  if (loading) {
-    return <div className='grid items-center justify-center h-screen'><Spinner /></div>;
-  }
   return (
     <div ref={printRef}  className="grid grid-cols-1 md:grid-cols-2 gap-4 p-4">
       <div className="sm:h-[500px] h-[300px] w-full mapaConItinerario order-last sm:order-first" >
@@ -114,15 +140,17 @@ export default function MapaConItinerario({ itinerary }: { itinerary: Place[] })
             url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
             attribution='&copy; <a href="https://carto.com/">CartoDB</a>'
           />
-          {itineraryWithCoords.map((item, idx) => (
-            <Marker key={idx} position={[item.lat!, item.lng!]} icon={customIcon(item.day)}>
-              <Popup>
-                <strong>Day {item.day}:</strong> {item.title}<br />
-                {item.description}
-              </Popup>
-            </Marker>
-          ))}
-          <MapBounds coordinates={itineraryWithCoords.map(p => [p.lat!, p.lng!])} />
+          {itineraryWithCoords
+            .filter((item) => item.lat && item.lng)
+            .map((item, idx) => (
+              <Marker key={idx} position={[item.lat!, item.lng!]} icon={customIcon(item.day)}>
+                <Popup>
+                  <strong>Day {item.day}:</strong> {item.title}<br />
+                  {item.description}
+                </Popup>
+              </Marker>
+            ))}
+          <MapBounds coordinates={itineraryWithCoords.filter((p) => p.lat && p.lng).map((p) => [p.lat!, p.lng!])} />
         </MapContainer>
       </div>
 
