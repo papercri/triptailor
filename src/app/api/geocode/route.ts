@@ -1,12 +1,20 @@
 import { NextResponse } from 'next/server';
+import placeCoordinates from '@/data/placeCoordinates.json';
+
+const fallbackCoordinates = placeCoordinates as Record<string, { lat: number; lng: number; displayName: string }>;
 
 export async function GET(req: Request) {
   try {
     const { searchParams } = new URL(req.url);
     const place = searchParams.get('place');
 
-    if (!place) {
+    if (!place?.trim()) {
       return NextResponse.json({ error: 'Missing place parameter' }, { status: 400 });
+    }
+
+    const directMatch = fallbackCoordinates[place.trim().toLowerCase()];
+    if (directMatch) {
+      return NextResponse.json(directMatch);
     }
 
     const response = await fetch(
@@ -53,7 +61,6 @@ export async function GET(req: Request) {
       lat: parseFloat(location.lat),
       lng: parseFloat(location.lon),
       displayName: locationName,
-      address,
     });
   } catch (error) {
     console.error('Geocoding API error:', error);
