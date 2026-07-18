@@ -23,8 +23,6 @@ export async function getCountryData(countryName: string) {
       normalizedCountryName
     )}`;
 
-    /* console.log('Normalized Country Name:', normalizedCountryName);
-    console.log('DEBUG url:', url); */
   
     const res = await fetch(url, {
       headers: {

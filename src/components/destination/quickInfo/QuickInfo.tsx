@@ -10,7 +10,6 @@ type QuickInfoProps = {
 function QuickInfo({ 
     weatherData, 
     countryData }: QuickInfoProps) {
-        console.log(countryData)
   return (
     <section className="quick-info">
         <div className="container">

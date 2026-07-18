@@ -44,7 +44,7 @@ export async function GET(req: Request) {
     }
 
     const decodedPlace = decodeURIComponent(place)
-    console.log("decodedPlace:", decodedPlace)
+
 
     // Step 1: Get coordinates 
     const coords = await safeFetchJson(() => getCoordinatesWithTranslation(decodedPlace), "coordinates", 5000)
@@ -64,8 +64,6 @@ export async function GET(req: Request) {
     const countryName = coords.address?.country || parts[parts.length - 1]
     const countryNameTranslated = translations[countryName] || countryName
     const breadcrumbDisplay = `${cityName}, ${countryNameTranslated}`
-
-    console.log(`Processing: ${breadcrumbDisplay}`)
 
     // Step 2: Fetch all data in parallel with individual timeouts
     const [countryData, weatherData, cuisineData, cultureData] = await Promise.allSettled([
