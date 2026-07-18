@@ -51,7 +51,7 @@ export default function useTravelForm(destination: string) {
     const prompt = `You are TripTailor, a helpful travel assistant. Generate a ${days}-day travel itinerary in ${destination} for a ${travelerType} traveler with a ${budget} budget who enjoys ${interestsString}, during the ${season}. The output must:
     - Be in English.
     - Skip any introduction or farewell.
-    - Use HTML-friendly formatting (e.g., <strong> instead of **).
+    - Don't use HTML-friendly formatting.
     - Keep each day's plan short and clear.
     - Include real place names (museums, landmarks, restaurants, parks, etc.).
     - Limit to a maximum of 4 activities per day.

@@ -29,7 +29,7 @@ The **Home Page** of TripTailor serves as the main entry point to the app and in
   Users can search for a destination using natural language. The app supports spaces, special characters, and fallback translations via `placeTranslations.json`.
 
 - **AI-generated summary and recommendations**:  
-  After completing the assistant, the app uses the **OpenAI API** to generate a custom trip summary and suggestions tailored to the input provided.
+  After completing the assistant, the app uses the **Groq API** to generate a custom trip summary and suggestions tailored to the input provided.
 
 - **City Carousel**:  
   A responsive React Slick carousel displays a random selection of featured cities for quick discovery, with swipe support on mobile and arrow controls on desktop.
@@ -124,7 +124,7 @@ The Saved Itineraries page includes a dynamic client-side **filter and sort pane
   - Weather: [OpenWeatherMap](https://openweathermap.org/api)
   - Wikimedia REST API [Wikimedia REST API](https://en.wikipedia.org/api/rest_v1/)
   - Unsplash: photo search [Unsplash](hhttps://unsplash.com/)
-  - Personalized trip suggestions: [OpenAI API](https://platform.openai.com/) — GPT-based prompts tailored to user input (budget, travel style, season, interests)
+  - Personalized trip suggestions: [Groq API](https://console.groq.com/) — GPT-based prompts tailored to user input (budget, travel style, season, interests)
 - **Auth**: Firebase Authentication
 - **Database**: Firebase Firestore
 - **Maps**: Leaflet
