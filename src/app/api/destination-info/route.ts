@@ -46,29 +46,33 @@ export async function GET(req: Request) {
     const decodedPlace = decodeURIComponent(place)
 
 
-    // Step 1: Get coordinates 
+    // Step 1: Get coordinates
     const coords = await safeFetchJson(() => getCoordinatesWithTranslation(decodedPlace), "coordinates", 5000)
 
+    const fallbackCoords = coords || {
+      lat: 0,
+      lng: 0,
+      displayName: decodedPlace,
+      address: {
+        country: decodedPlace,
+      },
+    }
+
     if (!coords || !coords.displayName) {
-      return NextResponse.json(
-        {
-          error: "Could not get coordinates for the specified place",
-        },
-        { status: 404 },
-      )
+      console.warn(`⚠️ Coordinates unavailable for ${decodedPlace}; continuing with fallback data.`)
     }
 
     // Preparar datos básicos
-    const parts = coords.displayName.split(", ")
+    const parts = fallbackCoords.displayName.split(", ")
     const cityName = translations[parts[0]] || parts[0]
-    const countryName = coords.address?.country || parts[parts.length - 1]
+    const countryName = fallbackCoords.address?.country || parts[parts.length - 1]
     const countryNameTranslated = translations[countryName] || countryName
     const breadcrumbDisplay = `${cityName}, ${countryNameTranslated}`
 
     // Step 2: Fetch all data in parallel with individual timeouts
     const [countryData, weatherData, cuisineData, cultureData] = await Promise.allSettled([
       safeFetchJson(() => getCountryData(countryNameTranslated), "countryData", 6000),
-      safeFetchJson(() => getWeather(coords.lat, coords.lng), "weatherData", 6000),
+      safeFetchJson(() => getWeather(fallbackCoords.lat, fallbackCoords.lng), "weatherData", 6000),
       safeFetchJson(() => getCuisineInfo(countryNameTranslated), "cuisineData", 8000),
       safeFetchJson(() => getCultureInfo(countryNameTranslated), "cultureData", 8000),
     ])
@@ -84,7 +88,7 @@ export async function GET(req: Request) {
 
     // Devolver respuesta con datos disponibles
     const response = {
-      coords,
+      coords: fallbackCoords,
       cityName,
       breadcrumbDisplay,
       countryData: countryResult,
@@ -95,7 +99,7 @@ export async function GET(req: Request) {
       meta: {
         processingTime,
         dataAvailability: {
-          coordinates: !!coords,
+          coordinates: !!fallbackCoords,
           country: !!countryResult,
           weather: !!weatherResult,
           cuisine: !!cuisineResult,
