@@ -60,7 +60,7 @@ export default function useTravelForm(destination: string) {
       {
         "day": 1,
         "title": "Visit the Eiffel Tower",
-        "place": " "Eiffel Tower, Paris, France",
+        "place": "Eiffel Tower, Paris, France",
         "description": "Start your day at the Eiffel Tower. Buy tickets online to skip the queue."
       },
       ...
@@ -71,7 +71,18 @@ export default function useTravelForm(destination: string) {
     const result = await getAIPrompt(prompt);
     try {
       if (result !== null) {
-        const parsed = JSON.parse(result);
+        const sanitized = result
+          .replace(/^```json\s*/i, '')
+          .replace(/^```\s*/i, '')
+          .replace(/\s*```$/i, '')
+          .trim();
+        const arrayStart = sanitized.indexOf('[');
+        const arrayEnd = sanitized.lastIndexOf(']');
+        const jsonString =
+          arrayStart >= 0 && arrayEnd > arrayStart
+            ? sanitized.slice(arrayStart, arrayEnd + 1)
+            : sanitized;
+        const parsed = JSON.parse(jsonString);
         setItinerary(parsed);
       } else {
         throw new Error('AI response is null');
