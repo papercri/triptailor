@@ -1,7 +1,7 @@
 import "./styles.css";
 import "@/styles/globals.scss";
 import { Inter } from 'next/font/google';
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { UserProvider } from '@/context/UserContext';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -22,9 +22,10 @@ export const metadata: Metadata = {
   icons: {
     icon: "/images/favicon.ico?v=2",
   },
-  themeColor: '#1483B4'
 };
-
+export const viewport: Viewport = {
+  themeColor: '#1483B4',
+};
 export default function RootLayout({
   children,
 }: Readonly<{
